@@ -7,6 +7,7 @@
 
 
 #include <iostream>
+#include <boost/asio.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/core.hpp>
@@ -15,6 +16,8 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <gtest/gtest.h>
+
+#include "writer.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -64,6 +67,13 @@ GTEST_API_ int main(int argc, char **argv) {
 			return returnValue;
 		}
 	}
+
+	Writer writer;
+	writer.setup(1234);
+	writer.send("Hello1");
+	writer.send("Hello2");
+	writer.send("Hello3");
+	writer.send("Hello4");
 
 	return 0;
 }
