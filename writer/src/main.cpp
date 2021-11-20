@@ -31,7 +31,7 @@ void init_logging(int argc, char **argv)
 	}
     BOOST_LOG_TRIVIAL(info) << "init_logging for app[" << filename << "]";
 
-	boost::log::add_file_log
+	auto sink = boost::log::add_file_log
     (
     	boost::log::keywords::file_name = filename + "_%N.log",
 		boost::log::keywords::rotation_size = 10 * 1024 * 1024,
@@ -49,6 +49,7 @@ void init_logging(int argc, char **argv)
 	boost::log::sources::severity_logger< boost::log::trivial::severity_level > lg;
 
 	BOOST_LOG_SEV(lg, info) << "init_logging completed for filename[" << filename << "]";
+	sink->flush();
 }
 
 

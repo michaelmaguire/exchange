@@ -11,10 +11,13 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/utility/setup/console.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <gtest/gtest.h>
+
+#include "reader.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -28,13 +31,15 @@ void init_logging(int argc, char **argv)
 	}
     BOOST_LOG_TRIVIAL(info) << "init_logging for app[" << filename << "]";
 
-	boost::log::add_file_log
+    auto sink = boost::log::add_file_log
     (
     	boost::log::keywords::file_name = filename + "_%N.log",
 		boost::log::keywords::rotation_size = 10 * 1024 * 1024,
 		boost::log::keywords::time_based_rotation = boost::log::sinks::file::rotation_at_time_point(0, 0, 0),
 		boost::log::keywords::format = "[%TimeStamp% p[%ProcessID%] t[%ThreadID%]]: %Message%"
     );
+
+    boost::log::add_console_log(std::cout, boost::log::keywords::format = ">> %Message%");
 
     boost::log::core::get()->set_filter
     (
@@ -46,6 +51,7 @@ void init_logging(int argc, char **argv)
 	boost::log::sources::severity_logger< boost::log::trivial::severity_level > lg;
 
 	BOOST_LOG_SEV(lg, info) << "init_logging completed for filename[" << filename << "]";
+	sink->flush();
 }
 
 
@@ -63,6 +69,14 @@ GTEST_API_ int main(int argc, char **argv) {
 			BOOST_LOG_SEV(lg, info) << "Running " << argv[0] << " main() from main.cpp RUN_ALL_TESTS returnValue[" << returnValue << "]\n";
 			return returnValue;
 		}
+	}
+
+
+	Reader reader;
+	reader.setup(1234);
+	for ( ;; ) {
+		std::string dataToReceive;
+		reader.receive(dataToReceive);
 	}
 
 	return 0;
