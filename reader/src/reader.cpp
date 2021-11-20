@@ -9,10 +9,25 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
+using namespace std;
+
 GTEST_API_ int main(int argc, char **argv) {
-        printf("Running main() from gtest_main.cc\n");
-        testing::InitGoogleTest(&argc, argv);
-        return RUN_ALL_TESTS();
+	cout << "argc[" << argc << "]" << endl;
+	if( argc > 0 ) {
+		cout << "argv[0][" << argv[0] << "]" << endl;
+	}
+	if( argc > 1 ) {
+		cout << "argv[1][" << argv[1] << "]" << endl;
+		if( 0 == strcmp(argv[1], "--test" ) ) {
+			cout << "Running main() from reader.cpp RUN_ALL_TESTS\n" << endl;
+			testing::InitGoogleTest(&argc, argv);
+			int returnValue = RUN_ALL_TESTS();
+			cout << "Running main() from reader.cpp RUN_ALL_TESTS returnValue[" << returnValue << "]\n" << endl;
+			return returnValue;
+		}
+	}
+
+	return 0;
 }
 
 TEST(IntegerInputsSuite, simpleSum)
