@@ -1,58 +1,69 @@
 #include "reader.h"
 
+#include <boost/bind/bind.hpp>
 
 using boost::asio::ip::udp;
 using namespace boost::log::trivial;
 
+Reader::Reader(unsigned short port) :
+		_ioService(), _socket(_ioService, udp::endpoint(udp::v4(), port)) {
 
-Reader::Reader() : _ioService(), _socket(_ioService){
+	start_receive();
 
 }
 
-
-void Reader::setup(unsigned short port) {
-
-	boost::system::error_code e;
-
-	udp::endpoint endpoint = udp::endpoint(boost::asio::ip::address_v4::any(), port);
-
-	_socket.connect(endpoint, e);
-	if( e ) {
-		BOOST_LOG_SEV(_lg, error) << "Reader::setup error _socket.connect[" << e.message() << "]";
-	}
-	else {
-		BOOST_LOG_SEV(_lg, info) << "Reader::setup _socket.connect";
-	}
-}
-
-Reader::~Reader()
-{
+Reader::~Reader() {
 	boost::system::error_code e;
 	_socket.close(e);
 
-	if( e ){
-		BOOST_LOG_SEV(_lg, error) << "Reader::~Reader error _socket.close[" << e.message() << "]";
+	if (e) {
+		BOOST_LOG_SEV(_lg, error)
+		<< "Reader::~Reader error _socket.close[" << e.message() << "]";
 	} else {
-		BOOST_LOG_SEV(_lg, info) << "Reader::~Reader _socket.close";
-
+		BOOST_LOG_SEV(_lg, info)
+		<< "Reader::~Reader _socket.close";
 	}
 }
 
-void Reader::receive(std::string & data) {
-
+void Reader::run() {
 	boost::system::error_code e;
-	boost::asio::socket_base::message_flags flags = {0};
-
-	// A separate, writeable endpoint will be filled by receive_from
-	udp::endpoint endpoint;
-    std::size_t bytes_transferred = _socket.receive_from(boost::asio::buffer(data), endpoint, flags, e);
-
-	if( e ){
-		BOOST_LOG_SEV(_lg, error) << "Reader::send error _socket.receive_from[" << e.message() << "]";
-	} else if ( bytes_transferred > 0 ) {
-		BOOST_LOG_SEV(_lg, info) << "Reader::send  _socket.receive_from bytes_transferred["<< bytes_transferred << "] data[" << data << "]";
+	_ioService.run(e);
+	if (e) {
+		BOOST_LOG_SEV(_lg, error)
+		<< "Reader::run error[" << e.message() << "]";
+	} else {
+		BOOST_LOG_SEV(_lg, info)
+		<< "Reader::run exited normally";
 	}
+}
 
+void Reader::start_receive() {
 
+	boost::asio::ip::udp::endpoint endpoint;
+
+	_socket.async_receive_from(boost::asio::buffer(_receive_buffer), endpoint,
+			boost::bind(&Reader::handle_receive, this,
+					boost::asio::placeholders::error,
+					boost::asio::placeholders::bytes_transferred));
+}
+
+void Reader::handle_receive(const boost::system::error_code &e,
+		std::size_t bytes_transferred) {
+	if (e) {
+		BOOST_LOG_SEV(_lg, error)
+		<< "Reader::handle_receive [" << bytes_transferred << "] error["
+				<< e.message() << "]";
+	}
+	if (!e || e == boost::asio::error::message_size) {
+
+		std::string message(_receive_buffer.begin(),
+				_receive_buffer.begin() + bytes_transferred);
+
+		BOOST_LOG_SEV(_lg, info)
+		<< "Reader::handle_receive [" << bytes_transferred
+				<< "] _receive_buffer[" << message << "]";
+
+		start_receive();
+	}
 }
 
