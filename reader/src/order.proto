@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+message NewOrder {
+	enum SideType {
+	  BUY = 0;
+	  SELL = 1;
+	}
+	uint32 user = 1;
+	string symbol = 2; 
+	uint32 price = 3;
+	uint32 quantity = 4;
+	SideType side = 5;
+	uint32 userOrder = 6;
+}
+
+message CancelOrder {
+	uint32 user = 1;
+	uint32 userOrder = 2;
+}
+
+message FlushOrderBook {
+}
+
+message Message {
+    uint64 sequenceNumber = 1;
+    google.protobuf.Any command = 2;
+}
