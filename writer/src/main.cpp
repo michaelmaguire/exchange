@@ -69,13 +69,6 @@ GTEST_API_ int main(int argc, char **argv) {
 		}
 	}
 
-	Writer writer;
-	writer.setup(1234);
-	writer.send("Hello1");
-	writer.send("Hello2");
-	writer.send("Hello3");
-	writer.send("Hello4");
-
 	return 0;
 }
 

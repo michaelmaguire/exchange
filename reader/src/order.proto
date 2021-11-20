@@ -2,6 +2,8 @@ syntax = "proto3";
 
 import "google/protobuf/any.proto";
 
+package exchange;
+
 message NewOrder {
 	enum SideType {
 	  BUY = 0;

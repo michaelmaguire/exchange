@@ -55,6 +55,7 @@ struct TableStruct_order_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_order_2eproto;
+namespace exchange {
 class CancelOrder;
 struct CancelOrderDefaultTypeInternal;
 extern CancelOrderDefaultTypeInternal _CancelOrder_default_instance_;
@@ -67,12 +68,14 @@ extern MessageDefaultTypeInternal _Message_default_instance_;
 class NewOrder;
 struct NewOrderDefaultTypeInternal;
 extern NewOrderDefaultTypeInternal _NewOrder_default_instance_;
+}  // namespace exchange
 PROTOBUF_NAMESPACE_OPEN
-template<> ::CancelOrder* Arena::CreateMaybeMessage<::CancelOrder>(Arena*);
-template<> ::FlushOrderBook* Arena::CreateMaybeMessage<::FlushOrderBook>(Arena*);
-template<> ::Message* Arena::CreateMaybeMessage<::Message>(Arena*);
-template<> ::NewOrder* Arena::CreateMaybeMessage<::NewOrder>(Arena*);
+template<> ::exchange::CancelOrder* Arena::CreateMaybeMessage<::exchange::CancelOrder>(Arena*);
+template<> ::exchange::FlushOrderBook* Arena::CreateMaybeMessage<::exchange::FlushOrderBook>(Arena*);
+template<> ::exchange::Message* Arena::CreateMaybeMessage<::exchange::Message>(Arena*);
+template<> ::exchange::NewOrder* Arena::CreateMaybeMessage<::exchange::NewOrder>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace exchange {
 
 enum NewOrder_SideType : int {
   NewOrder_SideType_BUY = 0,
@@ -102,7 +105,7 @@ inline bool NewOrder_SideType_Parse(
 // ===================================================================
 
 class NewOrder final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:NewOrder) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.NewOrder) */ {
  public:
   inline NewOrder() : NewOrder(nullptr) {}
   ~NewOrder() override;
@@ -196,7 +199,7 @@ class NewOrder final :
   void InternalSwap(NewOrder* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "NewOrder";
+    return "exchange.NewOrder";
   }
   protected:
   explicit NewOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -294,13 +297,13 @@ class NewOrder final :
   void _internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // .NewOrder.SideType side = 5;
+  // .exchange.NewOrder.SideType side = 5;
   void clear_side();
-  ::NewOrder_SideType side() const;
-  void set_side(::NewOrder_SideType value);
+  ::exchange::NewOrder_SideType side() const;
+  void set_side(::exchange::NewOrder_SideType value);
   private:
-  ::NewOrder_SideType _internal_side() const;
-  void _internal_set_side(::NewOrder_SideType value);
+  ::exchange::NewOrder_SideType _internal_side() const;
+  void _internal_set_side(::exchange::NewOrder_SideType value);
   public:
 
   // uint32 userOrder = 6;
@@ -312,7 +315,7 @@ class NewOrder final :
   void _internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:NewOrder)
+  // @@protoc_insertion_point(class_scope:exchange.NewOrder)
  private:
   class _Internal;
 
@@ -331,7 +334,7 @@ class NewOrder final :
 // -------------------------------------------------------------------
 
 class CancelOrder final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CancelOrder) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.CancelOrder) */ {
  public:
   inline CancelOrder() : CancelOrder(nullptr) {}
   ~CancelOrder() override;
@@ -425,7 +428,7 @@ class CancelOrder final :
   void InternalSwap(CancelOrder* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "CancelOrder";
+    return "exchange.CancelOrder";
   }
   protected:
   explicit CancelOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -466,7 +469,7 @@ class CancelOrder final :
   void _internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:CancelOrder)
+  // @@protoc_insertion_point(class_scope:exchange.CancelOrder)
  private:
   class _Internal;
 
@@ -481,7 +484,7 @@ class CancelOrder final :
 // -------------------------------------------------------------------
 
 class FlushOrderBook final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:FlushOrderBook) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.FlushOrderBook) */ {
  public:
   inline FlushOrderBook() : FlushOrderBook(nullptr) {}
   ~FlushOrderBook() override;
@@ -575,7 +578,7 @@ class FlushOrderBook final :
   void InternalSwap(FlushOrderBook* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "FlushOrderBook";
+    return "exchange.FlushOrderBook";
   }
   protected:
   explicit FlushOrderBook(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -594,7 +597,7 @@ class FlushOrderBook final :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:FlushOrderBook)
+  // @@protoc_insertion_point(class_scope:exchange.FlushOrderBook)
  private:
   class _Internal;
 
@@ -607,7 +610,7 @@ class FlushOrderBook final :
 // -------------------------------------------------------------------
 
 class Message final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Message) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.Message) */ {
  public:
   inline Message() : Message(nullptr) {}
   ~Message() override;
@@ -701,7 +704,7 @@ class Message final :
   void InternalSwap(Message* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Message";
+    return "exchange.Message";
   }
   protected:
   explicit Message(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -751,7 +754,7 @@ class Message final :
   void _internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Message)
+  // @@protoc_insertion_point(class_scope:exchange.Message)
  private:
   class _Internal;
 
@@ -782,7 +785,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::_internal_user() const {
   return user_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::user() const {
-  // @@protoc_insertion_point(field_get:NewOrder.user)
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.user)
   return _internal_user();
 }
 inline void NewOrder::_internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -791,7 +794,7 @@ inline void NewOrder::_internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) 
 }
 inline void NewOrder::set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_user(value);
-  // @@protoc_insertion_point(field_set:NewOrder.user)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.user)
 }
 
 // string symbol = 2;
@@ -799,7 +802,7 @@ inline void NewOrder::clear_symbol() {
   symbol_.ClearToEmpty();
 }
 inline const std::string& NewOrder::symbol() const {
-  // @@protoc_insertion_point(field_get:NewOrder.symbol)
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.symbol)
   return _internal_symbol();
 }
 template <typename ArgT0, typename... ArgT>
@@ -807,11 +810,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void NewOrder::set_symbol(ArgT0&& arg0, ArgT... args) {
  
  symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:NewOrder.symbol)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.symbol)
 }
 inline std::string* NewOrder::mutable_symbol() {
   std::string* _s = _internal_mutable_symbol();
-  // @@protoc_insertion_point(field_mutable:NewOrder.symbol)
+  // @@protoc_insertion_point(field_mutable:exchange.NewOrder.symbol)
   return _s;
 }
 inline const std::string& NewOrder::_internal_symbol() const {
@@ -826,7 +829,7 @@ inline std::string* NewOrder::_internal_mutable_symbol() {
   return symbol_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* NewOrder::release_symbol() {
-  // @@protoc_insertion_point(field_release:NewOrder.symbol)
+  // @@protoc_insertion_point(field_release:exchange.NewOrder.symbol)
   return symbol_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void NewOrder::set_allocated_symbol(std::string* symbol) {
@@ -837,7 +840,7 @@ inline void NewOrder::set_allocated_symbol(std::string* symbol) {
   }
   symbol_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), symbol,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:NewOrder.symbol)
+  // @@protoc_insertion_point(field_set_allocated:exchange.NewOrder.symbol)
 }
 
 // uint32 price = 3;
@@ -848,7 +851,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::_internal_price() const {
   return price_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::price() const {
-  // @@protoc_insertion_point(field_get:NewOrder.price)
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.price)
   return _internal_price();
 }
 inline void NewOrder::_internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -857,7 +860,7 @@ inline void NewOrder::_internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value)
 }
 inline void NewOrder::set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_price(value);
-  // @@protoc_insertion_point(field_set:NewOrder.price)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.price)
 }
 
 // uint32 quantity = 4;
@@ -868,7 +871,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::_internal_quantity() const {
   return quantity_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::quantity() const {
-  // @@protoc_insertion_point(field_get:NewOrder.quantity)
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.quantity)
   return _internal_quantity();
 }
 inline void NewOrder::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -877,27 +880,27 @@ inline void NewOrder::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 val
 }
 inline void NewOrder::set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_quantity(value);
-  // @@protoc_insertion_point(field_set:NewOrder.quantity)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.quantity)
 }
 
-// .NewOrder.SideType side = 5;
+// .exchange.NewOrder.SideType side = 5;
 inline void NewOrder::clear_side() {
   side_ = 0;
 }
-inline ::NewOrder_SideType NewOrder::_internal_side() const {
-  return static_cast< ::NewOrder_SideType >(side_);
+inline ::exchange::NewOrder_SideType NewOrder::_internal_side() const {
+  return static_cast< ::exchange::NewOrder_SideType >(side_);
 }
-inline ::NewOrder_SideType NewOrder::side() const {
-  // @@protoc_insertion_point(field_get:NewOrder.side)
+inline ::exchange::NewOrder_SideType NewOrder::side() const {
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.side)
   return _internal_side();
 }
-inline void NewOrder::_internal_set_side(::NewOrder_SideType value) {
+inline void NewOrder::_internal_set_side(::exchange::NewOrder_SideType value) {
   
   side_ = value;
 }
-inline void NewOrder::set_side(::NewOrder_SideType value) {
+inline void NewOrder::set_side(::exchange::NewOrder_SideType value) {
   _internal_set_side(value);
-  // @@protoc_insertion_point(field_set:NewOrder.side)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.side)
 }
 
 // uint32 userOrder = 6;
@@ -908,7 +911,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::_internal_userorder() const {
   return userorder_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 NewOrder::userorder() const {
-  // @@protoc_insertion_point(field_get:NewOrder.userOrder)
+  // @@protoc_insertion_point(field_get:exchange.NewOrder.userOrder)
   return _internal_userorder();
 }
 inline void NewOrder::_internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -917,7 +920,7 @@ inline void NewOrder::_internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 va
 }
 inline void NewOrder::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_userorder(value);
-  // @@protoc_insertion_point(field_set:NewOrder.userOrder)
+  // @@protoc_insertion_point(field_set:exchange.NewOrder.userOrder)
 }
 
 // -------------------------------------------------------------------
@@ -932,7 +935,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 CancelOrder::_internal_user() const {
   return user_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 CancelOrder::user() const {
-  // @@protoc_insertion_point(field_get:CancelOrder.user)
+  // @@protoc_insertion_point(field_get:exchange.CancelOrder.user)
   return _internal_user();
 }
 inline void CancelOrder::_internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -941,7 +944,7 @@ inline void CancelOrder::_internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 valu
 }
 inline void CancelOrder::set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_user(value);
-  // @@protoc_insertion_point(field_set:CancelOrder.user)
+  // @@protoc_insertion_point(field_set:exchange.CancelOrder.user)
 }
 
 // uint32 userOrder = 2;
@@ -952,7 +955,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 CancelOrder::_internal_userorder() const 
   return userorder_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 CancelOrder::userorder() const {
-  // @@protoc_insertion_point(field_get:CancelOrder.userOrder)
+  // @@protoc_insertion_point(field_get:exchange.CancelOrder.userOrder)
   return _internal_userorder();
 }
 inline void CancelOrder::_internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -961,7 +964,7 @@ inline void CancelOrder::_internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32
 }
 inline void CancelOrder::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_userorder(value);
-  // @@protoc_insertion_point(field_set:CancelOrder.userOrder)
+  // @@protoc_insertion_point(field_set:exchange.CancelOrder.userOrder)
 }
 
 // -------------------------------------------------------------------
@@ -980,7 +983,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 Message::_internal_sequencenumber() const
   return sequencenumber_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 Message::sequencenumber() const {
-  // @@protoc_insertion_point(field_get:Message.sequenceNumber)
+  // @@protoc_insertion_point(field_get:exchange.Message.sequenceNumber)
   return _internal_sequencenumber();
 }
 inline void Message::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -989,7 +992,7 @@ inline void Message::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint6
 }
 inline void Message::set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_sequencenumber(value);
-  // @@protoc_insertion_point(field_set:Message.sequenceNumber)
+  // @@protoc_insertion_point(field_set:exchange.Message.sequenceNumber)
 }
 
 // .google.protobuf.Any command = 2;
@@ -1005,7 +1008,7 @@ inline const PROTOBUF_NAMESPACE_ID::Any& Message::_internal_command() const {
       PROTOBUF_NAMESPACE_ID::_Any_default_instance_);
 }
 inline const PROTOBUF_NAMESPACE_ID::Any& Message::command() const {
-  // @@protoc_insertion_point(field_get:Message.command)
+  // @@protoc_insertion_point(field_get:exchange.Message.command)
   return _internal_command();
 }
 inline void Message::unsafe_arena_set_allocated_command(
@@ -1019,7 +1022,7 @@ inline void Message::unsafe_arena_set_allocated_command(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Message.command)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.Message.command)
 }
 inline PROTOBUF_NAMESPACE_ID::Any* Message::release_command() {
   
@@ -1037,7 +1040,7 @@ inline PROTOBUF_NAMESPACE_ID::Any* Message::release_command() {
   return temp;
 }
 inline PROTOBUF_NAMESPACE_ID::Any* Message::unsafe_arena_release_command() {
-  // @@protoc_insertion_point(field_release:Message.command)
+  // @@protoc_insertion_point(field_release:exchange.Message.command)
   
   PROTOBUF_NAMESPACE_ID::Any* temp = command_;
   command_ = nullptr;
@@ -1053,7 +1056,7 @@ inline PROTOBUF_NAMESPACE_ID::Any* Message::_internal_mutable_command() {
 }
 inline PROTOBUF_NAMESPACE_ID::Any* Message::mutable_command() {
   PROTOBUF_NAMESPACE_ID::Any* _msg = _internal_mutable_command();
-  // @@protoc_insertion_point(field_mutable:Message.command)
+  // @@protoc_insertion_point(field_mutable:exchange.Message.command)
   return _msg;
 }
 inline void Message::set_allocated_command(PROTOBUF_NAMESPACE_ID::Any* command) {
@@ -1075,7 +1078,7 @@ inline void Message::set_allocated_command(PROTOBUF_NAMESPACE_ID::Any* command) 
     
   }
   command_ = command;
-  // @@protoc_insertion_point(field_set_allocated:Message.command)
+  // @@protoc_insertion_point(field_set_allocated:exchange.Message.command)
 }
 
 #ifdef __GNUC__
@@ -1090,13 +1093,14 @@ inline void Message::set_allocated_command(PROTOBUF_NAMESPACE_ID::Any* command) 
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace exchange
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::NewOrder_SideType> : ::std::true_type {};
+template <> struct is_proto_enum< ::exchange::NewOrder_SideType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::NewOrder_SideType>() {
-  return ::NewOrder_SideType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::exchange::NewOrder_SideType>() {
+  return ::exchange::NewOrder_SideType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE
