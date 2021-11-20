@@ -58,9 +58,9 @@ namespace exchange {
 class CancelOrder;
 struct CancelOrderDefaultTypeInternal;
 extern CancelOrderDefaultTypeInternal _CancelOrder_default_instance_;
-class ExchangeOrder;
-struct ExchangeOrderDefaultTypeInternal;
-extern ExchangeOrderDefaultTypeInternal _ExchangeOrder_default_instance_;
+class ExchangeMessage;
+struct ExchangeMessageDefaultTypeInternal;
+extern ExchangeMessageDefaultTypeInternal _ExchangeMessage_default_instance_;
 class FlushOrder;
 struct FlushOrderDefaultTypeInternal;
 extern FlushOrderDefaultTypeInternal _FlushOrder_default_instance_;
@@ -70,7 +70,7 @@ extern NewOrderDefaultTypeInternal _NewOrder_default_instance_;
 }  // namespace exchange
 PROTOBUF_NAMESPACE_OPEN
 template<> ::exchange::CancelOrder* Arena::CreateMaybeMessage<::exchange::CancelOrder>(Arena*);
-template<> ::exchange::ExchangeOrder* Arena::CreateMaybeMessage<::exchange::ExchangeOrder>(Arena*);
+template<> ::exchange::ExchangeMessage* Arena::CreateMaybeMessage<::exchange::ExchangeMessage>(Arena*);
 template<> ::exchange::FlushOrder* Arena::CreateMaybeMessage<::exchange::FlushOrder>(Arena*);
 template<> ::exchange::NewOrder* Arena::CreateMaybeMessage<::exchange::NewOrder>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -608,24 +608,24 @@ class FlushOrder final :
 };
 // -------------------------------------------------------------------
 
-class ExchangeOrder final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.ExchangeOrder) */ {
+class ExchangeMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.ExchangeMessage) */ {
  public:
-  inline ExchangeOrder() : ExchangeOrder(nullptr) {}
-  ~ExchangeOrder() override;
-  explicit constexpr ExchangeOrder(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ExchangeMessage() : ExchangeMessage(nullptr) {}
+  ~ExchangeMessage() override;
+  explicit constexpr ExchangeMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ExchangeOrder(const ExchangeOrder& from);
-  ExchangeOrder(ExchangeOrder&& from) noexcept
-    : ExchangeOrder() {
+  ExchangeMessage(const ExchangeMessage& from);
+  ExchangeMessage(ExchangeMessage&& from) noexcept
+    : ExchangeMessage() {
     *this = ::std::move(from);
   }
 
-  inline ExchangeOrder& operator=(const ExchangeOrder& from) {
+  inline ExchangeMessage& operator=(const ExchangeMessage& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ExchangeOrder& operator=(ExchangeOrder&& from) noexcept {
+  inline ExchangeMessage& operator=(ExchangeMessage&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -644,7 +644,7 @@ class ExchangeOrder final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ExchangeOrder& default_instance() {
+  static const ExchangeMessage& default_instance() {
     return *internal_default_instance();
   }
   enum CommandCase {
@@ -654,17 +654,17 @@ class ExchangeOrder final :
     COMMAND_NOT_SET = 0,
   };
 
-  static inline const ExchangeOrder* internal_default_instance() {
-    return reinterpret_cast<const ExchangeOrder*>(
-               &_ExchangeOrder_default_instance_);
+  static inline const ExchangeMessage* internal_default_instance() {
+    return reinterpret_cast<const ExchangeMessage*>(
+               &_ExchangeMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(ExchangeOrder& a, ExchangeOrder& b) {
+  friend void swap(ExchangeMessage& a, ExchangeMessage& b) {
     a.Swap(&b);
   }
-  inline void Swap(ExchangeOrder* other) {
+  inline void Swap(ExchangeMessage* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -672,7 +672,7 @@ class ExchangeOrder final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ExchangeOrder* other) {
+  void UnsafeArenaSwap(ExchangeMessage* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -680,17 +680,17 @@ class ExchangeOrder final :
 
   // implements Message ----------------------------------------------
 
-  inline ExchangeOrder* New() const final {
-    return new ExchangeOrder();
+  inline ExchangeMessage* New() const final {
+    return new ExchangeMessage();
   }
 
-  ExchangeOrder* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ExchangeOrder>(arena);
+  ExchangeMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ExchangeMessage>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const ExchangeOrder& from);
+  void CopyFrom(const ExchangeMessage& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const ExchangeOrder& from);
+  void MergeFrom(const ExchangeMessage& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
   public:
@@ -707,13 +707,13 @@ class ExchangeOrder final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ExchangeOrder* other);
+  void InternalSwap(ExchangeMessage* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "exchange.ExchangeOrder";
+    return "exchange.ExchangeMessage";
   }
   protected:
-  explicit ExchangeOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ExchangeMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -800,7 +800,7 @@ class ExchangeOrder final :
 
   void clear_command();
   CommandCase command_case() const;
-  // @@protoc_insertion_point(class_scope:exchange.ExchangeOrder)
+  // @@protoc_insertion_point(class_scope:exchange.ExchangeMessage)
  private:
   class _Internal;
   void set_has_neworder();
@@ -1033,39 +1033,39 @@ inline void CancelOrder::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// ExchangeOrder
+// ExchangeMessage
 
 // uint64 sequenceNumber = 1;
-inline void ExchangeOrder::clear_sequencenumber() {
+inline void ExchangeMessage::clear_sequencenumber() {
   sequencenumber_ = uint64_t{0u};
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeOrder::_internal_sequencenumber() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeMessage::_internal_sequencenumber() const {
   return sequencenumber_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeOrder::sequencenumber() const {
-  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.sequenceNumber)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeMessage::sequencenumber() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.sequenceNumber)
   return _internal_sequencenumber();
 }
-inline void ExchangeOrder::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void ExchangeMessage::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   
   sequencenumber_ = value;
 }
-inline void ExchangeOrder::set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void ExchangeMessage::set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_sequencenumber(value);
-  // @@protoc_insertion_point(field_set:exchange.ExchangeOrder.sequenceNumber)
+  // @@protoc_insertion_point(field_set:exchange.ExchangeMessage.sequenceNumber)
 }
 
 // .exchange.NewOrder newOrder = 2;
-inline bool ExchangeOrder::_internal_has_neworder() const {
+inline bool ExchangeMessage::_internal_has_neworder() const {
   return command_case() == kNewOrder;
 }
-inline bool ExchangeOrder::has_neworder() const {
+inline bool ExchangeMessage::has_neworder() const {
   return _internal_has_neworder();
 }
-inline void ExchangeOrder::set_has_neworder() {
+inline void ExchangeMessage::set_has_neworder() {
   _oneof_case_[0] = kNewOrder;
 }
-inline void ExchangeOrder::clear_neworder() {
+inline void ExchangeMessage::clear_neworder() {
   if (_internal_has_neworder()) {
     if (GetArenaForAllocation() == nullptr) {
       delete command_.neworder_;
@@ -1073,8 +1073,8 @@ inline void ExchangeOrder::clear_neworder() {
     clear_has_command();
   }
 }
-inline ::exchange::NewOrder* ExchangeOrder::release_neworder() {
-  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.newOrder)
+inline ::exchange::NewOrder* ExchangeMessage::release_neworder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.newOrder)
   if (_internal_has_neworder()) {
     clear_has_command();
       ::exchange::NewOrder* temp = command_.neworder_;
@@ -1087,17 +1087,17 @@ inline ::exchange::NewOrder* ExchangeOrder::release_neworder() {
     return nullptr;
   }
 }
-inline const ::exchange::NewOrder& ExchangeOrder::_internal_neworder() const {
+inline const ::exchange::NewOrder& ExchangeMessage::_internal_neworder() const {
   return _internal_has_neworder()
       ? *command_.neworder_
       : reinterpret_cast< ::exchange::NewOrder&>(::exchange::_NewOrder_default_instance_);
 }
-inline const ::exchange::NewOrder& ExchangeOrder::neworder() const {
-  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.newOrder)
+inline const ::exchange::NewOrder& ExchangeMessage::neworder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.newOrder)
   return _internal_neworder();
 }
-inline ::exchange::NewOrder* ExchangeOrder::unsafe_arena_release_neworder() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.newOrder)
+inline ::exchange::NewOrder* ExchangeMessage::unsafe_arena_release_neworder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.newOrder)
   if (_internal_has_neworder()) {
     clear_has_command();
     ::exchange::NewOrder* temp = command_.neworder_;
@@ -1107,15 +1107,15 @@ inline ::exchange::NewOrder* ExchangeOrder::unsafe_arena_release_neworder() {
     return nullptr;
   }
 }
-inline void ExchangeOrder::unsafe_arena_set_allocated_neworder(::exchange::NewOrder* neworder) {
+inline void ExchangeMessage::unsafe_arena_set_allocated_neworder(::exchange::NewOrder* neworder) {
   clear_command();
   if (neworder) {
     set_has_neworder();
     command_.neworder_ = neworder;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.newOrder)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.newOrder)
 }
-inline ::exchange::NewOrder* ExchangeOrder::_internal_mutable_neworder() {
+inline ::exchange::NewOrder* ExchangeMessage::_internal_mutable_neworder() {
   if (!_internal_has_neworder()) {
     clear_command();
     set_has_neworder();
@@ -1123,23 +1123,23 @@ inline ::exchange::NewOrder* ExchangeOrder::_internal_mutable_neworder() {
   }
   return command_.neworder_;
 }
-inline ::exchange::NewOrder* ExchangeOrder::mutable_neworder() {
+inline ::exchange::NewOrder* ExchangeMessage::mutable_neworder() {
   ::exchange::NewOrder* _msg = _internal_mutable_neworder();
-  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.newOrder)
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.newOrder)
   return _msg;
 }
 
 // .exchange.CancelOrder cancelOrder = 3;
-inline bool ExchangeOrder::_internal_has_cancelorder() const {
+inline bool ExchangeMessage::_internal_has_cancelorder() const {
   return command_case() == kCancelOrder;
 }
-inline bool ExchangeOrder::has_cancelorder() const {
+inline bool ExchangeMessage::has_cancelorder() const {
   return _internal_has_cancelorder();
 }
-inline void ExchangeOrder::set_has_cancelorder() {
+inline void ExchangeMessage::set_has_cancelorder() {
   _oneof_case_[0] = kCancelOrder;
 }
-inline void ExchangeOrder::clear_cancelorder() {
+inline void ExchangeMessage::clear_cancelorder() {
   if (_internal_has_cancelorder()) {
     if (GetArenaForAllocation() == nullptr) {
       delete command_.cancelorder_;
@@ -1147,8 +1147,8 @@ inline void ExchangeOrder::clear_cancelorder() {
     clear_has_command();
   }
 }
-inline ::exchange::CancelOrder* ExchangeOrder::release_cancelorder() {
-  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.cancelOrder)
+inline ::exchange::CancelOrder* ExchangeMessage::release_cancelorder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.cancelOrder)
   if (_internal_has_cancelorder()) {
     clear_has_command();
       ::exchange::CancelOrder* temp = command_.cancelorder_;
@@ -1161,17 +1161,17 @@ inline ::exchange::CancelOrder* ExchangeOrder::release_cancelorder() {
     return nullptr;
   }
 }
-inline const ::exchange::CancelOrder& ExchangeOrder::_internal_cancelorder() const {
+inline const ::exchange::CancelOrder& ExchangeMessage::_internal_cancelorder() const {
   return _internal_has_cancelorder()
       ? *command_.cancelorder_
       : reinterpret_cast< ::exchange::CancelOrder&>(::exchange::_CancelOrder_default_instance_);
 }
-inline const ::exchange::CancelOrder& ExchangeOrder::cancelorder() const {
-  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.cancelOrder)
+inline const ::exchange::CancelOrder& ExchangeMessage::cancelorder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.cancelOrder)
   return _internal_cancelorder();
 }
-inline ::exchange::CancelOrder* ExchangeOrder::unsafe_arena_release_cancelorder() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.cancelOrder)
+inline ::exchange::CancelOrder* ExchangeMessage::unsafe_arena_release_cancelorder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.cancelOrder)
   if (_internal_has_cancelorder()) {
     clear_has_command();
     ::exchange::CancelOrder* temp = command_.cancelorder_;
@@ -1181,15 +1181,15 @@ inline ::exchange::CancelOrder* ExchangeOrder::unsafe_arena_release_cancelorder(
     return nullptr;
   }
 }
-inline void ExchangeOrder::unsafe_arena_set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
+inline void ExchangeMessage::unsafe_arena_set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
   clear_command();
   if (cancelorder) {
     set_has_cancelorder();
     command_.cancelorder_ = cancelorder;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.cancelOrder)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.cancelOrder)
 }
-inline ::exchange::CancelOrder* ExchangeOrder::_internal_mutable_cancelorder() {
+inline ::exchange::CancelOrder* ExchangeMessage::_internal_mutable_cancelorder() {
   if (!_internal_has_cancelorder()) {
     clear_command();
     set_has_cancelorder();
@@ -1197,23 +1197,23 @@ inline ::exchange::CancelOrder* ExchangeOrder::_internal_mutable_cancelorder() {
   }
   return command_.cancelorder_;
 }
-inline ::exchange::CancelOrder* ExchangeOrder::mutable_cancelorder() {
+inline ::exchange::CancelOrder* ExchangeMessage::mutable_cancelorder() {
   ::exchange::CancelOrder* _msg = _internal_mutable_cancelorder();
-  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.cancelOrder)
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.cancelOrder)
   return _msg;
 }
 
 // .exchange.FlushOrder flushOrder = 4;
-inline bool ExchangeOrder::_internal_has_flushorder() const {
+inline bool ExchangeMessage::_internal_has_flushorder() const {
   return command_case() == kFlushOrder;
 }
-inline bool ExchangeOrder::has_flushorder() const {
+inline bool ExchangeMessage::has_flushorder() const {
   return _internal_has_flushorder();
 }
-inline void ExchangeOrder::set_has_flushorder() {
+inline void ExchangeMessage::set_has_flushorder() {
   _oneof_case_[0] = kFlushOrder;
 }
-inline void ExchangeOrder::clear_flushorder() {
+inline void ExchangeMessage::clear_flushorder() {
   if (_internal_has_flushorder()) {
     if (GetArenaForAllocation() == nullptr) {
       delete command_.flushorder_;
@@ -1221,8 +1221,8 @@ inline void ExchangeOrder::clear_flushorder() {
     clear_has_command();
   }
 }
-inline ::exchange::FlushOrder* ExchangeOrder::release_flushorder() {
-  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.flushOrder)
+inline ::exchange::FlushOrder* ExchangeMessage::release_flushorder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.flushOrder)
   if (_internal_has_flushorder()) {
     clear_has_command();
       ::exchange::FlushOrder* temp = command_.flushorder_;
@@ -1235,17 +1235,17 @@ inline ::exchange::FlushOrder* ExchangeOrder::release_flushorder() {
     return nullptr;
   }
 }
-inline const ::exchange::FlushOrder& ExchangeOrder::_internal_flushorder() const {
+inline const ::exchange::FlushOrder& ExchangeMessage::_internal_flushorder() const {
   return _internal_has_flushorder()
       ? *command_.flushorder_
       : reinterpret_cast< ::exchange::FlushOrder&>(::exchange::_FlushOrder_default_instance_);
 }
-inline const ::exchange::FlushOrder& ExchangeOrder::flushorder() const {
-  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.flushOrder)
+inline const ::exchange::FlushOrder& ExchangeMessage::flushorder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.flushOrder)
   return _internal_flushorder();
 }
-inline ::exchange::FlushOrder* ExchangeOrder::unsafe_arena_release_flushorder() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.flushOrder)
+inline ::exchange::FlushOrder* ExchangeMessage::unsafe_arena_release_flushorder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.flushOrder)
   if (_internal_has_flushorder()) {
     clear_has_command();
     ::exchange::FlushOrder* temp = command_.flushorder_;
@@ -1255,15 +1255,15 @@ inline ::exchange::FlushOrder* ExchangeOrder::unsafe_arena_release_flushorder() 
     return nullptr;
   }
 }
-inline void ExchangeOrder::unsafe_arena_set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
+inline void ExchangeMessage::unsafe_arena_set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
   clear_command();
   if (flushorder) {
     set_has_flushorder();
     command_.flushorder_ = flushorder;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.flushOrder)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.flushOrder)
 }
-inline ::exchange::FlushOrder* ExchangeOrder::_internal_mutable_flushorder() {
+inline ::exchange::FlushOrder* ExchangeMessage::_internal_mutable_flushorder() {
   if (!_internal_has_flushorder()) {
     clear_command();
     set_has_flushorder();
@@ -1271,20 +1271,20 @@ inline ::exchange::FlushOrder* ExchangeOrder::_internal_mutable_flushorder() {
   }
   return command_.flushorder_;
 }
-inline ::exchange::FlushOrder* ExchangeOrder::mutable_flushorder() {
+inline ::exchange::FlushOrder* ExchangeMessage::mutable_flushorder() {
   ::exchange::FlushOrder* _msg = _internal_mutable_flushorder();
-  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.flushOrder)
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.flushOrder)
   return _msg;
 }
 
-inline bool ExchangeOrder::has_command() const {
+inline bool ExchangeMessage::has_command() const {
   return command_case() != COMMAND_NOT_SET;
 }
-inline void ExchangeOrder::clear_has_command() {
+inline void ExchangeMessage::clear_has_command() {
   _oneof_case_[0] = COMMAND_NOT_SET;
 }
-inline ExchangeOrder::CommandCase ExchangeOrder::command_case() const {
-  return ExchangeOrder::CommandCase(_oneof_case_[0]);
+inline ExchangeMessage::CommandCase ExchangeMessage::command_case() const {
+  return ExchangeMessage::CommandCase(_oneof_case_[0]);
 }
 #ifdef __GNUC__
   #pragma GCC diagnostic pop

@@ -59,19 +59,19 @@ struct FlushOrderDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FlushOrderDefaultTypeInternal _FlushOrder_default_instance_;
-constexpr ExchangeOrder::ExchangeOrder(
+constexpr ExchangeMessage::ExchangeMessage(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : sequencenumber_(uint64_t{0u})
   , _oneof_case_{}{}
-struct ExchangeOrderDefaultTypeInternal {
-  constexpr ExchangeOrderDefaultTypeInternal()
+struct ExchangeMessageDefaultTypeInternal {
+  constexpr ExchangeMessageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ExchangeOrderDefaultTypeInternal() {}
+  ~ExchangeMessageDefaultTypeInternal() {}
   union {
-    ExchangeOrder _instance;
+    ExchangeMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ExchangeOrderDefaultTypeInternal _ExchangeOrder_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ExchangeMessageDefaultTypeInternal _ExchangeMessage_default_instance_;
 }  // namespace exchange
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_order_2eproto[4];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_order_2eproto[1];
@@ -102,28 +102,28 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_order_2eproto::offsets[] PROTO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeMessage, _internal_metadata_),
   ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, _oneof_case_[0]),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeMessage, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, sequencenumber_),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeMessage, sequencenumber_),
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, command_),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeMessage, command_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::exchange::NewOrder)},
   { 11, -1, sizeof(::exchange::CancelOrder)},
   { 18, -1, sizeof(::exchange::FlushOrder)},
-  { 23, -1, sizeof(::exchange::ExchangeOrder)},
+  { 23, -1, sizeof(::exchange::ExchangeMessage)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_NewOrder_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_CancelOrder_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_FlushOrder_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_ExchangeOrder_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_ExchangeMessage_default_instance_),
 };
 
 const char descriptor_table_protodef_order_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -133,16 +133,16 @@ const char descriptor_table_protodef_order_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "ange.NewOrder.SideType\022\021\n\tuserOrder\030\006 \001("
   "\r\"\035\n\010SideType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\".\n\013Canc"
   "elOrder\022\014\n\004user\030\001 \001(\r\022\021\n\tuserOrder\030\002 \001(\r"
-  "\"\014\n\nFlushOrder\"\264\001\n\rExchangeOrder\022\026\n\016sequ"
-  "enceNumber\030\001 \001(\004\022&\n\010newOrder\030\002 \001(\0132\022.exc"
-  "hange.NewOrderH\000\022,\n\013cancelOrder\030\003 \001(\0132\025."
-  "exchange.CancelOrderH\000\022*\n\nflushOrder\030\004 \001"
-  "(\0132\024.exchange.FlushOrderH\000B\t\n\007commandb\006p"
-  "roto3"
+  "\"\014\n\nFlushOrder\"\266\001\n\017ExchangeMessage\022\026\n\016se"
+  "quenceNumber\030\001 \001(\004\022&\n\010newOrder\030\002 \001(\0132\022.e"
+  "xchange.NewOrderH\000\022,\n\013cancelOrder\030\003 \001(\0132"
+  "\025.exchange.CancelOrderH\000\022*\n\nflushOrder\030\004"
+  " \001(\0132\024.exchange.FlushOrderH\000B\t\n\007commandb"
+  "\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_order_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_order_2eproto = {
-  false, false, 445, descriptor_table_protodef_order_2eproto, "order.proto", 
+  false, false, 447, descriptor_table_protodef_order_2eproto, "order.proto", 
   &descriptor_table_order_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_order_2eproto::offsets,
   file_level_metadata_order_2eproto, file_level_enum_descriptors_order_2eproto, file_level_service_descriptors_order_2eproto,
@@ -883,26 +883,26 @@ void FlushOrder::InternalSwap(FlushOrder* other) {
 
 // ===================================================================
 
-class ExchangeOrder::_Internal {
+class ExchangeMessage::_Internal {
  public:
-  static const ::exchange::NewOrder& neworder(const ExchangeOrder* msg);
-  static const ::exchange::CancelOrder& cancelorder(const ExchangeOrder* msg);
-  static const ::exchange::FlushOrder& flushorder(const ExchangeOrder* msg);
+  static const ::exchange::NewOrder& neworder(const ExchangeMessage* msg);
+  static const ::exchange::CancelOrder& cancelorder(const ExchangeMessage* msg);
+  static const ::exchange::FlushOrder& flushorder(const ExchangeMessage* msg);
 };
 
 const ::exchange::NewOrder&
-ExchangeOrder::_Internal::neworder(const ExchangeOrder* msg) {
+ExchangeMessage::_Internal::neworder(const ExchangeMessage* msg) {
   return *msg->command_.neworder_;
 }
 const ::exchange::CancelOrder&
-ExchangeOrder::_Internal::cancelorder(const ExchangeOrder* msg) {
+ExchangeMessage::_Internal::cancelorder(const ExchangeMessage* msg) {
   return *msg->command_.cancelorder_;
 }
 const ::exchange::FlushOrder&
-ExchangeOrder::_Internal::flushorder(const ExchangeOrder* msg) {
+ExchangeMessage::_Internal::flushorder(const ExchangeMessage* msg) {
   return *msg->command_.flushorder_;
 }
-void ExchangeOrder::set_allocated_neworder(::exchange::NewOrder* neworder) {
+void ExchangeMessage::set_allocated_neworder(::exchange::NewOrder* neworder) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_command();
   if (neworder) {
@@ -915,9 +915,9 @@ void ExchangeOrder::set_allocated_neworder(::exchange::NewOrder* neworder) {
     set_has_neworder();
     command_.neworder_ = neworder;
   }
-  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.newOrder)
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeMessage.newOrder)
 }
-void ExchangeOrder::set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
+void ExchangeMessage::set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_command();
   if (cancelorder) {
@@ -930,9 +930,9 @@ void ExchangeOrder::set_allocated_cancelorder(::exchange::CancelOrder* cancelord
     set_has_cancelorder();
     command_.cancelorder_ = cancelorder;
   }
-  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.cancelOrder)
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeMessage.cancelOrder)
 }
-void ExchangeOrder::set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
+void ExchangeMessage::set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_command();
   if (flushorder) {
@@ -945,18 +945,18 @@ void ExchangeOrder::set_allocated_flushorder(::exchange::FlushOrder* flushorder)
     set_has_flushorder();
     command_.flushorder_ = flushorder;
   }
-  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.flushOrder)
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeMessage.flushOrder)
 }
-ExchangeOrder::ExchangeOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ExchangeMessage::ExchangeMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:exchange.ExchangeOrder)
+  // @@protoc_insertion_point(arena_constructor:exchange.ExchangeMessage)
 }
-ExchangeOrder::ExchangeOrder(const ExchangeOrder& from)
+ExchangeMessage::ExchangeMessage(const ExchangeMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   sequencenumber_ = from.sequencenumber_;
@@ -978,40 +978,40 @@ ExchangeOrder::ExchangeOrder(const ExchangeOrder& from)
       break;
     }
   }
-  // @@protoc_insertion_point(copy_constructor:exchange.ExchangeOrder)
+  // @@protoc_insertion_point(copy_constructor:exchange.ExchangeMessage)
 }
 
-inline void ExchangeOrder::SharedCtor() {
+inline void ExchangeMessage::SharedCtor() {
 sequencenumber_ = uint64_t{0u};
 clear_has_command();
 }
 
-ExchangeOrder::~ExchangeOrder() {
-  // @@protoc_insertion_point(destructor:exchange.ExchangeOrder)
+ExchangeMessage::~ExchangeMessage() {
+  // @@protoc_insertion_point(destructor:exchange.ExchangeMessage)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void ExchangeOrder::SharedDtor() {
+inline void ExchangeMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_command()) {
     clear_command();
   }
 }
 
-void ExchangeOrder::ArenaDtor(void* object) {
-  ExchangeOrder* _this = reinterpret_cast< ExchangeOrder* >(object);
+void ExchangeMessage::ArenaDtor(void* object) {
+  ExchangeMessage* _this = reinterpret_cast< ExchangeMessage* >(object);
   (void)_this;
 }
-void ExchangeOrder::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ExchangeMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void ExchangeOrder::SetCachedSize(int size) const {
+void ExchangeMessage::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void ExchangeOrder::clear_command() {
-// @@protoc_insertion_point(one_of_clear_start:exchange.ExchangeOrder)
+void ExchangeMessage::clear_command() {
+// @@protoc_insertion_point(one_of_clear_start:exchange.ExchangeMessage)
   switch (command_case()) {
     case kNewOrder: {
       if (GetArenaForAllocation() == nullptr) {
@@ -1039,8 +1039,8 @@ void ExchangeOrder::clear_command() {
 }
 
 
-void ExchangeOrder::Clear() {
-// @@protoc_insertion_point(message_clear_start:exchange.ExchangeOrder)
+void ExchangeMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:exchange.ExchangeMessage)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1050,7 +1050,7 @@ void ExchangeOrder::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ExchangeOrder::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ExchangeMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -1107,9 +1107,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ExchangeOrder::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ExchangeMessage::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:exchange.ExchangeOrder)
+  // @@protoc_insertion_point(serialize_to_array_start:exchange.ExchangeMessage)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1147,12 +1147,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:exchange.ExchangeOrder)
+  // @@protoc_insertion_point(serialize_to_array_end:exchange.ExchangeMessage)
   return target;
 }
 
-size_t ExchangeOrder::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:exchange.ExchangeOrder)
+size_t ExchangeMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:exchange.ExchangeMessage)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1201,21 +1201,21 @@ size_t ExchangeOrder::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExchangeOrder::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExchangeMessage::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ExchangeOrder::MergeImpl
+    ExchangeMessage::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExchangeOrder::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExchangeMessage::GetClassData() const { return &_class_data_; }
 
-void ExchangeOrder::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+void ExchangeMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
                       const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ExchangeOrder *>(to)->MergeFrom(
-      static_cast<const ExchangeOrder &>(from));
+  static_cast<ExchangeMessage *>(to)->MergeFrom(
+      static_cast<const ExchangeMessage &>(from));
 }
 
 
-void ExchangeOrder::MergeFrom(const ExchangeOrder& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:exchange.ExchangeOrder)
+void ExchangeMessage::MergeFrom(const ExchangeMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:exchange.ExchangeMessage)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1243,18 +1243,18 @@ void ExchangeOrder::MergeFrom(const ExchangeOrder& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ExchangeOrder::CopyFrom(const ExchangeOrder& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:exchange.ExchangeOrder)
+void ExchangeMessage::CopyFrom(const ExchangeMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:exchange.ExchangeMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ExchangeOrder::IsInitialized() const {
+bool ExchangeMessage::IsInitialized() const {
   return true;
 }
 
-void ExchangeOrder::InternalSwap(ExchangeOrder* other) {
+void ExchangeMessage::InternalSwap(ExchangeMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(sequencenumber_, other->sequencenumber_);
@@ -1262,7 +1262,7 @@ void ExchangeOrder::InternalSwap(ExchangeOrder* other) {
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ExchangeOrder::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ExchangeMessage::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_order_2eproto_getter, &descriptor_table_order_2eproto_once,
       file_level_metadata_order_2eproto[3]);
@@ -1280,8 +1280,8 @@ template<> PROTOBUF_NOINLINE ::exchange::CancelOrder* Arena::CreateMaybeMessage<
 template<> PROTOBUF_NOINLINE ::exchange::FlushOrder* Arena::CreateMaybeMessage< ::exchange::FlushOrder >(Arena* arena) {
   return Arena::CreateMessageInternal< ::exchange::FlushOrder >(arena);
 }
-template<> PROTOBUF_NOINLINE ::exchange::ExchangeOrder* Arena::CreateMaybeMessage< ::exchange::ExchangeOrder >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::exchange::ExchangeOrder >(arena);
+template<> PROTOBUF_NOINLINE ::exchange::ExchangeMessage* Arena::CreateMaybeMessage< ::exchange::ExchangeMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::exchange::ExchangeMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

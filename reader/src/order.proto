@@ -23,7 +23,7 @@ message CancelOrder {
 message FlushOrder {
 }
 
-message ExchangeOrder {
+message ExchangeMessage {
     uint64 sequenceNumber = 1;
     oneof command {
     	NewOrder newOrder = 2;
