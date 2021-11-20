@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/any.proto";
-
 package exchange;
 
 message NewOrder {
@@ -22,10 +20,14 @@ message CancelOrder {
 	uint32 userOrder = 2;
 }
 
-message FlushOrderBook {
+message FlushOrder {
 }
 
-message Message {
+message ExchangeOrder {
     uint64 sequenceNumber = 1;
-    google.protobuf.Any command = 2;
+    oneof command {
+    	NewOrder newOrder = 2;
+    	CancelOrder cancelOrder = 3;
+    	FlushOrder flushOrder = 4;
+    }
 }

@@ -32,7 +32,6 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
-#include <google/protobuf/any.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_order_2eproto
@@ -59,20 +58,20 @@ namespace exchange {
 class CancelOrder;
 struct CancelOrderDefaultTypeInternal;
 extern CancelOrderDefaultTypeInternal _CancelOrder_default_instance_;
-class FlushOrderBook;
-struct FlushOrderBookDefaultTypeInternal;
-extern FlushOrderBookDefaultTypeInternal _FlushOrderBook_default_instance_;
-class Message;
-struct MessageDefaultTypeInternal;
-extern MessageDefaultTypeInternal _Message_default_instance_;
+class ExchangeOrder;
+struct ExchangeOrderDefaultTypeInternal;
+extern ExchangeOrderDefaultTypeInternal _ExchangeOrder_default_instance_;
+class FlushOrder;
+struct FlushOrderDefaultTypeInternal;
+extern FlushOrderDefaultTypeInternal _FlushOrder_default_instance_;
 class NewOrder;
 struct NewOrderDefaultTypeInternal;
 extern NewOrderDefaultTypeInternal _NewOrder_default_instance_;
 }  // namespace exchange
 PROTOBUF_NAMESPACE_OPEN
 template<> ::exchange::CancelOrder* Arena::CreateMaybeMessage<::exchange::CancelOrder>(Arena*);
-template<> ::exchange::FlushOrderBook* Arena::CreateMaybeMessage<::exchange::FlushOrderBook>(Arena*);
-template<> ::exchange::Message* Arena::CreateMaybeMessage<::exchange::Message>(Arena*);
+template<> ::exchange::ExchangeOrder* Arena::CreateMaybeMessage<::exchange::ExchangeOrder>(Arena*);
+template<> ::exchange::FlushOrder* Arena::CreateMaybeMessage<::exchange::FlushOrder>(Arena*);
 template<> ::exchange::NewOrder* Arena::CreateMaybeMessage<::exchange::NewOrder>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace exchange {
@@ -483,24 +482,24 @@ class CancelOrder final :
 };
 // -------------------------------------------------------------------
 
-class FlushOrderBook final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.FlushOrderBook) */ {
+class FlushOrder final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.FlushOrder) */ {
  public:
-  inline FlushOrderBook() : FlushOrderBook(nullptr) {}
-  ~FlushOrderBook() override;
-  explicit constexpr FlushOrderBook(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline FlushOrder() : FlushOrder(nullptr) {}
+  ~FlushOrder() override;
+  explicit constexpr FlushOrder(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  FlushOrderBook(const FlushOrderBook& from);
-  FlushOrderBook(FlushOrderBook&& from) noexcept
-    : FlushOrderBook() {
+  FlushOrder(const FlushOrder& from);
+  FlushOrder(FlushOrder&& from) noexcept
+    : FlushOrder() {
     *this = ::std::move(from);
   }
 
-  inline FlushOrderBook& operator=(const FlushOrderBook& from) {
+  inline FlushOrder& operator=(const FlushOrder& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FlushOrderBook& operator=(FlushOrderBook&& from) noexcept {
+  inline FlushOrder& operator=(FlushOrder&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -519,20 +518,20 @@ class FlushOrderBook final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const FlushOrderBook& default_instance() {
+  static const FlushOrder& default_instance() {
     return *internal_default_instance();
   }
-  static inline const FlushOrderBook* internal_default_instance() {
-    return reinterpret_cast<const FlushOrderBook*>(
-               &_FlushOrderBook_default_instance_);
+  static inline const FlushOrder* internal_default_instance() {
+    return reinterpret_cast<const FlushOrder*>(
+               &_FlushOrder_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(FlushOrderBook& a, FlushOrderBook& b) {
+  friend void swap(FlushOrder& a, FlushOrder& b) {
     a.Swap(&b);
   }
-  inline void Swap(FlushOrderBook* other) {
+  inline void Swap(FlushOrder* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -540,7 +539,7 @@ class FlushOrderBook final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(FlushOrderBook* other) {
+  void UnsafeArenaSwap(FlushOrder* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -548,17 +547,17 @@ class FlushOrderBook final :
 
   // implements Message ----------------------------------------------
 
-  inline FlushOrderBook* New() const final {
-    return new FlushOrderBook();
+  inline FlushOrder* New() const final {
+    return new FlushOrder();
   }
 
-  FlushOrderBook* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<FlushOrderBook>(arena);
+  FlushOrder* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<FlushOrder>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const FlushOrderBook& from);
+  void CopyFrom(const FlushOrder& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const FlushOrderBook& from);
+  void MergeFrom(const FlushOrder& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
   public:
@@ -575,13 +574,13 @@ class FlushOrderBook final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FlushOrderBook* other);
+  void InternalSwap(FlushOrder* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "exchange.FlushOrderBook";
+    return "exchange.FlushOrder";
   }
   protected:
-  explicit FlushOrderBook(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit FlushOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -597,7 +596,7 @@ class FlushOrderBook final :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:exchange.FlushOrderBook)
+  // @@protoc_insertion_point(class_scope:exchange.FlushOrder)
  private:
   class _Internal;
 
@@ -609,24 +608,24 @@ class FlushOrderBook final :
 };
 // -------------------------------------------------------------------
 
-class Message final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.Message) */ {
+class ExchangeOrder final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.ExchangeOrder) */ {
  public:
-  inline Message() : Message(nullptr) {}
-  ~Message() override;
-  explicit constexpr Message(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ExchangeOrder() : ExchangeOrder(nullptr) {}
+  ~ExchangeOrder() override;
+  explicit constexpr ExchangeOrder(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Message(const Message& from);
-  Message(Message&& from) noexcept
-    : Message() {
+  ExchangeOrder(const ExchangeOrder& from);
+  ExchangeOrder(ExchangeOrder&& from) noexcept
+    : ExchangeOrder() {
     *this = ::std::move(from);
   }
 
-  inline Message& operator=(const Message& from) {
+  inline ExchangeOrder& operator=(const ExchangeOrder& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Message& operator=(Message&& from) noexcept {
+  inline ExchangeOrder& operator=(ExchangeOrder&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -645,20 +644,27 @@ class Message final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Message& default_instance() {
+  static const ExchangeOrder& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Message* internal_default_instance() {
-    return reinterpret_cast<const Message*>(
-               &_Message_default_instance_);
+  enum CommandCase {
+    kNewOrder = 2,
+    kCancelOrder = 3,
+    kFlushOrder = 4,
+    COMMAND_NOT_SET = 0,
+  };
+
+  static inline const ExchangeOrder* internal_default_instance() {
+    return reinterpret_cast<const ExchangeOrder*>(
+               &_ExchangeOrder_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(Message& a, Message& b) {
+  friend void swap(ExchangeOrder& a, ExchangeOrder& b) {
     a.Swap(&b);
   }
-  inline void Swap(Message* other) {
+  inline void Swap(ExchangeOrder* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -666,7 +672,7 @@ class Message final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Message* other) {
+  void UnsafeArenaSwap(ExchangeOrder* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -674,17 +680,17 @@ class Message final :
 
   // implements Message ----------------------------------------------
 
-  inline Message* New() const final {
-    return new Message();
+  inline ExchangeOrder* New() const final {
+    return new ExchangeOrder();
   }
 
-  Message* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Message>(arena);
+  ExchangeOrder* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ExchangeOrder>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Message& from);
+  void CopyFrom(const ExchangeOrder& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const Message& from);
+  void MergeFrom(const ExchangeOrder& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
   public:
@@ -701,13 +707,13 @@ class Message final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Message* other);
+  void InternalSwap(ExchangeOrder* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "exchange.Message";
+    return "exchange.ExchangeOrder";
   }
   protected:
-  explicit Message(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ExchangeOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -724,27 +730,11 @@ class Message final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommandFieldNumber = 2,
     kSequenceNumberFieldNumber = 1,
+    kNewOrderFieldNumber = 2,
+    kCancelOrderFieldNumber = 3,
+    kFlushOrderFieldNumber = 4,
   };
-  // .google.protobuf.Any command = 2;
-  bool has_command() const;
-  private:
-  bool _internal_has_command() const;
-  public:
-  void clear_command();
-  const PROTOBUF_NAMESPACE_ID::Any& command() const;
-  PROTOBUF_MUST_USE_RESULT PROTOBUF_NAMESPACE_ID::Any* release_command();
-  PROTOBUF_NAMESPACE_ID::Any* mutable_command();
-  void set_allocated_command(PROTOBUF_NAMESPACE_ID::Any* command);
-  private:
-  const PROTOBUF_NAMESPACE_ID::Any& _internal_command() const;
-  PROTOBUF_NAMESPACE_ID::Any* _internal_mutable_command();
-  public:
-  void unsafe_arena_set_allocated_command(
-      PROTOBUF_NAMESPACE_ID::Any* command);
-  PROTOBUF_NAMESPACE_ID::Any* unsafe_arena_release_command();
-
   // uint64 sequenceNumber = 1;
   void clear_sequencenumber();
   ::PROTOBUF_NAMESPACE_ID::uint64 sequencenumber() const;
@@ -754,16 +744,86 @@ class Message final :
   void _internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:exchange.Message)
+  // .exchange.NewOrder newOrder = 2;
+  bool has_neworder() const;
+  private:
+  bool _internal_has_neworder() const;
+  public:
+  void clear_neworder();
+  const ::exchange::NewOrder& neworder() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::NewOrder* release_neworder();
+  ::exchange::NewOrder* mutable_neworder();
+  void set_allocated_neworder(::exchange::NewOrder* neworder);
+  private:
+  const ::exchange::NewOrder& _internal_neworder() const;
+  ::exchange::NewOrder* _internal_mutable_neworder();
+  public:
+  void unsafe_arena_set_allocated_neworder(
+      ::exchange::NewOrder* neworder);
+  ::exchange::NewOrder* unsafe_arena_release_neworder();
+
+  // .exchange.CancelOrder cancelOrder = 3;
+  bool has_cancelorder() const;
+  private:
+  bool _internal_has_cancelorder() const;
+  public:
+  void clear_cancelorder();
+  const ::exchange::CancelOrder& cancelorder() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::CancelOrder* release_cancelorder();
+  ::exchange::CancelOrder* mutable_cancelorder();
+  void set_allocated_cancelorder(::exchange::CancelOrder* cancelorder);
+  private:
+  const ::exchange::CancelOrder& _internal_cancelorder() const;
+  ::exchange::CancelOrder* _internal_mutable_cancelorder();
+  public:
+  void unsafe_arena_set_allocated_cancelorder(
+      ::exchange::CancelOrder* cancelorder);
+  ::exchange::CancelOrder* unsafe_arena_release_cancelorder();
+
+  // .exchange.FlushOrder flushOrder = 4;
+  bool has_flushorder() const;
+  private:
+  bool _internal_has_flushorder() const;
+  public:
+  void clear_flushorder();
+  const ::exchange::FlushOrder& flushorder() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::FlushOrder* release_flushorder();
+  ::exchange::FlushOrder* mutable_flushorder();
+  void set_allocated_flushorder(::exchange::FlushOrder* flushorder);
+  private:
+  const ::exchange::FlushOrder& _internal_flushorder() const;
+  ::exchange::FlushOrder* _internal_mutable_flushorder();
+  public:
+  void unsafe_arena_set_allocated_flushorder(
+      ::exchange::FlushOrder* flushorder);
+  ::exchange::FlushOrder* unsafe_arena_release_flushorder();
+
+  void clear_command();
+  CommandCase command_case() const;
+  // @@protoc_insertion_point(class_scope:exchange.ExchangeOrder)
  private:
   class _Internal;
+  void set_has_neworder();
+  void set_has_cancelorder();
+  void set_has_flushorder();
+
+  inline bool has_command() const;
+  inline void clear_has_command();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  PROTOBUF_NAMESPACE_ID::Any* command_;
   ::PROTOBUF_NAMESPACE_ID::uint64 sequencenumber_;
+  union CommandUnion {
+    constexpr CommandUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::exchange::NewOrder* neworder_;
+    ::exchange::CancelOrder* cancelorder_;
+    ::exchange::FlushOrder* flushorder_;
+  } command_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
+
   friend struct ::TableStruct_order_2eproto;
 };
 // ===================================================================
@@ -969,118 +1029,263 @@ inline void CancelOrder::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// FlushOrderBook
+// FlushOrder
 
 // -------------------------------------------------------------------
 
-// Message
+// ExchangeOrder
 
 // uint64 sequenceNumber = 1;
-inline void Message::clear_sequencenumber() {
+inline void ExchangeOrder::clear_sequencenumber() {
   sequencenumber_ = uint64_t{0u};
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 Message::_internal_sequencenumber() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeOrder::_internal_sequencenumber() const {
   return sequencenumber_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 Message::sequencenumber() const {
-  // @@protoc_insertion_point(field_get:exchange.Message.sequenceNumber)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ExchangeOrder::sequencenumber() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.sequenceNumber)
   return _internal_sequencenumber();
 }
-inline void Message::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void ExchangeOrder::_internal_set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   
   sequencenumber_ = value;
 }
-inline void Message::set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void ExchangeOrder::set_sequencenumber(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_sequencenumber(value);
-  // @@protoc_insertion_point(field_set:exchange.Message.sequenceNumber)
+  // @@protoc_insertion_point(field_set:exchange.ExchangeOrder.sequenceNumber)
 }
 
-// .google.protobuf.Any command = 2;
-inline bool Message::_internal_has_command() const {
-  return this != internal_default_instance() && command_ != nullptr;
+// .exchange.NewOrder newOrder = 2;
+inline bool ExchangeOrder::_internal_has_neworder() const {
+  return command_case() == kNewOrder;
 }
-inline bool Message::has_command() const {
-  return _internal_has_command();
+inline bool ExchangeOrder::has_neworder() const {
+  return _internal_has_neworder();
 }
-inline const PROTOBUF_NAMESPACE_ID::Any& Message::_internal_command() const {
-  const PROTOBUF_NAMESPACE_ID::Any* p = command_;
-  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Any&>(
-      PROTOBUF_NAMESPACE_ID::_Any_default_instance_);
+inline void ExchangeOrder::set_has_neworder() {
+  _oneof_case_[0] = kNewOrder;
 }
-inline const PROTOBUF_NAMESPACE_ID::Any& Message::command() const {
-  // @@protoc_insertion_point(field_get:exchange.Message.command)
-  return _internal_command();
-}
-inline void Message::unsafe_arena_set_allocated_command(
-    PROTOBUF_NAMESPACE_ID::Any* command) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(command_);
+inline void ExchangeOrder::clear_neworder() {
+  if (_internal_has_neworder()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.neworder_;
+    }
+    clear_has_command();
   }
-  command_ = command;
-  if (command) {
-    
+}
+inline ::exchange::NewOrder* ExchangeOrder::release_neworder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.newOrder)
+  if (_internal_has_neworder()) {
+    clear_has_command();
+      ::exchange::NewOrder* temp = command_.neworder_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.neworder_ = nullptr;
+    return temp;
   } else {
-    
+    return nullptr;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.Message.command)
 }
-inline PROTOBUF_NAMESPACE_ID::Any* Message::release_command() {
-  
-  PROTOBUF_NAMESPACE_ID::Any* temp = command_;
-  command_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+inline const ::exchange::NewOrder& ExchangeOrder::_internal_neworder() const {
+  return _internal_has_neworder()
+      ? *command_.neworder_
+      : reinterpret_cast< ::exchange::NewOrder&>(::exchange::_NewOrder_default_instance_);
+}
+inline const ::exchange::NewOrder& ExchangeOrder::neworder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.newOrder)
+  return _internal_neworder();
+}
+inline ::exchange::NewOrder* ExchangeOrder::unsafe_arena_release_neworder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.newOrder)
+  if (_internal_has_neworder()) {
+    clear_has_command();
+    ::exchange::NewOrder* temp = command_.neworder_;
+    command_.neworder_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
   }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Any* Message::unsafe_arena_release_command() {
-  // @@protoc_insertion_point(field_release:exchange.Message.command)
-  
-  PROTOBUF_NAMESPACE_ID::Any* temp = command_;
-  command_ = nullptr;
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::Any* Message::_internal_mutable_command() {
-  
-  if (command_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Any>(GetArenaForAllocation());
-    command_ = p;
+inline void ExchangeOrder::unsafe_arena_set_allocated_neworder(::exchange::NewOrder* neworder) {
+  clear_command();
+  if (neworder) {
+    set_has_neworder();
+    command_.neworder_ = neworder;
   }
-  return command_;
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.newOrder)
 }
-inline PROTOBUF_NAMESPACE_ID::Any* Message::mutable_command() {
-  PROTOBUF_NAMESPACE_ID::Any* _msg = _internal_mutable_command();
-  // @@protoc_insertion_point(field_mutable:exchange.Message.command)
+inline ::exchange::NewOrder* ExchangeOrder::_internal_mutable_neworder() {
+  if (!_internal_has_neworder()) {
+    clear_command();
+    set_has_neworder();
+    command_.neworder_ = CreateMaybeMessage< ::exchange::NewOrder >(GetArenaForAllocation());
+  }
+  return command_.neworder_;
+}
+inline ::exchange::NewOrder* ExchangeOrder::mutable_neworder() {
+  ::exchange::NewOrder* _msg = _internal_mutable_neworder();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.newOrder)
   return _msg;
 }
-inline void Message::set_allocated_command(PROTOBUF_NAMESPACE_ID::Any* command) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(command_);
-  }
-  if (command) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(command));
-    if (message_arena != submessage_arena) {
-      command = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, command, submessage_arena);
+
+// .exchange.CancelOrder cancelOrder = 3;
+inline bool ExchangeOrder::_internal_has_cancelorder() const {
+  return command_case() == kCancelOrder;
+}
+inline bool ExchangeOrder::has_cancelorder() const {
+  return _internal_has_cancelorder();
+}
+inline void ExchangeOrder::set_has_cancelorder() {
+  _oneof_case_[0] = kCancelOrder;
+}
+inline void ExchangeOrder::clear_cancelorder() {
+  if (_internal_has_cancelorder()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.cancelorder_;
     }
-    
-  } else {
-    
+    clear_has_command();
   }
-  command_ = command;
-  // @@protoc_insertion_point(field_set_allocated:exchange.Message.command)
+}
+inline ::exchange::CancelOrder* ExchangeOrder::release_cancelorder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.cancelOrder)
+  if (_internal_has_cancelorder()) {
+    clear_has_command();
+      ::exchange::CancelOrder* temp = command_.cancelorder_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.cancelorder_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::exchange::CancelOrder& ExchangeOrder::_internal_cancelorder() const {
+  return _internal_has_cancelorder()
+      ? *command_.cancelorder_
+      : reinterpret_cast< ::exchange::CancelOrder&>(::exchange::_CancelOrder_default_instance_);
+}
+inline const ::exchange::CancelOrder& ExchangeOrder::cancelorder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.cancelOrder)
+  return _internal_cancelorder();
+}
+inline ::exchange::CancelOrder* ExchangeOrder::unsafe_arena_release_cancelorder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.cancelOrder)
+  if (_internal_has_cancelorder()) {
+    clear_has_command();
+    ::exchange::CancelOrder* temp = command_.cancelorder_;
+    command_.cancelorder_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExchangeOrder::unsafe_arena_set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
+  clear_command();
+  if (cancelorder) {
+    set_has_cancelorder();
+    command_.cancelorder_ = cancelorder;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.cancelOrder)
+}
+inline ::exchange::CancelOrder* ExchangeOrder::_internal_mutable_cancelorder() {
+  if (!_internal_has_cancelorder()) {
+    clear_command();
+    set_has_cancelorder();
+    command_.cancelorder_ = CreateMaybeMessage< ::exchange::CancelOrder >(GetArenaForAllocation());
+  }
+  return command_.cancelorder_;
+}
+inline ::exchange::CancelOrder* ExchangeOrder::mutable_cancelorder() {
+  ::exchange::CancelOrder* _msg = _internal_mutable_cancelorder();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.cancelOrder)
+  return _msg;
 }
 
+// .exchange.FlushOrder flushOrder = 4;
+inline bool ExchangeOrder::_internal_has_flushorder() const {
+  return command_case() == kFlushOrder;
+}
+inline bool ExchangeOrder::has_flushorder() const {
+  return _internal_has_flushorder();
+}
+inline void ExchangeOrder::set_has_flushorder() {
+  _oneof_case_[0] = kFlushOrder;
+}
+inline void ExchangeOrder::clear_flushorder() {
+  if (_internal_has_flushorder()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.flushorder_;
+    }
+    clear_has_command();
+  }
+}
+inline ::exchange::FlushOrder* ExchangeOrder::release_flushorder() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeOrder.flushOrder)
+  if (_internal_has_flushorder()) {
+    clear_has_command();
+      ::exchange::FlushOrder* temp = command_.flushorder_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.flushorder_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::exchange::FlushOrder& ExchangeOrder::_internal_flushorder() const {
+  return _internal_has_flushorder()
+      ? *command_.flushorder_
+      : reinterpret_cast< ::exchange::FlushOrder&>(::exchange::_FlushOrder_default_instance_);
+}
+inline const ::exchange::FlushOrder& ExchangeOrder::flushorder() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeOrder.flushOrder)
+  return _internal_flushorder();
+}
+inline ::exchange::FlushOrder* ExchangeOrder::unsafe_arena_release_flushorder() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeOrder.flushOrder)
+  if (_internal_has_flushorder()) {
+    clear_has_command();
+    ::exchange::FlushOrder* temp = command_.flushorder_;
+    command_.flushorder_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExchangeOrder::unsafe_arena_set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
+  clear_command();
+  if (flushorder) {
+    set_has_flushorder();
+    command_.flushorder_ = flushorder;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeOrder.flushOrder)
+}
+inline ::exchange::FlushOrder* ExchangeOrder::_internal_mutable_flushorder() {
+  if (!_internal_has_flushorder()) {
+    clear_command();
+    set_has_flushorder();
+    command_.flushorder_ = CreateMaybeMessage< ::exchange::FlushOrder >(GetArenaForAllocation());
+  }
+  return command_.flushorder_;
+}
+inline ::exchange::FlushOrder* ExchangeOrder::mutable_flushorder() {
+  ::exchange::FlushOrder* _msg = _internal_mutable_flushorder();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeOrder.flushOrder)
+  return _msg;
+}
+
+inline bool ExchangeOrder::has_command() const {
+  return command_case() != COMMAND_NOT_SET;
+}
+inline void ExchangeOrder::clear_has_command() {
+  _oneof_case_[0] = COMMAND_NOT_SET;
+}
+inline ExchangeOrder::CommandCase ExchangeOrder::command_case() const {
+  return ExchangeOrder::CommandCase(_oneof_case_[0]);
+}
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__

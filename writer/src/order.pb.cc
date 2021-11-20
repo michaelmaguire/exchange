@@ -48,30 +48,30 @@ struct CancelOrderDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CancelOrderDefaultTypeInternal _CancelOrder_default_instance_;
-constexpr FlushOrderBook::FlushOrderBook(
+constexpr FlushOrder::FlushOrder(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct FlushOrderBookDefaultTypeInternal {
-  constexpr FlushOrderBookDefaultTypeInternal()
+struct FlushOrderDefaultTypeInternal {
+  constexpr FlushOrderDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~FlushOrderBookDefaultTypeInternal() {}
+  ~FlushOrderDefaultTypeInternal() {}
   union {
-    FlushOrderBook _instance;
+    FlushOrder _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FlushOrderBookDefaultTypeInternal _FlushOrderBook_default_instance_;
-constexpr Message::Message(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FlushOrderDefaultTypeInternal _FlushOrder_default_instance_;
+constexpr ExchangeOrder::ExchangeOrder(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : command_(nullptr)
-  , sequencenumber_(uint64_t{0u}){}
-struct MessageDefaultTypeInternal {
-  constexpr MessageDefaultTypeInternal()
+  : sequencenumber_(uint64_t{0u})
+  , _oneof_case_{}{}
+struct ExchangeOrderDefaultTypeInternal {
+  constexpr ExchangeOrderDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MessageDefaultTypeInternal() {}
+  ~ExchangeOrderDefaultTypeInternal() {}
   union {
-    Message _instance;
+    ExchangeOrder _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MessageDefaultTypeInternal _Message_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ExchangeOrderDefaultTypeInternal _ExchangeOrder_default_instance_;
 }  // namespace exchange
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_order_2eproto[4];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_order_2eproto[1];
@@ -97,51 +97,53 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_order_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::exchange::CancelOrder, user_),
   PROTOBUF_FIELD_OFFSET(::exchange::CancelOrder, userorder_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::exchange::FlushOrderBook, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::exchange::FlushOrder, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::exchange::Message, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, _internal_metadata_),
   ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::exchange::Message, sequencenumber_),
-  PROTOBUF_FIELD_OFFSET(::exchange::Message, command_),
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, sequencenumber_),
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::exchange::ExchangeOrder, command_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::exchange::NewOrder)},
   { 11, -1, sizeof(::exchange::CancelOrder)},
-  { 18, -1, sizeof(::exchange::FlushOrderBook)},
-  { 23, -1, sizeof(::exchange::Message)},
+  { 18, -1, sizeof(::exchange::FlushOrder)},
+  { 23, -1, sizeof(::exchange::ExchangeOrder)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_NewOrder_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_CancelOrder_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_FlushOrderBook_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_Message_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_FlushOrder_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::exchange::_ExchangeOrder_default_instance_),
 };
 
 const char descriptor_table_protodef_order_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013order.proto\022\010exchange\032\031google/protobuf"
-  "/any.proto\"\246\001\n\010NewOrder\022\014\n\004user\030\001 \001(\r\022\016\n"
-  "\006symbol\030\002 \001(\t\022\r\n\005price\030\003 \001(\r\022\020\n\010quantity"
-  "\030\004 \001(\r\022)\n\004side\030\005 \001(\0162\033.exchange.NewOrder"
-  ".SideType\022\021\n\tuserOrder\030\006 \001(\r\"\035\n\010SideType"
-  "\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\".\n\013CancelOrder\022\014\n\004us"
-  "er\030\001 \001(\r\022\021\n\tuserOrder\030\002 \001(\r\"\020\n\016FlushOrde"
-  "rBook\"H\n\007Message\022\026\n\016sequenceNumber\030\001 \001(\004"
-  "\022%\n\007command\030\002 \001(\0132\024.google.protobuf.Anyb"
-  "\006proto3"
+  "\n\013order.proto\022\010exchange\"\246\001\n\010NewOrder\022\014\n\004"
+  "user\030\001 \001(\r\022\016\n\006symbol\030\002 \001(\t\022\r\n\005price\030\003 \001("
+  "\r\022\020\n\010quantity\030\004 \001(\r\022)\n\004side\030\005 \001(\0162\033.exch"
+  "ange.NewOrder.SideType\022\021\n\tuserOrder\030\006 \001("
+  "\r\"\035\n\010SideType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\".\n\013Canc"
+  "elOrder\022\014\n\004user\030\001 \001(\r\022\021\n\tuserOrder\030\002 \001(\r"
+  "\"\014\n\nFlushOrder\"\264\001\n\rExchangeOrder\022\026\n\016sequ"
+  "enceNumber\030\001 \001(\004\022&\n\010newOrder\030\002 \001(\0132\022.exc"
+  "hange.NewOrderH\000\022,\n\013cancelOrder\030\003 \001(\0132\025."
+  "exchange.CancelOrderH\000\022*\n\nflushOrder\030\004 \001"
+  "(\0132\024.exchange.FlushOrderH\000B\t\n\007commandb\006p"
+  "roto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_order_2eproto_deps[1] = {
-  &::descriptor_table_google_2fprotobuf_2fany_2eproto,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_order_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_order_2eproto = {
-  false, false, 367, descriptor_table_protodef_order_2eproto, "order.proto", 
-  &descriptor_table_order_2eproto_once, descriptor_table_order_2eproto_deps, 1, 4,
+  false, false, 445, descriptor_table_protodef_order_2eproto, "order.proto", 
+  &descriptor_table_order_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_order_2eproto::offsets,
   file_level_metadata_order_2eproto, file_level_enum_descriptors_order_2eproto, file_level_service_descriptors_order_2eproto,
 };
@@ -728,51 +730,51 @@ void CancelOrder::InternalSwap(CancelOrder* other) {
 
 // ===================================================================
 
-class FlushOrderBook::_Internal {
+class FlushOrder::_Internal {
  public:
 };
 
-FlushOrderBook::FlushOrderBook(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+FlushOrder::FlushOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:exchange.FlushOrderBook)
+  // @@protoc_insertion_point(arena_constructor:exchange.FlushOrder)
 }
-FlushOrderBook::FlushOrderBook(const FlushOrderBook& from)
+FlushOrder::FlushOrder(const FlushOrder& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:exchange.FlushOrderBook)
+  // @@protoc_insertion_point(copy_constructor:exchange.FlushOrder)
 }
 
-inline void FlushOrderBook::SharedCtor() {
+inline void FlushOrder::SharedCtor() {
 }
 
-FlushOrderBook::~FlushOrderBook() {
-  // @@protoc_insertion_point(destructor:exchange.FlushOrderBook)
+FlushOrder::~FlushOrder() {
+  // @@protoc_insertion_point(destructor:exchange.FlushOrder)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void FlushOrderBook::SharedDtor() {
+inline void FlushOrder::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void FlushOrderBook::ArenaDtor(void* object) {
-  FlushOrderBook* _this = reinterpret_cast< FlushOrderBook* >(object);
+void FlushOrder::ArenaDtor(void* object) {
+  FlushOrder* _this = reinterpret_cast< FlushOrder* >(object);
   (void)_this;
 }
-void FlushOrderBook::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void FlushOrder::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void FlushOrderBook::SetCachedSize(int size) const {
+void FlushOrder::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void FlushOrderBook::Clear() {
-// @@protoc_insertion_point(message_clear_start:exchange.FlushOrderBook)
+void FlushOrder::Clear() {
+// @@protoc_insertion_point(message_clear_start:exchange.FlushOrder)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -780,7 +782,7 @@ void FlushOrderBook::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* FlushOrderBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FlushOrder::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -804,9 +806,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* FlushOrderBook::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* FlushOrder::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:exchange.FlushOrderBook)
+  // @@protoc_insertion_point(serialize_to_array_start:exchange.FlushOrder)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -814,12 +816,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:exchange.FlushOrderBook)
+  // @@protoc_insertion_point(serialize_to_array_end:exchange.FlushOrder)
   return target;
 }
 
-size_t FlushOrderBook::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:exchange.FlushOrderBook)
+size_t FlushOrder::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:exchange.FlushOrder)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -835,21 +837,21 @@ size_t FlushOrderBook::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FlushOrderBook::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FlushOrder::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    FlushOrderBook::MergeImpl
+    FlushOrder::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FlushOrderBook::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FlushOrder::GetClassData() const { return &_class_data_; }
 
-void FlushOrderBook::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+void FlushOrder::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
                       const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<FlushOrderBook *>(to)->MergeFrom(
-      static_cast<const FlushOrderBook &>(from));
+  static_cast<FlushOrder *>(to)->MergeFrom(
+      static_cast<const FlushOrder &>(from));
 }
 
 
-void FlushOrderBook::MergeFrom(const FlushOrderBook& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:exchange.FlushOrderBook)
+void FlushOrder::MergeFrom(const FlushOrder& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:exchange.FlushOrder)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -857,23 +859,23 @@ void FlushOrderBook::MergeFrom(const FlushOrderBook& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void FlushOrderBook::CopyFrom(const FlushOrderBook& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:exchange.FlushOrderBook)
+void FlushOrder::CopyFrom(const FlushOrder& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:exchange.FlushOrder)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FlushOrderBook::IsInitialized() const {
+bool FlushOrder::IsInitialized() const {
   return true;
 }
 
-void FlushOrderBook::InternalSwap(FlushOrderBook* other) {
+void FlushOrder::InternalSwap(FlushOrder* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata FlushOrderBook::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata FlushOrder::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_order_2eproto_getter, &descriptor_table_order_2eproto_once,
       file_level_metadata_order_2eproto[2]);
@@ -881,86 +883,174 @@ void FlushOrderBook::InternalSwap(FlushOrderBook* other) {
 
 // ===================================================================
 
-class Message::_Internal {
+class ExchangeOrder::_Internal {
  public:
-  static const PROTOBUF_NAMESPACE_ID::Any& command(const Message* msg);
+  static const ::exchange::NewOrder& neworder(const ExchangeOrder* msg);
+  static const ::exchange::CancelOrder& cancelorder(const ExchangeOrder* msg);
+  static const ::exchange::FlushOrder& flushorder(const ExchangeOrder* msg);
 };
 
-const PROTOBUF_NAMESPACE_ID::Any&
-Message::_Internal::command(const Message* msg) {
-  return *msg->command_;
+const ::exchange::NewOrder&
+ExchangeOrder::_Internal::neworder(const ExchangeOrder* msg) {
+  return *msg->command_.neworder_;
 }
-void Message::clear_command() {
-  if (GetArenaForAllocation() == nullptr && command_ != nullptr) {
-    delete command_;
+const ::exchange::CancelOrder&
+ExchangeOrder::_Internal::cancelorder(const ExchangeOrder* msg) {
+  return *msg->command_.cancelorder_;
+}
+const ::exchange::FlushOrder&
+ExchangeOrder::_Internal::flushorder(const ExchangeOrder* msg) {
+  return *msg->command_.flushorder_;
+}
+void ExchangeOrder::set_allocated_neworder(::exchange::NewOrder* neworder) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_command();
+  if (neworder) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::exchange::NewOrder>::GetOwningArena(neworder);
+    if (message_arena != submessage_arena) {
+      neworder = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, neworder, submessage_arena);
+    }
+    set_has_neworder();
+    command_.neworder_ = neworder;
   }
-  command_ = nullptr;
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.newOrder)
 }
-Message::Message(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+void ExchangeOrder::set_allocated_cancelorder(::exchange::CancelOrder* cancelorder) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_command();
+  if (cancelorder) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::exchange::CancelOrder>::GetOwningArena(cancelorder);
+    if (message_arena != submessage_arena) {
+      cancelorder = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cancelorder, submessage_arena);
+    }
+    set_has_cancelorder();
+    command_.cancelorder_ = cancelorder;
+  }
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.cancelOrder)
+}
+void ExchangeOrder::set_allocated_flushorder(::exchange::FlushOrder* flushorder) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_command();
+  if (flushorder) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::exchange::FlushOrder>::GetOwningArena(flushorder);
+    if (message_arena != submessage_arena) {
+      flushorder = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, flushorder, submessage_arena);
+    }
+    set_has_flushorder();
+    command_.flushorder_ = flushorder;
+  }
+  // @@protoc_insertion_point(field_set_allocated:exchange.ExchangeOrder.flushOrder)
+}
+ExchangeOrder::ExchangeOrder(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:exchange.Message)
+  // @@protoc_insertion_point(arena_constructor:exchange.ExchangeOrder)
 }
-Message::Message(const Message& from)
+ExchangeOrder::ExchangeOrder(const ExchangeOrder& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_command()) {
-    command_ = new PROTOBUF_NAMESPACE_ID::Any(*from.command_);
-  } else {
-    command_ = nullptr;
-  }
   sequencenumber_ = from.sequencenumber_;
-  // @@protoc_insertion_point(copy_constructor:exchange.Message)
+  clear_has_command();
+  switch (from.command_case()) {
+    case kNewOrder: {
+      _internal_mutable_neworder()->::exchange::NewOrder::MergeFrom(from._internal_neworder());
+      break;
+    }
+    case kCancelOrder: {
+      _internal_mutable_cancelorder()->::exchange::CancelOrder::MergeFrom(from._internal_cancelorder());
+      break;
+    }
+    case kFlushOrder: {
+      _internal_mutable_flushorder()->::exchange::FlushOrder::MergeFrom(from._internal_flushorder());
+      break;
+    }
+    case COMMAND_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:exchange.ExchangeOrder)
 }
 
-inline void Message::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&command_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sequencenumber_) -
-    reinterpret_cast<char*>(&command_)) + sizeof(sequencenumber_));
+inline void ExchangeOrder::SharedCtor() {
+sequencenumber_ = uint64_t{0u};
+clear_has_command();
 }
 
-Message::~Message() {
-  // @@protoc_insertion_point(destructor:exchange.Message)
+ExchangeOrder::~ExchangeOrder() {
+  // @@protoc_insertion_point(destructor:exchange.ExchangeOrder)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Message::SharedDtor() {
+inline void ExchangeOrder::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete command_;
+  if (has_command()) {
+    clear_command();
+  }
 }
 
-void Message::ArenaDtor(void* object) {
-  Message* _this = reinterpret_cast< Message* >(object);
+void ExchangeOrder::ArenaDtor(void* object) {
+  ExchangeOrder* _this = reinterpret_cast< ExchangeOrder* >(object);
   (void)_this;
 }
-void Message::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ExchangeOrder::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void Message::SetCachedSize(int size) const {
+void ExchangeOrder::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void Message::Clear() {
-// @@protoc_insertion_point(message_clear_start:exchange.Message)
+void ExchangeOrder::clear_command() {
+// @@protoc_insertion_point(one_of_clear_start:exchange.ExchangeOrder)
+  switch (command_case()) {
+    case kNewOrder: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete command_.neworder_;
+      }
+      break;
+    }
+    case kCancelOrder: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete command_.cancelorder_;
+      }
+      break;
+    }
+    case kFlushOrder: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete command_.flushorder_;
+      }
+      break;
+    }
+    case COMMAND_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = COMMAND_NOT_SET;
+}
+
+
+void ExchangeOrder::Clear() {
+// @@protoc_insertion_point(message_clear_start:exchange.ExchangeOrder)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && command_ != nullptr) {
-    delete command_;
-  }
-  command_ = nullptr;
   sequencenumber_ = uint64_t{0u};
+  clear_command();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Message::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ExchangeOrder::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -973,10 +1063,24 @@ const char* Message::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .google.protobuf.Any command = 2;
+      // .exchange.NewOrder newOrder = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_command(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_neworder(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .exchange.CancelOrder cancelOrder = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_cancelorder(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .exchange.FlushOrder flushOrder = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_flushorder(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1003,9 +1107,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Message::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ExchangeOrder::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:exchange.Message)
+  // @@protoc_insertion_point(serialize_to_array_start:exchange.ExchangeOrder)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1015,36 +1119,45 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_sequencenumber(), target);
   }
 
-  // .google.protobuf.Any command = 2;
-  if (this->_internal_has_command()) {
+  // .exchange.NewOrder newOrder = 2;
+  if (_internal_has_neworder()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::command(this), target, stream);
+        2, _Internal::neworder(this), target, stream);
+  }
+
+  // .exchange.CancelOrder cancelOrder = 3;
+  if (_internal_has_cancelorder()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::cancelorder(this), target, stream);
+  }
+
+  // .exchange.FlushOrder flushOrder = 4;
+  if (_internal_has_flushorder()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::flushorder(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:exchange.Message)
+  // @@protoc_insertion_point(serialize_to_array_end:exchange.ExchangeOrder)
   return target;
 }
 
-size_t Message::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:exchange.Message)
+size_t ExchangeOrder::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:exchange.ExchangeOrder)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // .google.protobuf.Any command = 2;
-  if (this->_internal_has_command()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *command_);
-  }
 
   // uint64 sequenceNumber = 1;
   if (this->_internal_sequencenumber() != 0) {
@@ -1053,6 +1166,32 @@ size_t Message::ByteSizeLong() const {
         this->_internal_sequencenumber());
   }
 
+  switch (command_case()) {
+    // .exchange.NewOrder newOrder = 2;
+    case kNewOrder: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *command_.neworder_);
+      break;
+    }
+    // .exchange.CancelOrder cancelOrder = 3;
+    case kCancelOrder: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *command_.cancelorder_);
+      break;
+    }
+    // .exchange.FlushOrder flushOrder = 4;
+    case kFlushOrder: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *command_.flushorder_);
+      break;
+    }
+    case COMMAND_NOT_SET: {
+      break;
+    }
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -1062,57 +1201,68 @@ size_t Message::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Message::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExchangeOrder::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Message::MergeImpl
+    ExchangeOrder::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Message::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExchangeOrder::GetClassData() const { return &_class_data_; }
 
-void Message::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+void ExchangeOrder::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
                       const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Message *>(to)->MergeFrom(
-      static_cast<const Message &>(from));
+  static_cast<ExchangeOrder *>(to)->MergeFrom(
+      static_cast<const ExchangeOrder &>(from));
 }
 
 
-void Message::MergeFrom(const Message& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:exchange.Message)
+void ExchangeOrder::MergeFrom(const ExchangeOrder& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:exchange.ExchangeOrder)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_command()) {
-    _internal_mutable_command()->PROTOBUF_NAMESPACE_ID::Any::MergeFrom(from._internal_command());
-  }
   if (from._internal_sequencenumber() != 0) {
     _internal_set_sequencenumber(from._internal_sequencenumber());
+  }
+  switch (from.command_case()) {
+    case kNewOrder: {
+      _internal_mutable_neworder()->::exchange::NewOrder::MergeFrom(from._internal_neworder());
+      break;
+    }
+    case kCancelOrder: {
+      _internal_mutable_cancelorder()->::exchange::CancelOrder::MergeFrom(from._internal_cancelorder());
+      break;
+    }
+    case kFlushOrder: {
+      _internal_mutable_flushorder()->::exchange::FlushOrder::MergeFrom(from._internal_flushorder());
+      break;
+    }
+    case COMMAND_NOT_SET: {
+      break;
+    }
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void Message::CopyFrom(const Message& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:exchange.Message)
+void ExchangeOrder::CopyFrom(const ExchangeOrder& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:exchange.ExchangeOrder)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Message::IsInitialized() const {
+bool ExchangeOrder::IsInitialized() const {
   return true;
 }
 
-void Message::InternalSwap(Message* other) {
+void ExchangeOrder::InternalSwap(ExchangeOrder* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Message, sequencenumber_)
-      + sizeof(Message::sequencenumber_)
-      - PROTOBUF_FIELD_OFFSET(Message, command_)>(
-          reinterpret_cast<char*>(&command_),
-          reinterpret_cast<char*>(&other->command_));
+  swap(sequencenumber_, other->sequencenumber_);
+  swap(command_, other->command_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Message::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ExchangeOrder::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_order_2eproto_getter, &descriptor_table_order_2eproto_once,
       file_level_metadata_order_2eproto[3]);
@@ -1127,11 +1277,11 @@ template<> PROTOBUF_NOINLINE ::exchange::NewOrder* Arena::CreateMaybeMessage< ::
 template<> PROTOBUF_NOINLINE ::exchange::CancelOrder* Arena::CreateMaybeMessage< ::exchange::CancelOrder >(Arena* arena) {
   return Arena::CreateMessageInternal< ::exchange::CancelOrder >(arena);
 }
-template<> PROTOBUF_NOINLINE ::exchange::FlushOrderBook* Arena::CreateMaybeMessage< ::exchange::FlushOrderBook >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::exchange::FlushOrderBook >(arena);
+template<> PROTOBUF_NOINLINE ::exchange::FlushOrder* Arena::CreateMaybeMessage< ::exchange::FlushOrder >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::exchange::FlushOrder >(arena);
 }
-template<> PROTOBUF_NOINLINE ::exchange::Message* Arena::CreateMaybeMessage< ::exchange::Message >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::exchange::Message >(arena);
+template<> PROTOBUF_NOINLINE ::exchange::ExchangeOrder* Arena::CreateMaybeMessage< ::exchange::ExchangeOrder >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::exchange::ExchangeOrder >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
