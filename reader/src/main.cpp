@@ -3,7 +3,9 @@
  */
 
 #include <iostream>
+
 #include <boost/filesystem.hpp>
+
 #include <boost/log/trivial.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/sinks/text_file_backend.hpp>
@@ -11,6 +13,14 @@
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/sources/severity_logger.hpp>
+
+#include <boost/program_options/cmdline.hpp>
+#include <boost/program_options/config.hpp>
+#include <boost/program_options/option.hpp>
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/variables_map.hpp>
+
 #include <gtest/gtest.h>
 
 #include "reader.h"
@@ -18,12 +28,7 @@
 using namespace std;
 using namespace boost::log::trivial;
 
-void init_logging(int argc, char **argv) {
-	string filename = "default";
-	if (argc > 0) {
-		boost::filesystem::path p = argv[0];
-		filename = p.stem().string();
-	}
+void init_logging(const std::string &filename) {
 	BOOST_LOG_TRIVIAL(info)
 	<< "init_logging for app[" << filename << "]";
 
@@ -50,36 +55,131 @@ void init_logging(int argc, char **argv) {
 	sink->flush();
 }
 
+unsigned short g_exchangeMulticastUdpPort = 1234;
 
-const unsigned short EXCHANGE_MESSAGE_UDP_MULTICAST_PORT = 1234;
+uint64_t g_sequenceNumber = 0L;
 
-GTEST_API_ int main(int argc, char **argv) {
-	init_logging(argc, argv);
+int run_in_client_mode(const std::string &filename) {
 
-	boost::log::sources::severity_logger<boost::log::trivial::severity_level> lg;
+	// TODO:
 
-	if (argc > 1) {
-		BOOST_LOG_SEV(lg, info)
-		<< "argv[1][" << argv[1] << "]";
-		if (0 == strcmp(argv[1], "--test")) {
-			BOOST_LOG_SEV(lg, info)
-			<< "Running " << argv[0]
-					<< " main() from main.cpp RUN_ALL_TESTS starting\n";
-			testing::InitGoogleTest(&argc, argv);
-			int returnValue = RUN_ALL_TESTS();
-			BOOST_LOG_SEV(lg, info)
-			<< "Running " << argv[0]
-					<< " main() from main.cpp RUN_ALL_TESTS returnValue["
-					<< returnValue << "]\n";
-			return returnValue;
-		}
-	}
+	return 1;
+}
 
-	Reader reader(EXCHANGE_MESSAGE_UDP_MULTICAST_PORT);
+int run_in_order_book_mode(const std::string &symbol) {
+	Reader reader(g_exchangeMulticastUdpPort);
 	reader.run();
 
-	BOOST_LOG_SEV(lg, info)
+	return 1;
+}
+
+int run_in_output_mode() {
+
+	// TODO:
+
+	return 1;
+}
+
+GTEST_API_ int main(int argc, char **argv) {
+	int returnValue = 0;
+
+	try {
+		boost::program_options::options_description desc("Allowed options");
+		desc.add_options()("help,h", "produce help message")("test",
+				"run tests")("client", "run in client mode reading CSV")("book",
+				"run in order book mode on symbol --symbol")("symbol",
+				boost::program_options::value<std::string>(),
+				"symbol to run order book for --book mode")("output",
+				"run in output logger more")("port",
+				boost::program_options::value<unsigned short>()->default_value(
+						1234), "set multicast UDP port")("filename",
+				boost::program_options::value<std::string>(),
+				"path to .CSV for --client mode");
+
+		boost::program_options::variables_map variablesMap;
+		boost::program_options::store(
+				boost::program_options::parse_command_line(argc, argv, desc),
+				variablesMap);
+		boost::program_options::notify(variablesMap);
+
+		if (variablesMap.count("help")) {
+			std::cout << desc << "\n";
+			return 1;
+		}
+
+		if (variablesMap.count("port")) {
+			g_exchangeMulticastUdpPort =
+					variablesMap["port"].as<unsigned short>();
+			BOOST_LOG_TRIVIAL(info)
+			<< "In main() setting UDP multicast port["
+					<< g_exchangeMulticastUdpPort << "]\n";
+		}
+
+		if (variablesMap.count("test")) {
+			init_logging("test");
+
+			BOOST_LOG_TRIVIAL(info)
+			<< "In main() from main.cpp RUN_ALL_TESTS starting\n";
+			testing::InitGoogleTest(&argc, argv);
+			returnValue = RUN_ALL_TESTS();
+			BOOST_LOG_TRIVIAL(info)
+			<< "In main() from main.cpp RUN_ALL_TESTS returnValue["
+					<< returnValue << "]\n";
+		} else if (variablesMap.count("client")) {
+			init_logging("client");
+			if (variablesMap.count("filename")) {
+
+				std::string filename =
+						variablesMap["filename"].as<std::string>();
+
+				BOOST_LOG_TRIVIAL(info)
+				<< "In main() running as 'client' reader orders from filename["
+						<< filename << "] broadcasting to UDP multicast port["
+						<< g_exchangeMulticastUdpPort << "]\n";
+
+				returnValue = run_in_client_mode(filename);
+
+			} else {
+				std::cerr << "--client mode is missing --filename option\n";
+			}
+		} else if (variablesMap.count("book")) {
+			init_logging("book");
+			if (variablesMap.count("symbol")) {
+
+				std::string symbol = variablesMap["symbol"].as<std::string>();
+
+				BOOST_LOG_TRIVIAL(info)
+				<< "In main() running in order 'book' mode for symbol["
+						<< symbol << "] reading from UDP multicast port["
+						<< g_exchangeMulticastUdpPort << "]\n";
+
+				returnValue = run_in_order_book_mode(symbol);
+
+			} else {
+				std::cerr << "--book mode is missing --symbol option\n";
+			}
+		} else if (variablesMap.count("output")) {
+			init_logging("output");
+
+			BOOST_LOG_TRIVIAL(info)
+					<< "In main() running in 'output' mode reading from UDP multicast port["
+					<< g_exchangeMulticastUdpPort << "]\n";
+
+			returnValue = run_in_output_mode();
+
+		} else {
+			std::cerr << "Missing mode" << "\n";
+			std::cerr << desc << "\n";
+			return 1;
+		}
+
+	} catch (const std::exception &ex) {
+		std::cerr << ex.what() << '\n';
+		returnValue = -1;
+	}
+
+	BOOST_LOG_TRIVIAL(info)
 	<< "main exiting";
-	return 0;
+	return returnValue;
 }
 

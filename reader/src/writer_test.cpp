@@ -6,15 +6,15 @@
 #include "order.pb.h"
 #include "proto_writer.h"
 
-const unsigned short EXCHANGE_MESSAGE_UDP_MULTICAST_PORT = 1234;
+const unsigned short _exchange_multicast_udp_port = 1234;
 
 TEST(ProtobufWriterSuite, sendNewOrder) {
 
-	ProtoWriter protowriter(EXCHANGE_MESSAGE_UDP_MULTICAST_PORT);
+	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
 	uint64_t sequenceNumber = 0;
 
-	for (uint32_t order = 0; order < 100; ++order) {
+	for (uint32_t order = 0; order < 10; ++order) {
 		exchange::ExchangeMessage exchangeMessage;
 		exchangeMessage.set_sequencenumber(sequenceNumber++);
 		auto newOrder = new exchange::NewOrder();
