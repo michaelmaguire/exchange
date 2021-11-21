@@ -41,19 +41,19 @@ Writer::~Writer() {
 	}
 }
 
-void Writer::send(const std::string &data) {
+void Writer::send(boost::asio::streambuf & output_streambuf_to_send) {
 
 	boost::system::error_code e;
 	boost::asio::socket_base::message_flags flags = { 0 };
 
-	_socket.send_to(boost::asio::buffer(data), _endpoint, flags, e);
+	std::size_t sizeSent = _socket.send_to(output_streambuf_to_send.data(), _endpoint, flags, e);
 
 	if (e) {
 		BOOST_LOG_SEV(_lg, error)
 		<< "Writer::send error _socket.send_to[" << e.message() << "]";
 	} else {
 		BOOST_LOG_SEV(_lg, info)
-		<< "Writer::send  _socket.send_to[" << data << "]";
+		<< "Writer::send  _socket.send_to sizeSent[" << sizeSent << "]";
 	}
 
 }

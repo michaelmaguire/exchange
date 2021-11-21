@@ -10,7 +10,7 @@ public:
 	Writer();
 	~Writer();
 	void setup(unsigned short port);
-	void send(const std::string &data);
+	void send(boost::asio::streambuf & output_streambuf_to_send);
 private:
 
 	boost::asio::io_service _ioService;
