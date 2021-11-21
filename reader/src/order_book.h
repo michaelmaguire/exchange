@@ -85,6 +85,8 @@ public:
 	friend std::ostream& operator<<(std::ostream &os, const OrderBook &ob);
 
 	void addOrder(const Order &order);
+	void cancelOrder(uint32_t user, uint32_t userOrder);
+	void flush();
 
 	// Returns the top of the order book, first BYE, second SELL.
 	const std::pair<Order, Order> top() const;
@@ -99,7 +101,8 @@ private:
 	ORDERS_TYPE _buyOrders;
 	ORDERS_TYPE _sellOrders;
 
-	mutable boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
+	mutable boost::log::sources::severity_logger<
+			boost::log::trivial::severity_level> _lg;
 
 };
 

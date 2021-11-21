@@ -6,6 +6,11 @@
 #define ORDER_BOOK_READER_H_
 
 #include "proto_reader.h"
+#include "order_book.h"
+
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/sources/severity_logger.hpp>
 
 class OrderBookReader: public ProtoReader {
 public:
@@ -17,6 +22,10 @@ protected:
 
 private:
 	std::string _symbol;
+
+	mutable boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
+
+	OrderBook _orderBook;
 };
 
 #endif /* ORDER_BOOK_READER_H_ */

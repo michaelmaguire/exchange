@@ -157,6 +157,21 @@ void OrderBook::addOrder(const Order &order) {
 
 }
 
+void OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
+
+}
+
+void OrderBook::flush() {
+	BOOST_LOG_SEV(_lg, info)
+	<< "OrderBook::flush before flush [" << *this << "]";
+
+	_buyOrders.clear();
+	_sellOrders.clear();
+
+	BOOST_LOG_SEV(_lg, info)
+	<< "OrderBook::flush after flush [" << *this << "]";
+}
+
 // Returns the top of the order book, first BYE, second SELL.
 const std::pair<Order, Order> OrderBook::top() const {
 
