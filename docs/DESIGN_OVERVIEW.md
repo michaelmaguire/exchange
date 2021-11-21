@@ -1,6 +1,6 @@
 # Basic design today
 
-A set of processes are arranged around a UDP multicast 'bus'.  Input nodes on the edge of the system will accept order inputs from external sources (such as, our test app or our CSV reader) and introduce orders into the system by serializing the orders as UDP message packets.  
+We propose a set of processes distributed around a UDP multicast 'bus'.  Input nodes on the edge of the system will accept order inputs from external sources (such as, our test app or our CSV reader) and introduce orders into the system by serializing the orders as UDP message packets.  
 
 
 ![Initial system](/docs/Today_UDP_multicast_exchange_diagram.jpeg)
