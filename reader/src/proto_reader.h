@@ -2,8 +2,8 @@
  * Copyright: 2021, Michael Maguire
  */
 
-#ifndef READER_H_
-#define READER_H_
+#ifndef PROTO_READER_H_
+#define PROTO_READER_H_
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
@@ -11,15 +11,22 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 
-class Reader {
+#include "order.pb.h"
+
+class ProtoReader {
 
 public:
 
 	static const size_t max_buffer_size = 1024;
 
-	explicit Reader(unsigned short port);
+	explicit ProtoReader(unsigned short port);
 	void run();
-	~Reader();
+	virtual ~ProtoReader();
+
+protected:
+	// Override this to implement your protobuffer read handling.
+	virtual void do_read(exchange::ExchangeMessage &exchangeMessage) = 0;
+
 private:
 	void start_receive();
 	void handle_receive(const boost::system::error_code &e,
@@ -36,4 +43,4 @@ private:
 
 };
 
-#endif /* READER_H_ */
+#endif /* PROTO_READER_H_ */

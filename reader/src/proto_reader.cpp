@@ -2,25 +2,34 @@
  * Copyright: 2021, Michael Maguire
  */
 
-#include "reader.h"
-
 #include <boost/bind/bind.hpp>
 #include "google/protobuf/io/coded_stream.h"
 #include "google/protobuf/io/zero_copy_stream_impl.h"
-
-#include "order.pb.h"
+#include "proto_reader.h"
 
 using boost::asio::ip::udp;
 using namespace boost::log::trivial;
 
-Reader::Reader(unsigned short port) :
-		_ioService(), _socket(_ioService, udp::endpoint(udp::v4(), port)) {
+ProtoReader::ProtoReader(unsigned short listenPort) :
+		_ioService(), _socket(_ioService) {
+
+	// Create the socket so that multiple may be bound to the same address.
+	boost::asio::ip::udp::endpoint listenEndpoint(
+			boost::asio::ip::address::from_string("0.0.0.0"), listenPort);
+	_socket.open(listenEndpoint.protocol());
+	_socket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
+	_socket.bind(listenEndpoint);
+
+	// Join the multicast group.
+	_socket.set_option(
+			boost::asio::ip::multicast::join_group(
+					boost::asio::ip::address::from_string("239.255.0.1")));
 
 	start_receive();
 
 }
 
-Reader::~Reader() {
+ProtoReader::~ProtoReader() {
 	boost::system::error_code e;
 	_socket.close(e);
 
@@ -33,7 +42,7 @@ Reader::~Reader() {
 	}
 }
 
-void Reader::run() {
+void ProtoReader::run() {
 	boost::system::error_code e;
 	_ioService.run(e);
 	if (e) {
@@ -45,17 +54,17 @@ void Reader::run() {
 	}
 }
 
-void Reader::start_receive() {
+void ProtoReader::start_receive() {
 
 	boost::asio::ip::udp::endpoint endpoint;
 
 	_socket.async_receive_from(boost::asio::buffer(_receive_buffer), endpoint,
-			boost::bind(&Reader::handle_receive, this,
+			boost::bind(&ProtoReader::handle_receive, this,
 					boost::asio::placeholders::error,
 					boost::asio::placeholders::bytes_transferred));
 }
 
-void Reader::handle_receive(const boost::system::error_code &e,
+void ProtoReader::handle_receive(const boost::system::error_code &e,
 		std::size_t bytes_transferred) {
 	if (e) {
 		BOOST_LOG_SEV(_lg, error)
@@ -88,6 +97,8 @@ void Reader::handle_receive(const boost::system::error_code &e,
 						<< packetVersion << "]";
 			} else {
 
+				// Note: messageSize unused at the moment but eventually we should perform validation.
+				// Will become especially important if we batch multiple message in a UDP packet.
 				::google::protobuf::uint32 messageSize;
 				codedInputStream.ReadVarint32(&messageSize);
 
@@ -98,6 +109,10 @@ void Reader::handle_receive(const boost::system::error_code &e,
 				<< "Reader::handle_receive [" << bytes_transferred
 						<< "] _receive_buffer[" << exchangeMessage.DebugString()
 						<< "]";
+
+				// Call subclass' do_read implementation.
+				do_read(exchangeMessage);
+
 			}
 		}
 

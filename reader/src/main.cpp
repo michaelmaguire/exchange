@@ -23,7 +23,7 @@
 
 #include <gtest/gtest.h>
 
-#include "reader.h"
+#include "order_book_reader.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -67,8 +67,8 @@ int run_in_client_mode(const std::string &filename) {
 }
 
 int run_in_order_book_mode(const std::string &symbol) {
-	Reader reader(g_exchangeMulticastUdpPort);
-	reader.run();
+	OrderBookReader orderBookReader(g_exchangeMulticastUdpPort, symbol);
+	orderBookReader.run();
 
 	return 1;
 }
@@ -143,10 +143,10 @@ GTEST_API_ int main(int argc, char **argv) {
 				std::cerr << "--client mode is missing --filename option\n";
 			}
 		} else if (variablesMap.count("book")) {
-			init_logging("book");
 			if (variablesMap.count("symbol")) {
 
 				std::string symbol = variablesMap["symbol"].as<std::string>();
+				init_logging("book_" + symbol);
 
 				BOOST_LOG_TRIVIAL(info)
 				<< "In main() running in order 'book' mode for symbol["
