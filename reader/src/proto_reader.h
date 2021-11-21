@@ -32,7 +32,6 @@ protected:
 	mutable boost::log::sources::severity_logger<
 			boost::log::trivial::severity_level> _lg;
 
-private:
 	virtual void start_receive();
 	virtual void handle_receive(const boost::system::error_code &e,
 			std::size_t bytes_transferred);
