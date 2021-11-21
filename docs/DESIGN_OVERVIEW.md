@@ -1,9 +1,13 @@
 # Basic design today
 
-A set of processes are arranged around a UDP multicast 'bus'.  Input nodes on the edge of the system will accept order inputs from external sources (such as other financial institutions or an exchanges trading web front end) and introduce orders into the system by serializing the orders as UDP message packets.  
+A set of processes are arranged around a UDP multicast 'bus'.  Input nodes on the edge of the system will accept order inputs from external sources (such as, our test app or our CSV reader) and introduce orders into the system by serializing the orders as UDP message packets.  
 
 
 ![Initial system](/docs/Today_UDP_multicast_exchange_diagram.jpeg)
+
+
+The design of the system effectively represents an inversion of the traditional database-centered approach from decades ago.
+
 
 Currently Google Protobufs was chosen to encode message data for UDP package transmission, but different, possibly more efficient packet formats could we switched to in the future thanks to a 4 byte little-endian packet "magic" identifier and 4 byte version number prefixed into each packet (always version your formats!).
 
@@ -23,5 +27,13 @@ In our case we have an output edge node writing to the console.
 
 
 # Possible enhancements
+
+Input edge nodes could be expanded to support a variety to external connectors.  For example a FIX input connected could be added to allow connectivity from banks and other financial institutions.  
+
+A standards-based FIX input connector would also immediately make available a plethora of off-the-shelf FIX exchange testing tools for end-to-end testing.
+
+Rather than a single UDP multicase bus, we could choose to use multiple UDP multicast buses in order to avoid overloading.  For instance, order input could be handled on one bus, which trade confirmation notices could be passed on a different bus. 
+
+In terms of hardware implementation, a separate, dedicated network card could be used for the multicast bus communication.  Indeed, separate physical cards could be used for order versus trade confirmation channels.   Different high speed technologies rather than UDP could be explored as well.
 
 ![Possible enhancements](/docs/Possible_UDP_multicast_exchange_diagram.jpeg)
