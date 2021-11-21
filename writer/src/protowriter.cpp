@@ -20,6 +20,11 @@ void ProtoWriter::send(const google::protobuf::Message & message) {
     {
       ::google::protobuf::io::OstreamOutputStream rawOutputStream(&outputStream);
       ::google::protobuf::io::CodedOutputStream codedOutputStream(&rawOutputStream);
+
+      const ::google::protobuf::uint32 PACKET_MAGIC = 6664; // rudimentary packet identification
+      const ::google::protobuf::uint32 PACKET_VERSION = 1; // room to grow
+      codedOutputStream.WriteLittleEndian32(PACKET_MAGIC);
+      codedOutputStream.WriteLittleEndian32(PACKET_VERSION);
       codedOutputStream.WriteVarint32(message.ByteSize());
       message.SerializeToCodedStream(&codedOutputStream);
     }

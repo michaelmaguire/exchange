@@ -1,6 +1,10 @@
 #include "reader.h"
 
 #include <boost/bind/bind.hpp>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/io/zero_copy_stream_impl.h"
+
+#include "order.pb.h"
 
 using boost::asio::ip::udp;
 using namespace boost::log::trivial;
@@ -56,12 +60,42 @@ void Reader::handle_receive(const boost::system::error_code &e,
 	}
 	if (!e || e == boost::asio::error::message_size) {
 
-		std::string message(_receive_buffer.begin(),
-				_receive_buffer.begin() + bytes_transferred);
+		const ::google::protobuf::uint32 PACKET_MAGIC = 6664; // rudimentary packet identification
+		const ::google::protobuf::uint32 PACKET_VERSION = 1; // room to grow
 
-		BOOST_LOG_SEV(_lg, info)
-		<< "Reader::handle_receive [" << bytes_transferred
-				<< "] _receive_buffer[" << message << "]";
+		google::protobuf::io::ArrayInputStream arrayInputStream(
+				_receive_buffer.data(), max_buffer_size);
+		google::protobuf::io::CodedInputStream codedInputStream(
+				&arrayInputStream);
+
+		::google::protobuf::uint32 packetMagic;
+		codedInputStream.ReadLittleEndian32(&packetMagic);
+		if (PACKET_MAGIC != packetMagic) {
+			BOOST_LOG_SEV(_lg, error)
+			<< "Reader::handle_receive received bad packetMagic[" << packetMagic
+					<< "]";
+		} else {
+
+			::google::protobuf::uint32 packetVersion;
+			codedInputStream.ReadLittleEndian32(&packetVersion);
+			if (PACKET_VERSION != packetVersion) {
+				BOOST_LOG_SEV(_lg, error)
+				<< "Reader::handle_receive received bad packetVersion["
+						<< packetVersion << "]";
+			} else {
+
+				::google::protobuf::uint32 messageSize;
+				codedInputStream.ReadVarint32(&messageSize);
+
+				exchange::ExchangeMessage exchangeMessage;
+				exchangeMessage.ParseFromCodedStream(&codedInputStream);
+
+				BOOST_LOG_SEV(_lg, info)
+				<< "Reader::handle_receive [" << bytes_transferred
+						<< "] _receive_buffer[" << exchangeMessage.DebugString()
+						<< "]";
+			}
+		}
 
 		start_receive();
 	}
