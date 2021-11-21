@@ -37,6 +37,12 @@ Rather than a single UDP multicast bus, we could choose to use multiple UDP mult
 
 Additionally, to protect system integrity, a decision might be made that one 'request' multicast channel is available for all nodes to advertise and make order requests, but authoritative commands will only be issued by a central 'bus manager' node to another multicast command channel.  The bus manager node would verify order integrity of a message received on the 'request' channel before re-publishing the message on the command channel.  Order book processing nodes would only heed orders sent by the bus manager on the command channel.
 
+Several kinds of database nodes would listen on the bus for all messages and store them appropriately.  
+
+A database technology with native support for our protobuf packets such as MongoDB could be used to store each message.  This would provide replay functionality for testing parallel QA systems, as well as compliance support for understanding issues that arise.
+
+Other database nodes might filter for orders in order to collate them into a SQL database with rows for each order which get updated as the order progresses through its stages towards completion.  Similarly this might be done for trade confirmations.  These databases would be useful for batch and interactive queries of order status.
+
 In terms of hardware implementation, a separate, dedicated network card could be used for the multicast bus communication.  Indeed, separate physical cards could be used for order versus trade confirmation channels.
 
 ![Possible enhancements](/docs/Possible_UDP_multicast_exchange_diagram.jpeg)
