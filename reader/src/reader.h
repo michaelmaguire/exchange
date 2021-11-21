@@ -1,3 +1,9 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
+#ifndef READER_H_
+#define READER_H_
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
@@ -28,3 +34,5 @@ private:
 	boost::array<char, max_buffer_size> _receive_buffer;
 
 };
+
+#endif /* READER_H_ */

@@ -1,8 +1,5 @@
 /*
- * main.cpp
- *
- *  Created on: 20 Nov 2021
- *      Author: michaelmaguire
+ * Copyright: 2021, Michael Maguire
  */
 
 #include <iostream>

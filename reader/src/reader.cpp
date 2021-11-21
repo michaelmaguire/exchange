@@ -1,3 +1,7 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
 #include "reader.h"
 
 #include <boost/bind/bind.hpp>

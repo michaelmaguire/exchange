@@ -1,7 +1,10 @@
-#include "protowriter.h"
+/*
+ * Copyright: 2021, Michael Maguire
+ */
 
 #include "google/protobuf/io/coded_stream.h"
 #include "google/protobuf/io/zero_copy_stream_impl.h"
+#include "proto_writer.h"
 
 
 ProtoWriter::ProtoWriter(unsigned short port) : Writer(port) {

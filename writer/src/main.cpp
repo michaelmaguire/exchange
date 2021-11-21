@@ -1,3 +1,7 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/filesystem.hpp>

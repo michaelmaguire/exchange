@@ -1,3 +1,7 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
 #include "writer.h"
 
 using boost::asio::ip::udp;

@@ -1,3 +1,7 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
 #include <boost/asio.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>

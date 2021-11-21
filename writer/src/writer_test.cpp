@@ -1,6 +1,10 @@
+/*
+ * Copyright: 2021, Michael Maguire
+ */
+
 #include <gtest/gtest.h>
-#include "protowriter.h"
 #include "order.pb.h"
+#include "proto_writer.h"
 
 
 TEST(ProtobufWriterSuite, sendNewOrder) {
