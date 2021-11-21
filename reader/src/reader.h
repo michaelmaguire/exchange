@@ -29,7 +29,8 @@ private:
 
 	boost::asio::ip::udp::socket _socket;
 
-	boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
+	mutable boost::log::sources::severity_logger<
+			boost::log::trivial::severity_level> _lg;
 
 	boost::array<char, max_buffer_size> _receive_buffer;
 

@@ -23,6 +23,7 @@ private:
 
 	boost::asio::ip::udp::endpoint _endpoint;
 
-	boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
+	mutable boost::log::sources::severity_logger<
+			boost::log::trivial::severity_level> _lg;
 
 };

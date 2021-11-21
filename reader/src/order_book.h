@@ -14,7 +14,7 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 
-
+// We use Quantity as an abstraction for an entry in our PriceLevel.
 class Quantity {
 public:
 	explicit Quantity(uint32_t quantity, uint32_t user, uint32_t userOrder);
@@ -29,6 +29,33 @@ public:
 
 };
 
+// We don't use Order for our internal storage, but we do use it for input and output.
+class Order {
+public:
+	enum Side {
+		BUY = 0, SELL = 1
+	};
+
+	Order(Side side, uint32_t price, uint32_t quantity, uint32_t user,
+			uint32_t userOrder);
+	Order(Side side, uint32_t price, const Quantity &quantity);
+	virtual ~Order();
+	friend std::ostream& operator<<(std::ostream &os, const Order &q);
+
+// I've chosen not to use accessors for these at this level.
+	Side _side;
+
+	uint32_t _price;
+	uint32_t _quantity;
+
+	uint32_t _user;			// required for cancellation and trade confirmation
+	uint32_t _userOrder;	// required for cancellation and trade confirmation
+
+};
+
+std::ostream& operator<<(std::ostream &os, const Order::Side &s);
+
+// We use PriceLevel to store orders at a given price.
 class PriceLevel {
 public:
 	explicit PriceLevel(uint32_t price);
@@ -40,19 +67,30 @@ public:
 	// I've chosen not to use an accessor for this at this level.
 	uint32_t _price;
 
+	Quantity& front();
+	Quantity& back();
+
 private:
 
 	std::vector<Quantity> _quantitiesInTimeOrder;
 };
 
+// Our currently implementation of an OrderBook is two ordered maps, one for each of buy and sell sides.
+// Each map associates a given price to a PriceLevel structure that tracks Quantities for individual orders.
+// We accept the Orders structure for adding new orders as well as returning information about top of the book.
 class OrderBook {
 public:
 	OrderBook();
 	virtual ~OrderBook();
 	friend std::ostream& operator<<(std::ostream &os, const OrderBook &ob);
 
-	void addOrder(bool isBuy, uint32_t price, uint32_t quantity, uint32_t user,
-			uint32_t userOrder);
+	void addOrder(const Order &order);
+
+	// Returns the top of the order book, first BYE, second SELL.
+	const std::pair<Order, Order> top() const;
+
+	// Reconcile the book to see if a trade can be performed.
+	void cross();
 
 private:
 
@@ -61,8 +99,7 @@ private:
 	ORDERS_TYPE _buyOrders;
 	ORDERS_TYPE _sellOrders;
 
-
-	boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
+	mutable boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
 
 };
 
