@@ -8,7 +8,7 @@ A set of processes are arranged around a UDP multicast 'bus'.  Input nodes on th
 
 The design of the system effectively represents an inversion of the traditional database-centered approach from decades ago.  Rather a massive central (Oracle?) database with applications each making queries, we have a decentralized cluster of applications circulating binary sync message amonsgt themselves, filtering and acting on only those relevant to themselves.
 
-Currently Google Protobufs was chosen to encode message data for UDP package transmission, but different, possibly more efficient packet formats could we switched to in the future thanks to a 4 byte little-endian packet "magic" identifier and 4 byte version number prefixed into each packet (always version your formats!).
+Currently Google Protobufs was chosen to encode message data for UDP packet transmission, but different, possibly more efficient packet formats could we switched to in the future thanks to a 4 byte little-endian packet "magic" identifier and 4 byte version number prefixed into each packet (always version your formats!).
 
 For modularity, simplicity and performance (avoiding interthread communication bottlenecks and complexity), the order book for an individual security is individual processes.  That is, to run an order book for `IBM`, we arrange for an instance of the order book application to be fired up.  
 
