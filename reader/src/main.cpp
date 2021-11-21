@@ -67,7 +67,9 @@ int run_in_client_mode(const std::string &filename) {
 }
 
 int run_in_order_book_mode(const std::string &symbol) {
-	OrderBookReader orderBookReader(g_exchangeMulticastUdpPort, symbol);
+
+	ProtoReader orderBookReader(g_exchangeMulticastUdpPort);
+	//OrderBookReader orderBookReader(g_exchangeMulticastUdpPort, symbol);
 	orderBookReader.run();
 
 	return 1;

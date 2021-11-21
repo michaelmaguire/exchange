@@ -14,7 +14,8 @@ OrderBookReader::OrderBookReader(unsigned short port, const std::string symbol) 
 OrderBookReader::~OrderBookReader() {
 }
 
-void OrderBookReader::do_read(exchange::ExchangeMessage &exchangeMessage) {
+void OrderBookReader::do_read(
+		const exchange::ExchangeMessage &exchangeMessage) {
 #if 0
 	if (exchangeMessage.has_neworder()) {
 		BOOST_LOG_SEV(_lg, info)

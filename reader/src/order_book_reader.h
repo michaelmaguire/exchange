@@ -18,12 +18,10 @@ public:
 	virtual ~OrderBookReader();
 
 protected:
-	virtual void do_read(exchange::ExchangeMessage &exchangeMessage);
+	virtual void do_read(const exchange::ExchangeMessage &exchangeMessage);
 
 private:
 	std::string _symbol;
-
-	mutable boost::log::sources::severity_logger<boost::log::trivial::severity_level> _lg;
 
 	OrderBook _orderBook;
 };
