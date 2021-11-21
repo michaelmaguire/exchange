@@ -10,7 +10,7 @@
 
 class OrderBookReader: public ProtoReader {
 public:
-	OrderBookReader(unsigned short port, const std::string symbol);
+	OrderBookReader(const std::string symbol);
 	virtual ~OrderBookReader();
 
 protected:

@@ -10,8 +10,18 @@
 using boost::asio::ip::udp;
 using namespace boost::log::trivial;
 
-ProtoReader::ProtoReader(unsigned short listenPort) :
+ProtoReader::ProtoReader() :
 		_ioService(), _socket(_ioService) {
+
+	BOOST_LOG_SEV(_lg, info)
+	<< "ProtoReader::ProtoReader constructor";
+
+}
+
+void ProtoReader::setup(unsigned short listenPort) {
+
+	BOOST_LOG_SEV(_lg, info)
+	<< "ProtoReader::ProtoReader setup";
 
 	// Create the socket so that multiple may be bound to the same address.
 	boost::asio::ip::udp::endpoint listenEndpoint(

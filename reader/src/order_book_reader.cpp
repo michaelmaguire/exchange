@@ -6,8 +6,11 @@
 
 using namespace boost::log::trivial;
 
-OrderBookReader::OrderBookReader(unsigned short port, const std::string symbol) :
-		ProtoReader(port), _symbol(symbol) {
+OrderBookReader::OrderBookReader(const std::string symbol) :
+		_symbol(symbol) {
+
+	BOOST_LOG_SEV(_lg, info)
+	<< "OrderBookReader::OrderBookReader constructor";
 
 }
 
@@ -16,15 +19,14 @@ OrderBookReader::~OrderBookReader() {
 
 void OrderBookReader::do_read(
 		const exchange::ExchangeMessage &exchangeMessage) {
-#if 0
 	if (exchangeMessage.has_neworder()) {
 		BOOST_LOG_SEV(_lg, info)
 		<< "OrderBookReader::do_read handling neworder";
 
-		//auto n = exchangeMessage.neworder();
-		//Order order((n.side() == n.BUY ? Order::BUY : Order::SELL), n.price(),
-		//		n.quantity(), n.user(), n.userorder());
-		//_orderBook.addOrder(order);
+		auto n = exchangeMessage.neworder();
+		Order order((n.side() == n.BUY ? Order::BUY : Order::SELL), n.price(),
+				n.quantity(), n.user(), n.userorder());
+		_orderBook.addOrder(order);
 
 	} else if (exchangeMessage.has_cancelorder()) {
 		BOOST_LOG_SEV(_lg, info)
@@ -45,6 +47,5 @@ void OrderBookReader::do_read(
 		<< "OrderBookReader::do_read ignoring this message type";
 
 	}
-#endif
 }
 

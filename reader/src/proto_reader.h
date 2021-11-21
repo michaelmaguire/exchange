@@ -19,7 +19,8 @@ public:
 
 	static const size_t max_buffer_size = 1024;
 
-	explicit ProtoReader(unsigned short port);
+	ProtoReader();
+	virtual void setup(unsigned short listenPort);
 	virtual void run();
 	virtual ~ProtoReader();
 
