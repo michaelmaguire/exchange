@@ -11,7 +11,7 @@ public:
 
 	static const size_t max_buffer_size = 1024;
 
-	Reader(unsigned short port);
+	explicit Reader(unsigned short port);
 	void run();
 	~Reader();
 private:

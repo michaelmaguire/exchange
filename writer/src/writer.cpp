@@ -3,12 +3,8 @@
 using boost::asio::ip::udp;
 using namespace boost::log::trivial;
 
-Writer::Writer() :
+Writer::Writer(unsigned short port) :
 		_ioService(), _socket(_ioService) {
-
-}
-
-void Writer::setup(unsigned short port) {
 
 	boost::system::error_code e;
 

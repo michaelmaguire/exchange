@@ -7,10 +7,10 @@ class Writer {
 
 public:
 
-	Writer();
+	explicit Writer(unsigned short port);
 	~Writer();
-	void setup(unsigned short port);
-	void send(boost::asio::streambuf & output_streambuf_to_send);
+	void send(boost::asio::streambuf &output_streambuf_to_send);
+
 private:
 
 	boost::asio::io_service _ioService;
