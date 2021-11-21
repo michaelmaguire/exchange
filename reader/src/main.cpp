@@ -50,6 +50,9 @@ void init_logging(int argc, char **argv) {
 	sink->flush();
 }
 
+
+const unsigned short EXCHANGE_MESSAGE_UDP_MULTICAST_PORT = 1234;
+
 GTEST_API_ int main(int argc, char **argv) {
 	init_logging(argc, argv);
 
@@ -72,7 +75,7 @@ GTEST_API_ int main(int argc, char **argv) {
 		}
 	}
 
-	Reader reader(1234);
+	Reader reader(EXCHANGE_MESSAGE_UDP_MULTICAST_PORT);
 	reader.run();
 
 	BOOST_LOG_SEV(lg, info)

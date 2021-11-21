@@ -6,13 +6,17 @@
 #include "order.pb.h"
 #include "proto_writer.h"
 
+const unsigned short EXCHANGE_MESSAGE_UDP_MULTICAST_PORT = 1234;
 
 TEST(ProtobufWriterSuite, sendNewOrder) {
 
-	ProtoWriter protowriter(1234);
+	ProtoWriter protowriter(EXCHANGE_MESSAGE_UDP_MULTICAST_PORT);
 
-	for( uint32_t order = 0; order < 100; ++order ) {
+	uint64_t sequenceNumber = 0;
+
+	for (uint32_t order = 0; order < 100; ++order) {
 		exchange::ExchangeMessage exchangeMessage;
+		exchangeMessage.set_sequencenumber(sequenceNumber++);
 		auto newOrder = new exchange::NewOrder();
 		newOrder->set_user(1);
 		newOrder->set_symbol("IBM");

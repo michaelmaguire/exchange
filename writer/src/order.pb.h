@@ -47,7 +47,7 @@ struct TableStruct_order_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -67,12 +67,24 @@ extern FlushOrderDefaultTypeInternal _FlushOrder_default_instance_;
 class NewOrder;
 struct NewOrderDefaultTypeInternal;
 extern NewOrderDefaultTypeInternal _NewOrder_default_instance_;
+class OrderAcknowledgement;
+struct OrderAcknowledgementDefaultTypeInternal;
+extern OrderAcknowledgementDefaultTypeInternal _OrderAcknowledgement_default_instance_;
+class TopOfBookChange;
+struct TopOfBookChangeDefaultTypeInternal;
+extern TopOfBookChangeDefaultTypeInternal _TopOfBookChange_default_instance_;
+class TradeConfirmation;
+struct TradeConfirmationDefaultTypeInternal;
+extern TradeConfirmationDefaultTypeInternal _TradeConfirmation_default_instance_;
 }  // namespace exchange
 PROTOBUF_NAMESPACE_OPEN
 template<> ::exchange::CancelOrder* Arena::CreateMaybeMessage<::exchange::CancelOrder>(Arena*);
 template<> ::exchange::ExchangeMessage* Arena::CreateMaybeMessage<::exchange::ExchangeMessage>(Arena*);
 template<> ::exchange::FlushOrder* Arena::CreateMaybeMessage<::exchange::FlushOrder>(Arena*);
 template<> ::exchange::NewOrder* Arena::CreateMaybeMessage<::exchange::NewOrder>(Arena*);
+template<> ::exchange::OrderAcknowledgement* Arena::CreateMaybeMessage<::exchange::OrderAcknowledgement>(Arena*);
+template<> ::exchange::TopOfBookChange* Arena::CreateMaybeMessage<::exchange::TopOfBookChange>(Arena*);
+template<> ::exchange::TradeConfirmation* Arena::CreateMaybeMessage<::exchange::TradeConfirmation>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace exchange {
 
@@ -100,6 +112,31 @@ inline bool NewOrder_SideType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NewOrder_SideType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<NewOrder_SideType>(
     NewOrder_SideType_descriptor(), name, value);
+}
+enum TopOfBookChange_SideType : int {
+  TopOfBookChange_SideType_BUY = 0,
+  TopOfBookChange_SideType_SELL = 1,
+  TopOfBookChange_SideType_TopOfBookChange_SideType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  TopOfBookChange_SideType_TopOfBookChange_SideType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool TopOfBookChange_SideType_IsValid(int value);
+constexpr TopOfBookChange_SideType TopOfBookChange_SideType_SideType_MIN = TopOfBookChange_SideType_BUY;
+constexpr TopOfBookChange_SideType TopOfBookChange_SideType_SideType_MAX = TopOfBookChange_SideType_SELL;
+constexpr int TopOfBookChange_SideType_SideType_ARRAYSIZE = TopOfBookChange_SideType_SideType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TopOfBookChange_SideType_descriptor();
+template<typename T>
+inline const std::string& TopOfBookChange_SideType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TopOfBookChange_SideType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TopOfBookChange_SideType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    TopOfBookChange_SideType_descriptor(), enum_t_value);
+}
+inline bool TopOfBookChange_SideType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TopOfBookChange_SideType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TopOfBookChange_SideType>(
+    TopOfBookChange_SideType_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -608,6 +645,583 @@ class FlushOrder final :
 };
 // -------------------------------------------------------------------
 
+class OrderAcknowledgement final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.OrderAcknowledgement) */ {
+ public:
+  inline OrderAcknowledgement() : OrderAcknowledgement(nullptr) {}
+  ~OrderAcknowledgement() override;
+  explicit constexpr OrderAcknowledgement(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OrderAcknowledgement(const OrderAcknowledgement& from);
+  OrderAcknowledgement(OrderAcknowledgement&& from) noexcept
+    : OrderAcknowledgement() {
+    *this = ::std::move(from);
+  }
+
+  inline OrderAcknowledgement& operator=(const OrderAcknowledgement& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OrderAcknowledgement& operator=(OrderAcknowledgement&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const OrderAcknowledgement& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OrderAcknowledgement* internal_default_instance() {
+    return reinterpret_cast<const OrderAcknowledgement*>(
+               &_OrderAcknowledgement_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(OrderAcknowledgement& a, OrderAcknowledgement& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OrderAcknowledgement* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OrderAcknowledgement* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OrderAcknowledgement* New() const final {
+    return new OrderAcknowledgement();
+  }
+
+  OrderAcknowledgement* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OrderAcknowledgement>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const OrderAcknowledgement& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const OrderAcknowledgement& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OrderAcknowledgement* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "exchange.OrderAcknowledgement";
+  }
+  protected:
+  explicit OrderAcknowledgement(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSymbolFieldNumber = 99,
+    kUserFieldNumber = 1,
+    kUserOrderFieldNumber = 2,
+  };
+  // string symbol = 99;
+  void clear_symbol();
+  const std::string& symbol() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_symbol(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_symbol();
+  PROTOBUF_MUST_USE_RESULT std::string* release_symbol();
+  void set_allocated_symbol(std::string* symbol);
+  private:
+  const std::string& _internal_symbol() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_symbol(const std::string& value);
+  std::string* _internal_mutable_symbol();
+  public:
+
+  // uint32 user = 1;
+  void clear_user();
+  ::PROTOBUF_NAMESPACE_ID::uint32 user() const;
+  void set_user(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_user() const;
+  void _internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 userOrder = 2;
+  void clear_userorder();
+  ::PROTOBUF_NAMESPACE_ID::uint32 userorder() const;
+  void set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_userorder() const;
+  void _internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:exchange.OrderAcknowledgement)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr symbol_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 user_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 userorder_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_order_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TradeConfirmation final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.TradeConfirmation) */ {
+ public:
+  inline TradeConfirmation() : TradeConfirmation(nullptr) {}
+  ~TradeConfirmation() override;
+  explicit constexpr TradeConfirmation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TradeConfirmation(const TradeConfirmation& from);
+  TradeConfirmation(TradeConfirmation&& from) noexcept
+    : TradeConfirmation() {
+    *this = ::std::move(from);
+  }
+
+  inline TradeConfirmation& operator=(const TradeConfirmation& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TradeConfirmation& operator=(TradeConfirmation&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const TradeConfirmation& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TradeConfirmation* internal_default_instance() {
+    return reinterpret_cast<const TradeConfirmation*>(
+               &_TradeConfirmation_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(TradeConfirmation& a, TradeConfirmation& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TradeConfirmation* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TradeConfirmation* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline TradeConfirmation* New() const final {
+    return new TradeConfirmation();
+  }
+
+  TradeConfirmation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TradeConfirmation>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const TradeConfirmation& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const TradeConfirmation& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(TradeConfirmation* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "exchange.TradeConfirmation";
+  }
+  protected:
+  explicit TradeConfirmation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserOrderIdBuyFieldNumber = 2,
+    kSymbolFieldNumber = 99,
+    kUserIdBuyFieldNumber = 1,
+    kUserIdSellFieldNumber = 3,
+    kUserOrderIdSellFieldNumber = 4,
+    kPriceFieldNumber = 5,
+    kQuantityFieldNumber = 6,
+  };
+  // string userOrderIdBuy = 2;
+  void clear_userorderidbuy();
+  const std::string& userorderidbuy() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_userorderidbuy(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_userorderidbuy();
+  PROTOBUF_MUST_USE_RESULT std::string* release_userorderidbuy();
+  void set_allocated_userorderidbuy(std::string* userorderidbuy);
+  private:
+  const std::string& _internal_userorderidbuy() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userorderidbuy(const std::string& value);
+  std::string* _internal_mutable_userorderidbuy();
+  public:
+
+  // string symbol = 99;
+  void clear_symbol();
+  const std::string& symbol() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_symbol(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_symbol();
+  PROTOBUF_MUST_USE_RESULT std::string* release_symbol();
+  void set_allocated_symbol(std::string* symbol);
+  private:
+  const std::string& _internal_symbol() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_symbol(const std::string& value);
+  std::string* _internal_mutable_symbol();
+  public:
+
+  // uint32 userIdBuy = 1;
+  void clear_useridbuy();
+  ::PROTOBUF_NAMESPACE_ID::uint32 useridbuy() const;
+  void set_useridbuy(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_useridbuy() const;
+  void _internal_set_useridbuy(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 userIdSell = 3;
+  void clear_useridsell();
+  ::PROTOBUF_NAMESPACE_ID::uint32 useridsell() const;
+  void set_useridsell(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_useridsell() const;
+  void _internal_set_useridsell(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 userOrderIdSell = 4;
+  void clear_userorderidsell();
+  ::PROTOBUF_NAMESPACE_ID::uint32 userorderidsell() const;
+  void set_userorderidsell(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_userorderidsell() const;
+  void _internal_set_userorderidsell(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 price = 5;
+  void clear_price();
+  ::PROTOBUF_NAMESPACE_ID::uint32 price() const;
+  void set_price(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_price() const;
+  void _internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 quantity = 6;
+  void clear_quantity();
+  ::PROTOBUF_NAMESPACE_ID::uint32 quantity() const;
+  void set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_quantity() const;
+  void _internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:exchange.TradeConfirmation)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userorderidbuy_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr symbol_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 useridbuy_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 useridsell_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 userorderidsell_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 price_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 quantity_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_order_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TopOfBookChange final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.TopOfBookChange) */ {
+ public:
+  inline TopOfBookChange() : TopOfBookChange(nullptr) {}
+  ~TopOfBookChange() override;
+  explicit constexpr TopOfBookChange(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TopOfBookChange(const TopOfBookChange& from);
+  TopOfBookChange(TopOfBookChange&& from) noexcept
+    : TopOfBookChange() {
+    *this = ::std::move(from);
+  }
+
+  inline TopOfBookChange& operator=(const TopOfBookChange& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TopOfBookChange& operator=(TopOfBookChange&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const TopOfBookChange& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TopOfBookChange* internal_default_instance() {
+    return reinterpret_cast<const TopOfBookChange*>(
+               &_TopOfBookChange_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(TopOfBookChange& a, TopOfBookChange& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TopOfBookChange* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TopOfBookChange* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline TopOfBookChange* New() const final {
+    return new TopOfBookChange();
+  }
+
+  TopOfBookChange* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TopOfBookChange>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const TopOfBookChange& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const TopOfBookChange& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(TopOfBookChange* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "exchange.TopOfBookChange";
+  }
+  protected:
+  explicit TopOfBookChange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef TopOfBookChange_SideType SideType;
+  static constexpr SideType BUY =
+    TopOfBookChange_SideType_BUY;
+  static constexpr SideType SELL =
+    TopOfBookChange_SideType_SELL;
+  static inline bool SideType_IsValid(int value) {
+    return TopOfBookChange_SideType_IsValid(value);
+  }
+  static constexpr SideType SideType_MIN =
+    TopOfBookChange_SideType_SideType_MIN;
+  static constexpr SideType SideType_MAX =
+    TopOfBookChange_SideType_SideType_MAX;
+  static constexpr int SideType_ARRAYSIZE =
+    TopOfBookChange_SideType_SideType_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  SideType_descriptor() {
+    return TopOfBookChange_SideType_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& SideType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, SideType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function SideType_Name.");
+    return TopOfBookChange_SideType_Name(enum_t_value);
+  }
+  static inline bool SideType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      SideType* value) {
+    return TopOfBookChange_SideType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSymbolFieldNumber = 99,
+    kPriceFieldNumber = 1,
+    kQuantityFieldNumber = 2,
+  };
+  // string symbol = 99;
+  void clear_symbol();
+  const std::string& symbol() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_symbol(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_symbol();
+  PROTOBUF_MUST_USE_RESULT std::string* release_symbol();
+  void set_allocated_symbol(std::string* symbol);
+  private:
+  const std::string& _internal_symbol() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_symbol(const std::string& value);
+  std::string* _internal_mutable_symbol();
+  public:
+
+  // uint32 price = 1;
+  void clear_price();
+  ::PROTOBUF_NAMESPACE_ID::uint32 price() const;
+  void set_price(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_price() const;
+  void _internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 quantity = 2;
+  void clear_quantity();
+  ::PROTOBUF_NAMESPACE_ID::uint32 quantity() const;
+  void set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_quantity() const;
+  void _internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:exchange.TopOfBookChange)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr symbol_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 price_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 quantity_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_order_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ExchangeMessage final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:exchange.ExchangeMessage) */ {
  public:
@@ -650,7 +1264,10 @@ class ExchangeMessage final :
   enum CommandCase {
     kNewOrder = 2,
     kCancelOrder = 3,
-    kFlushOrder = 4,
+    kFlushOrder = 5,
+    kOrderAcknowledgement = 8,
+    kTradeConfirmation = 13,
+    kTopOfBookChange = 21,
     COMMAND_NOT_SET = 0,
   };
 
@@ -659,7 +1276,7 @@ class ExchangeMessage final :
                &_ExchangeMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    6;
 
   friend void swap(ExchangeMessage& a, ExchangeMessage& b) {
     a.Swap(&b);
@@ -733,7 +1350,10 @@ class ExchangeMessage final :
     kSequenceNumberFieldNumber = 1,
     kNewOrderFieldNumber = 2,
     kCancelOrderFieldNumber = 3,
-    kFlushOrderFieldNumber = 4,
+    kFlushOrderFieldNumber = 5,
+    kOrderAcknowledgementFieldNumber = 8,
+    kTradeConfirmationFieldNumber = 13,
+    kTopOfBookChangeFieldNumber = 21,
   };
   // uint64 sequenceNumber = 1;
   void clear_sequencenumber();
@@ -780,7 +1400,7 @@ class ExchangeMessage final :
       ::exchange::CancelOrder* cancelorder);
   ::exchange::CancelOrder* unsafe_arena_release_cancelorder();
 
-  // .exchange.FlushOrder flushOrder = 4;
+  // .exchange.FlushOrder flushOrder = 5;
   bool has_flushorder() const;
   private:
   bool _internal_has_flushorder() const;
@@ -798,6 +1418,60 @@ class ExchangeMessage final :
       ::exchange::FlushOrder* flushorder);
   ::exchange::FlushOrder* unsafe_arena_release_flushorder();
 
+  // .exchange.OrderAcknowledgement orderAcknowledgement = 8;
+  bool has_orderacknowledgement() const;
+  private:
+  bool _internal_has_orderacknowledgement() const;
+  public:
+  void clear_orderacknowledgement();
+  const ::exchange::OrderAcknowledgement& orderacknowledgement() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::OrderAcknowledgement* release_orderacknowledgement();
+  ::exchange::OrderAcknowledgement* mutable_orderacknowledgement();
+  void set_allocated_orderacknowledgement(::exchange::OrderAcknowledgement* orderacknowledgement);
+  private:
+  const ::exchange::OrderAcknowledgement& _internal_orderacknowledgement() const;
+  ::exchange::OrderAcknowledgement* _internal_mutable_orderacknowledgement();
+  public:
+  void unsafe_arena_set_allocated_orderacknowledgement(
+      ::exchange::OrderAcknowledgement* orderacknowledgement);
+  ::exchange::OrderAcknowledgement* unsafe_arena_release_orderacknowledgement();
+
+  // .exchange.TradeConfirmation tradeConfirmation = 13;
+  bool has_tradeconfirmation() const;
+  private:
+  bool _internal_has_tradeconfirmation() const;
+  public:
+  void clear_tradeconfirmation();
+  const ::exchange::TradeConfirmation& tradeconfirmation() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::TradeConfirmation* release_tradeconfirmation();
+  ::exchange::TradeConfirmation* mutable_tradeconfirmation();
+  void set_allocated_tradeconfirmation(::exchange::TradeConfirmation* tradeconfirmation);
+  private:
+  const ::exchange::TradeConfirmation& _internal_tradeconfirmation() const;
+  ::exchange::TradeConfirmation* _internal_mutable_tradeconfirmation();
+  public:
+  void unsafe_arena_set_allocated_tradeconfirmation(
+      ::exchange::TradeConfirmation* tradeconfirmation);
+  ::exchange::TradeConfirmation* unsafe_arena_release_tradeconfirmation();
+
+  // .exchange.TopOfBookChange topOfBookChange = 21;
+  bool has_topofbookchange() const;
+  private:
+  bool _internal_has_topofbookchange() const;
+  public:
+  void clear_topofbookchange();
+  const ::exchange::TopOfBookChange& topofbookchange() const;
+  PROTOBUF_MUST_USE_RESULT ::exchange::TopOfBookChange* release_topofbookchange();
+  ::exchange::TopOfBookChange* mutable_topofbookchange();
+  void set_allocated_topofbookchange(::exchange::TopOfBookChange* topofbookchange);
+  private:
+  const ::exchange::TopOfBookChange& _internal_topofbookchange() const;
+  ::exchange::TopOfBookChange* _internal_mutable_topofbookchange();
+  public:
+  void unsafe_arena_set_allocated_topofbookchange(
+      ::exchange::TopOfBookChange* topofbookchange);
+  ::exchange::TopOfBookChange* unsafe_arena_release_topofbookchange();
+
   void clear_command();
   CommandCase command_case() const;
   // @@protoc_insertion_point(class_scope:exchange.ExchangeMessage)
@@ -806,6 +1480,9 @@ class ExchangeMessage final :
   void set_has_neworder();
   void set_has_cancelorder();
   void set_has_flushorder();
+  void set_has_orderacknowledgement();
+  void set_has_tradeconfirmation();
+  void set_has_topofbookchange();
 
   inline bool has_command() const;
   inline void clear_has_command();
@@ -820,6 +1497,9 @@ class ExchangeMessage final :
     ::exchange::NewOrder* neworder_;
     ::exchange::CancelOrder* cancelorder_;
     ::exchange::FlushOrder* flushorder_;
+    ::exchange::OrderAcknowledgement* orderacknowledgement_;
+    ::exchange::TradeConfirmation* tradeconfirmation_;
+    ::exchange::TopOfBookChange* topofbookchange_;
   } command_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
@@ -1033,6 +1713,382 @@ inline void CancelOrder::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // -------------------------------------------------------------------
 
+// OrderAcknowledgement
+
+// uint32 user = 1;
+inline void OrderAcknowledgement::clear_user() {
+  user_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 OrderAcknowledgement::_internal_user() const {
+  return user_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 OrderAcknowledgement::user() const {
+  // @@protoc_insertion_point(field_get:exchange.OrderAcknowledgement.user)
+  return _internal_user();
+}
+inline void OrderAcknowledgement::_internal_set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  user_ = value;
+}
+inline void OrderAcknowledgement::set_user(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_user(value);
+  // @@protoc_insertion_point(field_set:exchange.OrderAcknowledgement.user)
+}
+
+// uint32 userOrder = 2;
+inline void OrderAcknowledgement::clear_userorder() {
+  userorder_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 OrderAcknowledgement::_internal_userorder() const {
+  return userorder_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 OrderAcknowledgement::userorder() const {
+  // @@protoc_insertion_point(field_get:exchange.OrderAcknowledgement.userOrder)
+  return _internal_userorder();
+}
+inline void OrderAcknowledgement::_internal_set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  userorder_ = value;
+}
+inline void OrderAcknowledgement::set_userorder(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_userorder(value);
+  // @@protoc_insertion_point(field_set:exchange.OrderAcknowledgement.userOrder)
+}
+
+// string symbol = 99;
+inline void OrderAcknowledgement::clear_symbol() {
+  symbol_.ClearToEmpty();
+}
+inline const std::string& OrderAcknowledgement::symbol() const {
+  // @@protoc_insertion_point(field_get:exchange.OrderAcknowledgement.symbol)
+  return _internal_symbol();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void OrderAcknowledgement::set_symbol(ArgT0&& arg0, ArgT... args) {
+ 
+ symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:exchange.OrderAcknowledgement.symbol)
+}
+inline std::string* OrderAcknowledgement::mutable_symbol() {
+  std::string* _s = _internal_mutable_symbol();
+  // @@protoc_insertion_point(field_mutable:exchange.OrderAcknowledgement.symbol)
+  return _s;
+}
+inline const std::string& OrderAcknowledgement::_internal_symbol() const {
+  return symbol_.Get();
+}
+inline void OrderAcknowledgement::_internal_set_symbol(const std::string& value) {
+  
+  symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* OrderAcknowledgement::_internal_mutable_symbol() {
+  
+  return symbol_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* OrderAcknowledgement::release_symbol() {
+  // @@protoc_insertion_point(field_release:exchange.OrderAcknowledgement.symbol)
+  return symbol_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void OrderAcknowledgement::set_allocated_symbol(std::string* symbol) {
+  if (symbol != nullptr) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), symbol,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:exchange.OrderAcknowledgement.symbol)
+}
+
+// -------------------------------------------------------------------
+
+// TradeConfirmation
+
+// uint32 userIdBuy = 1;
+inline void TradeConfirmation::clear_useridbuy() {
+  useridbuy_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::_internal_useridbuy() const {
+  return useridbuy_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::useridbuy() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.userIdBuy)
+  return _internal_useridbuy();
+}
+inline void TradeConfirmation::_internal_set_useridbuy(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  useridbuy_ = value;
+}
+inline void TradeConfirmation::set_useridbuy(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_useridbuy(value);
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.userIdBuy)
+}
+
+// string userOrderIdBuy = 2;
+inline void TradeConfirmation::clear_userorderidbuy() {
+  userorderidbuy_.ClearToEmpty();
+}
+inline const std::string& TradeConfirmation::userorderidbuy() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.userOrderIdBuy)
+  return _internal_userorderidbuy();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TradeConfirmation::set_userorderidbuy(ArgT0&& arg0, ArgT... args) {
+ 
+ userorderidbuy_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.userOrderIdBuy)
+}
+inline std::string* TradeConfirmation::mutable_userorderidbuy() {
+  std::string* _s = _internal_mutable_userorderidbuy();
+  // @@protoc_insertion_point(field_mutable:exchange.TradeConfirmation.userOrderIdBuy)
+  return _s;
+}
+inline const std::string& TradeConfirmation::_internal_userorderidbuy() const {
+  return userorderidbuy_.Get();
+}
+inline void TradeConfirmation::_internal_set_userorderidbuy(const std::string& value) {
+  
+  userorderidbuy_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* TradeConfirmation::_internal_mutable_userorderidbuy() {
+  
+  return userorderidbuy_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* TradeConfirmation::release_userorderidbuy() {
+  // @@protoc_insertion_point(field_release:exchange.TradeConfirmation.userOrderIdBuy)
+  return userorderidbuy_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void TradeConfirmation::set_allocated_userorderidbuy(std::string* userorderidbuy) {
+  if (userorderidbuy != nullptr) {
+    
+  } else {
+    
+  }
+  userorderidbuy_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userorderidbuy,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:exchange.TradeConfirmation.userOrderIdBuy)
+}
+
+// uint32 userIdSell = 3;
+inline void TradeConfirmation::clear_useridsell() {
+  useridsell_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::_internal_useridsell() const {
+  return useridsell_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::useridsell() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.userIdSell)
+  return _internal_useridsell();
+}
+inline void TradeConfirmation::_internal_set_useridsell(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  useridsell_ = value;
+}
+inline void TradeConfirmation::set_useridsell(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_useridsell(value);
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.userIdSell)
+}
+
+// uint32 userOrderIdSell = 4;
+inline void TradeConfirmation::clear_userorderidsell() {
+  userorderidsell_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::_internal_userorderidsell() const {
+  return userorderidsell_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::userorderidsell() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.userOrderIdSell)
+  return _internal_userorderidsell();
+}
+inline void TradeConfirmation::_internal_set_userorderidsell(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  userorderidsell_ = value;
+}
+inline void TradeConfirmation::set_userorderidsell(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_userorderidsell(value);
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.userOrderIdSell)
+}
+
+// uint32 price = 5;
+inline void TradeConfirmation::clear_price() {
+  price_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::_internal_price() const {
+  return price_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::price() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.price)
+  return _internal_price();
+}
+inline void TradeConfirmation::_internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  price_ = value;
+}
+inline void TradeConfirmation::set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_price(value);
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.price)
+}
+
+// uint32 quantity = 6;
+inline void TradeConfirmation::clear_quantity() {
+  quantity_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::_internal_quantity() const {
+  return quantity_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TradeConfirmation::quantity() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.quantity)
+  return _internal_quantity();
+}
+inline void TradeConfirmation::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  quantity_ = value;
+}
+inline void TradeConfirmation::set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.quantity)
+}
+
+// string symbol = 99;
+inline void TradeConfirmation::clear_symbol() {
+  symbol_.ClearToEmpty();
+}
+inline const std::string& TradeConfirmation::symbol() const {
+  // @@protoc_insertion_point(field_get:exchange.TradeConfirmation.symbol)
+  return _internal_symbol();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TradeConfirmation::set_symbol(ArgT0&& arg0, ArgT... args) {
+ 
+ symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:exchange.TradeConfirmation.symbol)
+}
+inline std::string* TradeConfirmation::mutable_symbol() {
+  std::string* _s = _internal_mutable_symbol();
+  // @@protoc_insertion_point(field_mutable:exchange.TradeConfirmation.symbol)
+  return _s;
+}
+inline const std::string& TradeConfirmation::_internal_symbol() const {
+  return symbol_.Get();
+}
+inline void TradeConfirmation::_internal_set_symbol(const std::string& value) {
+  
+  symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* TradeConfirmation::_internal_mutable_symbol() {
+  
+  return symbol_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* TradeConfirmation::release_symbol() {
+  // @@protoc_insertion_point(field_release:exchange.TradeConfirmation.symbol)
+  return symbol_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void TradeConfirmation::set_allocated_symbol(std::string* symbol) {
+  if (symbol != nullptr) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), symbol,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:exchange.TradeConfirmation.symbol)
+}
+
+// -------------------------------------------------------------------
+
+// TopOfBookChange
+
+// uint32 price = 1;
+inline void TopOfBookChange::clear_price() {
+  price_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TopOfBookChange::_internal_price() const {
+  return price_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TopOfBookChange::price() const {
+  // @@protoc_insertion_point(field_get:exchange.TopOfBookChange.price)
+  return _internal_price();
+}
+inline void TopOfBookChange::_internal_set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  price_ = value;
+}
+inline void TopOfBookChange::set_price(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_price(value);
+  // @@protoc_insertion_point(field_set:exchange.TopOfBookChange.price)
+}
+
+// uint32 quantity = 2;
+inline void TopOfBookChange::clear_quantity() {
+  quantity_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TopOfBookChange::_internal_quantity() const {
+  return quantity_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TopOfBookChange::quantity() const {
+  // @@protoc_insertion_point(field_get:exchange.TopOfBookChange.quantity)
+  return _internal_quantity();
+}
+inline void TopOfBookChange::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  quantity_ = value;
+}
+inline void TopOfBookChange::set_quantity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:exchange.TopOfBookChange.quantity)
+}
+
+// string symbol = 99;
+inline void TopOfBookChange::clear_symbol() {
+  symbol_.ClearToEmpty();
+}
+inline const std::string& TopOfBookChange::symbol() const {
+  // @@protoc_insertion_point(field_get:exchange.TopOfBookChange.symbol)
+  return _internal_symbol();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TopOfBookChange::set_symbol(ArgT0&& arg0, ArgT... args) {
+ 
+ symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:exchange.TopOfBookChange.symbol)
+}
+inline std::string* TopOfBookChange::mutable_symbol() {
+  std::string* _s = _internal_mutable_symbol();
+  // @@protoc_insertion_point(field_mutable:exchange.TopOfBookChange.symbol)
+  return _s;
+}
+inline const std::string& TopOfBookChange::_internal_symbol() const {
+  return symbol_.Get();
+}
+inline void TopOfBookChange::_internal_set_symbol(const std::string& value) {
+  
+  symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* TopOfBookChange::_internal_mutable_symbol() {
+  
+  return symbol_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* TopOfBookChange::release_symbol() {
+  // @@protoc_insertion_point(field_release:exchange.TopOfBookChange.symbol)
+  return symbol_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void TopOfBookChange::set_allocated_symbol(std::string* symbol) {
+  if (symbol != nullptr) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), symbol,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:exchange.TopOfBookChange.symbol)
+}
+
+// -------------------------------------------------------------------
+
 // ExchangeMessage
 
 // uint64 sequenceNumber = 1;
@@ -1203,7 +2259,7 @@ inline ::exchange::CancelOrder* ExchangeMessage::mutable_cancelorder() {
   return _msg;
 }
 
-// .exchange.FlushOrder flushOrder = 4;
+// .exchange.FlushOrder flushOrder = 5;
 inline bool ExchangeMessage::_internal_has_flushorder() const {
   return command_case() == kFlushOrder;
 }
@@ -1277,6 +2333,228 @@ inline ::exchange::FlushOrder* ExchangeMessage::mutable_flushorder() {
   return _msg;
 }
 
+// .exchange.OrderAcknowledgement orderAcknowledgement = 8;
+inline bool ExchangeMessage::_internal_has_orderacknowledgement() const {
+  return command_case() == kOrderAcknowledgement;
+}
+inline bool ExchangeMessage::has_orderacknowledgement() const {
+  return _internal_has_orderacknowledgement();
+}
+inline void ExchangeMessage::set_has_orderacknowledgement() {
+  _oneof_case_[0] = kOrderAcknowledgement;
+}
+inline void ExchangeMessage::clear_orderacknowledgement() {
+  if (_internal_has_orderacknowledgement()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.orderacknowledgement_;
+    }
+    clear_has_command();
+  }
+}
+inline ::exchange::OrderAcknowledgement* ExchangeMessage::release_orderacknowledgement() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.orderAcknowledgement)
+  if (_internal_has_orderacknowledgement()) {
+    clear_has_command();
+      ::exchange::OrderAcknowledgement* temp = command_.orderacknowledgement_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.orderacknowledgement_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::exchange::OrderAcknowledgement& ExchangeMessage::_internal_orderacknowledgement() const {
+  return _internal_has_orderacknowledgement()
+      ? *command_.orderacknowledgement_
+      : reinterpret_cast< ::exchange::OrderAcknowledgement&>(::exchange::_OrderAcknowledgement_default_instance_);
+}
+inline const ::exchange::OrderAcknowledgement& ExchangeMessage::orderacknowledgement() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.orderAcknowledgement)
+  return _internal_orderacknowledgement();
+}
+inline ::exchange::OrderAcknowledgement* ExchangeMessage::unsafe_arena_release_orderacknowledgement() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.orderAcknowledgement)
+  if (_internal_has_orderacknowledgement()) {
+    clear_has_command();
+    ::exchange::OrderAcknowledgement* temp = command_.orderacknowledgement_;
+    command_.orderacknowledgement_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExchangeMessage::unsafe_arena_set_allocated_orderacknowledgement(::exchange::OrderAcknowledgement* orderacknowledgement) {
+  clear_command();
+  if (orderacknowledgement) {
+    set_has_orderacknowledgement();
+    command_.orderacknowledgement_ = orderacknowledgement;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.orderAcknowledgement)
+}
+inline ::exchange::OrderAcknowledgement* ExchangeMessage::_internal_mutable_orderacknowledgement() {
+  if (!_internal_has_orderacknowledgement()) {
+    clear_command();
+    set_has_orderacknowledgement();
+    command_.orderacknowledgement_ = CreateMaybeMessage< ::exchange::OrderAcknowledgement >(GetArenaForAllocation());
+  }
+  return command_.orderacknowledgement_;
+}
+inline ::exchange::OrderAcknowledgement* ExchangeMessage::mutable_orderacknowledgement() {
+  ::exchange::OrderAcknowledgement* _msg = _internal_mutable_orderacknowledgement();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.orderAcknowledgement)
+  return _msg;
+}
+
+// .exchange.TradeConfirmation tradeConfirmation = 13;
+inline bool ExchangeMessage::_internal_has_tradeconfirmation() const {
+  return command_case() == kTradeConfirmation;
+}
+inline bool ExchangeMessage::has_tradeconfirmation() const {
+  return _internal_has_tradeconfirmation();
+}
+inline void ExchangeMessage::set_has_tradeconfirmation() {
+  _oneof_case_[0] = kTradeConfirmation;
+}
+inline void ExchangeMessage::clear_tradeconfirmation() {
+  if (_internal_has_tradeconfirmation()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.tradeconfirmation_;
+    }
+    clear_has_command();
+  }
+}
+inline ::exchange::TradeConfirmation* ExchangeMessage::release_tradeconfirmation() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.tradeConfirmation)
+  if (_internal_has_tradeconfirmation()) {
+    clear_has_command();
+      ::exchange::TradeConfirmation* temp = command_.tradeconfirmation_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.tradeconfirmation_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::exchange::TradeConfirmation& ExchangeMessage::_internal_tradeconfirmation() const {
+  return _internal_has_tradeconfirmation()
+      ? *command_.tradeconfirmation_
+      : reinterpret_cast< ::exchange::TradeConfirmation&>(::exchange::_TradeConfirmation_default_instance_);
+}
+inline const ::exchange::TradeConfirmation& ExchangeMessage::tradeconfirmation() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.tradeConfirmation)
+  return _internal_tradeconfirmation();
+}
+inline ::exchange::TradeConfirmation* ExchangeMessage::unsafe_arena_release_tradeconfirmation() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.tradeConfirmation)
+  if (_internal_has_tradeconfirmation()) {
+    clear_has_command();
+    ::exchange::TradeConfirmation* temp = command_.tradeconfirmation_;
+    command_.tradeconfirmation_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExchangeMessage::unsafe_arena_set_allocated_tradeconfirmation(::exchange::TradeConfirmation* tradeconfirmation) {
+  clear_command();
+  if (tradeconfirmation) {
+    set_has_tradeconfirmation();
+    command_.tradeconfirmation_ = tradeconfirmation;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.tradeConfirmation)
+}
+inline ::exchange::TradeConfirmation* ExchangeMessage::_internal_mutable_tradeconfirmation() {
+  if (!_internal_has_tradeconfirmation()) {
+    clear_command();
+    set_has_tradeconfirmation();
+    command_.tradeconfirmation_ = CreateMaybeMessage< ::exchange::TradeConfirmation >(GetArenaForAllocation());
+  }
+  return command_.tradeconfirmation_;
+}
+inline ::exchange::TradeConfirmation* ExchangeMessage::mutable_tradeconfirmation() {
+  ::exchange::TradeConfirmation* _msg = _internal_mutable_tradeconfirmation();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.tradeConfirmation)
+  return _msg;
+}
+
+// .exchange.TopOfBookChange topOfBookChange = 21;
+inline bool ExchangeMessage::_internal_has_topofbookchange() const {
+  return command_case() == kTopOfBookChange;
+}
+inline bool ExchangeMessage::has_topofbookchange() const {
+  return _internal_has_topofbookchange();
+}
+inline void ExchangeMessage::set_has_topofbookchange() {
+  _oneof_case_[0] = kTopOfBookChange;
+}
+inline void ExchangeMessage::clear_topofbookchange() {
+  if (_internal_has_topofbookchange()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete command_.topofbookchange_;
+    }
+    clear_has_command();
+  }
+}
+inline ::exchange::TopOfBookChange* ExchangeMessage::release_topofbookchange() {
+  // @@protoc_insertion_point(field_release:exchange.ExchangeMessage.topOfBookChange)
+  if (_internal_has_topofbookchange()) {
+    clear_has_command();
+      ::exchange::TopOfBookChange* temp = command_.topofbookchange_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    command_.topofbookchange_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::exchange::TopOfBookChange& ExchangeMessage::_internal_topofbookchange() const {
+  return _internal_has_topofbookchange()
+      ? *command_.topofbookchange_
+      : reinterpret_cast< ::exchange::TopOfBookChange&>(::exchange::_TopOfBookChange_default_instance_);
+}
+inline const ::exchange::TopOfBookChange& ExchangeMessage::topofbookchange() const {
+  // @@protoc_insertion_point(field_get:exchange.ExchangeMessage.topOfBookChange)
+  return _internal_topofbookchange();
+}
+inline ::exchange::TopOfBookChange* ExchangeMessage::unsafe_arena_release_topofbookchange() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:exchange.ExchangeMessage.topOfBookChange)
+  if (_internal_has_topofbookchange()) {
+    clear_has_command();
+    ::exchange::TopOfBookChange* temp = command_.topofbookchange_;
+    command_.topofbookchange_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExchangeMessage::unsafe_arena_set_allocated_topofbookchange(::exchange::TopOfBookChange* topofbookchange) {
+  clear_command();
+  if (topofbookchange) {
+    set_has_topofbookchange();
+    command_.topofbookchange_ = topofbookchange;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:exchange.ExchangeMessage.topOfBookChange)
+}
+inline ::exchange::TopOfBookChange* ExchangeMessage::_internal_mutable_topofbookchange() {
+  if (!_internal_has_topofbookchange()) {
+    clear_command();
+    set_has_topofbookchange();
+    command_.topofbookchange_ = CreateMaybeMessage< ::exchange::TopOfBookChange >(GetArenaForAllocation());
+  }
+  return command_.topofbookchange_;
+}
+inline ::exchange::TopOfBookChange* ExchangeMessage::mutable_topofbookchange() {
+  ::exchange::TopOfBookChange* _msg = _internal_mutable_topofbookchange();
+  // @@protoc_insertion_point(field_mutable:exchange.ExchangeMessage.topOfBookChange)
+  return _msg;
+}
+
 inline bool ExchangeMessage::has_command() const {
   return command_case() != COMMAND_NOT_SET;
 }
@@ -1295,6 +2573,12 @@ inline ExchangeMessage::CommandCase ExchangeMessage::command_case() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1306,6 +2590,11 @@ template <> struct is_proto_enum< ::exchange::NewOrder_SideType> : ::std::true_t
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::exchange::NewOrder_SideType>() {
   return ::exchange::NewOrder_SideType_descriptor();
+}
+template <> struct is_proto_enum< ::exchange::TopOfBookChange_SideType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::exchange::TopOfBookChange_SideType>() {
+  return ::exchange::TopOfBookChange_SideType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

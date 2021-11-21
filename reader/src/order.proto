@@ -8,8 +8,8 @@ package exchange;
 
 message NewOrder {
 	enum SideType {
-	  BUY = 0;
-	  SELL = 1;
+		BUY = 0;
+		SELL = 1;
 	}
 	uint32 user = 1;
 	string symbol = 2; 
@@ -27,11 +27,41 @@ message CancelOrder {
 message FlushOrder {
 }
 
+message OrderAcknowledgement {
+	uint32 user = 1;
+	uint32 userOrder = 2;
+	string symbol = 99;    // Not requested, but convenient for debugging. 
+}
+
+message TradeConfirmation {
+	uint32 userIdBuy = 1;
+	string userOrderIdBuy = 2; 
+	uint32 userIdSell = 3;
+	uint32 userOrderIdSell = 4;
+	uint32 price = 5;
+	uint32 quantity = 6;
+	string symbol = 99;    // Not requested, but convenient for debugging. 
+}
+
+message TopOfBookChange {
+	enum SideType {
+	  BUY = 0;
+	  SELL = 1;
+	}
+	uint32 price = 1;
+	uint32 quantity = 2;
+	string symbol = 99;    // Not requested, but required to disambiguate. 
+}
+
+
 message ExchangeMessage {
     uint64 sequenceNumber = 1;
     oneof command {
     	NewOrder newOrder = 2;
     	CancelOrder cancelOrder = 3;
-    	FlushOrder flushOrder = 4;
+    	FlushOrder flushOrder = 5;
+    	OrderAcknowledgement orderAcknowledgement = 8;
+    	TradeConfirmation tradeConfirmation = 13;
+    	TopOfBookChange topOfBookChange = 21;
     }
 }
