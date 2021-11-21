@@ -33,7 +33,9 @@ Input edge nodes could be expanded to support a variety to external connectors. 
 
 A standards-based FIX input connector would also immediately make available a plethora of off-the-shelf FIX exchange testing tools for end-to-end testing.
 
-Rather than a single UDP multicase bus, we could choose to use multiple UDP multicast buses in order to avoid overloading.  For instance, order input could be handled on one bus, which trade confirmation notices could be passed on a different bus. 
+Rather than a single UDP multicast bus, we could choose to use multiple UDP multicast buses in order to avoid overloading.  For instance, order input could be handled on one bus, which trade confirmation notices could be passed on a different bus. 
+
+Additionally, to protect system integrity, a decision might be made that one 'request' multicast channel is available for all nodes to advertise and make order requests, but authoritative commands will only be issued by a central 'bus manager' node to another multicast command channel.  The bus manager node would verify order integrity of a message received on the 'request' channel before re-publishing the message on the command channel.  Order book processing nodes would only heed orders sent by the bus manager on the command channel.
 
 In terms of hardware implementation, a separate, dedicated network card could be used for the multicast bus communication.  Indeed, separate physical cards could be used for order versus trade confirmation channels.
 
