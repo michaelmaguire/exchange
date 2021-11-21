@@ -9,7 +9,8 @@
 TEST(OrderBookSuite, simpleAdd) {
 
 	OrderBook orderBook;
-	orderBook.addOrder(true, 10, 100, 1, 1);
+	orderBook.addOrder(true /*buy*/, 10, 100, 1, 1);
+	orderBook.addOrder(false /*sell*/, 11, 100, 1, 1);
 
 }
 
