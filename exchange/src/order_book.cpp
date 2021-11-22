@@ -101,7 +101,7 @@ bool PriceLevel::cancelOrder(uint32_t user, uint32_t userOrder) {
 }
 
 bool PriceLevel::exhaust(ConfirmationsCallback *confirmationsCallback,
-		const std::string &symbol, uint32_t quantityRemaining,
+		const std::string &symbol, uint32_t & quantityRemaining,
 		const Order &order) {
 
 	bool tradeTookPlace = false;
@@ -109,6 +109,8 @@ bool PriceLevel::exhaust(ConfirmationsCallback *confirmationsCallback,
 	for (auto it = _quantitiesInTimeOrder.begin();
 			((quantityRemaining > 0) && (it != _quantitiesInTimeOrder.end()));
 			/* no ++it to handled erase */) {
+
+		//std::cout << "PriceLevel::exhaust\n";
 
 		// If we made it into this look, then some trading will happen.
 		tradeTookPlace = true;
@@ -220,6 +222,9 @@ void OrderBook::addOrder(const Order &order) {
 	if (price == 0) {
 		// Market order.
 		while (quantityRemaining > 0 && oppositeOrders->size() > 0) {
+
+			//std::cout << "market while (quantityRemaining\n";
+
 			auto priceLevel = oppositeOrders->begin()->second;
 			tradeTookPlace = tradeTookPlace
 					| priceLevel.exhaust(_confirmationsCallback, _symbol,
@@ -230,7 +235,11 @@ void OrderBook::addOrder(const Order &order) {
 		// Limit order.
 
 		// See if we can match immediately.
-		while (quantityRemaining > 0 && oppositeOrders->size() > 0) {
+		bool oppositeSideHasAttractivePrice = true;
+		while ( (quantityRemaining > 0) && ( oppositeOrders->size() ) > 0 && oppositeSideHasAttractivePrice) {
+
+			//std::cout << "limit while (quantityRemaining[" << quantityRemaining <<"] oppositeOrders->size()[" << oppositeOrders->size() << "]\n";
+
 			auto priceLevel = oppositeOrders->begin()->second;
 
 			// See if the price is right: if I'm buying and I'm willing to pay more than you wanted,
@@ -242,6 +251,8 @@ void OrderBook::addOrder(const Order &order) {
 				tradeTookPlace = tradeTookPlace
 						| priceLevel.exhaust(_confirmationsCallback, _symbol,
 								quantityRemaining, order);
+			} else {
+				oppositeSideHasAttractivePrice = false;
 			}
 		}
 
@@ -251,13 +262,13 @@ void OrderBook::addOrder(const Order &order) {
 			// See if PriceLevel already exists
 			auto it = orders->find(price);
 			if (it != orders->end()) {
-				BOOST_LOG_SEV(_lg, info)
+				BOOST_LOG_SEV(_lg, trace)
 				<< "OrderBook::addOrder PriceLevel price[" << price
 						<< "] already exists, add new order[" << order << "]";
 				it->second.addQuantity(quantityRemaining, order._user,
 						order._userOrder);
 			} else {
-				BOOST_LOG_SEV(_lg, info)
+				BOOST_LOG_SEV(_lg, trace)
 				<< "OrderBook::addOrder PriceLevel price[" << price
 						<< "] doesn't already exists, creating with new order["
 						<< order << "]";
@@ -303,23 +314,31 @@ bool OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
 
 	if (found) {
 		_confirmationsCallback->sendOrderAcknowledgement(user, userOrder);
+
+		// TODO: an order cancellation could change the top of the book.
+		// Not sure whether our log output spec is capable of communicating that, though.
+		//_confirmationsCallback->sendTopOfBookChange(
+		//		Order::Side::BUY == order._side, price,
+		//		order._quantity - quantityRemaining,
+		//		oppositeOrders->size() == 0);
+
 	}
 
 	return found;
 }
 
 void OrderBook::flush() {
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::flush before flush [" << *this << "]";
 
 	_buyOrders.clear();
 	_sellOrders.clear();
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::flush after flush [" << *this << "]";
 }
 
-// Returns the top of the order book, first BYE, second SELL.
+// Returns the top of the order book, first BUY, second SELL.
 const std::pair<Order, Order> OrderBook::top() const {
 
 	if (0 == _buyOrders.size()) {
@@ -331,36 +350,32 @@ const std::pair<Order, Order> OrderBook::top() const {
 
 	// Take advantage of  map's ordering guarantee, given that price is our key.
 	auto topByePriceLevel = _buyOrders.begin()->second;
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topByePriceLevel[" << topByePriceLevel << "]";
 
 	auto topSellPriceLevel = _sellOrders.rbegin()->second;
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topSellPriceLevel[" << topSellPriceLevel << "]";
 
 	auto topBuyFirstInTimeQuantity = topByePriceLevel.front();
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topBuyFirstInTimeQuantity[" << topBuyFirstInTimeQuantity
 			<< "]";
 	auto topSellFirstInTimeQuantity = topSellPriceLevel.front();
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topSellFirstInTimeQuantity["
 			<< topSellFirstInTimeQuantity << "]";
 
 	Order topBye(Order::BUY, topByePriceLevel._price,
 			topBuyFirstInTimeQuantity);
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topBye[" << topBye << "]";
 	Order topSell(Order::SELL, topSellPriceLevel._price,
 			topSellFirstInTimeQuantity);
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topSell[" << topSell << "]";
 
 	return std::make_pair(topBye, topSell);
-
-}
-
-void OrderBook::cross() {
 
 }
 

@@ -13,14 +13,14 @@ using namespace boost::log::trivial;
 ProtoReader::ProtoReader() :
 		_ioService(), _socket(_ioService) {
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "ProtoReader::ProtoReader constructor";
 
 }
 
 void ProtoReader::setup(unsigned short listenPort) {
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "ProtoReader::ProtoReader setup";
 
 	// Create the socket so that multiple may be bound to the same address.
@@ -47,7 +47,7 @@ ProtoReader::~ProtoReader() {
 		BOOST_LOG_SEV(_lg, error)
 		<< "Reader::~Reader error _socket.close[" << e.message() << "]";
 	} else {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "Reader::~Reader _socket.close";
 	}
 }
@@ -59,7 +59,7 @@ void ProtoReader::run() {
 		BOOST_LOG_SEV(_lg, error)
 		<< "Reader::run error[" << e.message() << "]";
 	} else {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "Reader::run exited normally";
 	}
 }
@@ -82,7 +82,7 @@ void ProtoReader::handle_receive(const boost::system::error_code &e,
 				<< e.message() << "]";
 	}
 	if (!e || e == boost::asio::error::message_size) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "Reader::handle_receive [" << bytes_transferred << "] error["
 				<< e.message() << "]";
 		_receive_buffer[bytes_transferred] = '\0';
@@ -122,7 +122,7 @@ void ProtoReader::handle_receive(const boost::system::error_code &e,
 					exchange::ExchangeMessage exchangeMessage;
 					exchangeMessage.ParseFromCodedStream(&codedInputStream);
 
-					BOOST_LOG_SEV(_lg, info)
+					BOOST_LOG_SEV(_lg, trace)
 					<< "Reader::handle_receive command_case["
 							<< exchangeMessage.command_case()
 							<< "] messageSize[" << messageSize

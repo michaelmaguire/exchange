@@ -8,7 +8,7 @@ using namespace boost::log::trivial;
 
 OutputReader::OutputReader() {
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OutputReader::OutputReader constructor";
 
 }
@@ -19,7 +19,7 @@ OutputReader::~OutputReader() {
 void OutputReader::do_read(const exchange::ExchangeMessage &exchangeMessage) {
 
 	if (exchangeMessage.has_orderacknowledgement()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OutputReader::do_read handling orderacknowledgement";
 
 		auto oa = exchangeMessage.orderacknowledgement();
@@ -27,7 +27,7 @@ void OutputReader::do_read(const exchange::ExchangeMessage &exchangeMessage) {
 		std::cout << "A," << oa.user() << "," << oa.userorder() << "\n";
 
 	} else if (exchangeMessage.has_tradeconfirmation()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OutputReader::do_read handling tradeconfirmation";
 
 		auto tc = exchangeMessage.tradeconfirmation();
@@ -37,7 +37,7 @@ void OutputReader::do_read(const exchange::ExchangeMessage &exchangeMessage) {
 				<< tc.price() << "," << tc.quantity() << "\n";
 
 	} else if (exchangeMessage.has_topofbookchange()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OutputReader::do_read handling topofbookchange";
 
 		auto top = exchangeMessage.topofbookchange();
@@ -57,7 +57,7 @@ void OutputReader::do_read(const exchange::ExchangeMessage &exchangeMessage) {
 
 	} else {
 
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OutputReader::do_read ignoring this message type";
 
 	}

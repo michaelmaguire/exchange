@@ -71,7 +71,7 @@ public:
 
 	// Returns true if any trading took place.
 	bool exhaust(ConfirmationsCallback *confirmationsCallback,
-			const std::string &symbol, uint32_t quantityRemaining,
+			const std::string &symbol, uint32_t & quantityRemaining,
 			const Order &order);
 
 	// I've chosen not to use an accessor for this at this level.
@@ -101,9 +101,6 @@ public:
 
 	// Returns the top of the order book, first BYE, second SELL.
 	const std::pair<Order, Order> top() const;
-
-	// Reconcile the book to see if a trade can be performed.
-	void cross();
 
 private:
 	ConfirmationsCallback *_confirmationsCallback;

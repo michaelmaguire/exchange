@@ -34,7 +34,7 @@ void ProtoWriter::send(const google::protobuf::Message &message) {
 		codedOutputStream.WriteLittleEndian32(PACKET_VERSION);
 		codedOutputStream.WriteVarint32(message.ByteSize());
 
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "ProtoWriter::send message[" << message.DebugString() << "]";
 
 		message.SerializeToCodedStream(&codedOutputStream);

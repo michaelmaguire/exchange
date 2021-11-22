@@ -10,7 +10,7 @@ OrderBookReader::OrderBookReader(ConfirmationsCallback *confirmationsCallback,
 		const std::string symbol) :
 		_orderBook(confirmationsCallback, symbol), _symbol(symbol) {
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBookReader::OrderBookReader constructor";
 
 }
@@ -22,7 +22,7 @@ void OrderBookReader::do_read(
 		const exchange::ExchangeMessage &exchangeMessage) {
 
 	if (exchangeMessage.has_neworder()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OrderBookReader::do_read handling neworder";
 
 		auto n = exchangeMessage.neworder();
@@ -38,14 +38,14 @@ void OrderBookReader::do_read(
 		}
 
 	} else if (exchangeMessage.has_cancelorder()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OrderBookReader::do_read handling cancelorder";
 
 		auto c = exchangeMessage.cancelorder();
 		_orderBook.cancelOrder(c.user(), c.userorder());
 
 	} else if (exchangeMessage.has_flushorder()) {
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OrderBookReader::do_read handling flushorder";
 
 		auto f = exchangeMessage.flushorder();
@@ -53,7 +53,7 @@ void OrderBookReader::do_read(
 
 	} else {
 
-		BOOST_LOG_SEV(_lg, info)
+		BOOST_LOG_SEV(_lg, trace)
 		<< "OrderBookReader::do_read ignoring this message type";
 
 	}
