@@ -75,9 +75,9 @@ struct OrderAcknowledgementDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OrderAcknowledgementDefaultTypeInternal _OrderAcknowledgement_default_instance_;
 constexpr TradeConfirmation::TradeConfirmation(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : userorderidbuy_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , symbol_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : symbol_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , useridbuy_(0u)
+  , userorderidbuy_(0u)
   , useridsell_(0u)
   , userorderidsell_(0u)
   , price_(0u)
@@ -94,8 +94,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TradeConfirmationDefaultTypeInt
 constexpr TopOfBookChange::TopOfBookChange(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : symbol_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , side_(0)
+
   , price_(0u)
-  , quantity_(0u){}
+  , quantity_(0u)
+  , sideelimination_(false){}
 struct TopOfBookChangeDefaultTypeInternal {
   constexpr TopOfBookChangeDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -172,8 +175,10 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_order_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::exchange::TopOfBookChange, side_),
   PROTOBUF_FIELD_OFFSET(::exchange::TopOfBookChange, price_),
   PROTOBUF_FIELD_OFFSET(::exchange::TopOfBookChange, quantity_),
+  PROTOBUF_FIELD_OFFSET(::exchange::TopOfBookChange, sideelimination_),
   PROTOBUF_FIELD_OFFSET(::exchange::TopOfBookChange, symbol_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::exchange::ExchangeMessage, _internal_metadata_),
@@ -196,7 +201,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 23, -1, sizeof(::exchange::OrderAcknowledgement)},
   { 31, -1, sizeof(::exchange::TradeConfirmation)},
   { 43, -1, sizeof(::exchange::TopOfBookChange)},
-  { 51, -1, sizeof(::exchange::ExchangeMessage)},
+  { 53, -1, sizeof(::exchange::ExchangeMessage)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -219,25 +224,27 @@ const char descriptor_table_protodef_order_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\"\014\n\nFlushOrder\"G\n\024OrderAcknowledgement\022\014"
   "\n\004user\030\001 \001(\r\022\021\n\tuserOrder\030\002 \001(\r\022\016\n\006symbo"
   "l\030c \001(\t\"\234\001\n\021TradeConfirmation\022\021\n\tuserIdB"
-  "uy\030\001 \001(\r\022\026\n\016userOrderIdBuy\030\002 \001(\t\022\022\n\nuser"
+  "uy\030\001 \001(\r\022\026\n\016userOrderIdBuy\030\002 \001(\r\022\022\n\nuser"
   "IdSell\030\003 \001(\r\022\027\n\017userOrderIdSell\030\004 \001(\r\022\r\n"
   "\005price\030\005 \001(\r\022\020\n\010quantity\030\006 \001(\r\022\016\n\006symbol"
-  "\030c \001(\t\"a\n\017TopOfBookChange\022\r\n\005price\030\001 \001(\r"
-  "\022\020\n\010quantity\030\002 \001(\r\022\016\n\006symbol\030c \001(\t\"\035\n\010Si"
-  "deType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\"\346\002\n\017ExchangeMe"
-  "ssage\022\026\n\016sequenceNumber\030\001 \001(\004\022&\n\010newOrde"
-  "r\030\002 \001(\0132\022.exchange.NewOrderH\000\022,\n\013cancelO"
-  "rder\030\003 \001(\0132\025.exchange.CancelOrderH\000\022*\n\nf"
-  "lushOrder\030\005 \001(\0132\024.exchange.FlushOrderH\000\022"
-  ">\n\024orderAcknowledgement\030\010 \001(\0132\036.exchange"
-  ".OrderAcknowledgementH\000\0228\n\021tradeConfirma"
-  "tion\030\r \001(\0132\033.exchange.TradeConfirmationH"
-  "\000\0224\n\017topOfBookChange\030\025 \001(\0132\031.exchange.To"
-  "pOfBookChangeH\000B\t\n\007commandb\006proto3"
+  "\030c \001(\t\"\254\001\n\017TopOfBookChange\0220\n\004side\030\001 \001(\016"
+  "2\".exchange.TopOfBookChange.SideType\022\r\n\005"
+  "price\030\002 \001(\r\022\020\n\010quantity\030\003 \001(\r\022\027\n\017sideEli"
+  "mination\030\004 \001(\010\022\016\n\006symbol\030c \001(\t\"\035\n\010SideTy"
+  "pe\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\"\346\002\n\017ExchangeMessag"
+  "e\022\026\n\016sequenceNumber\030\001 \001(\004\022&\n\010newOrder\030\002 "
+  "\001(\0132\022.exchange.NewOrderH\000\022,\n\013cancelOrder"
+  "\030\003 \001(\0132\025.exchange.CancelOrderH\000\022*\n\nflush"
+  "Order\030\005 \001(\0132\024.exchange.FlushOrderH\000\022>\n\024o"
+  "rderAcknowledgement\030\010 \001(\0132\036.exchange.Ord"
+  "erAcknowledgementH\000\0228\n\021tradeConfirmation"
+  "\030\r \001(\0132\033.exchange.TradeConfirmationH\000\0224\n"
+  "\017topOfBookChange\030\025 \001(\0132\031.exchange.TopOfB"
+  "ookChangeH\000B\t\n\007commandb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_order_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_order_2eproto = {
-  false, false, 954, descriptor_table_protodef_order_2eproto, "order.proto", 
+  false, false, 1030, descriptor_table_protodef_order_2eproto, "order.proto", 
   &descriptor_table_order_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_order_2eproto::offsets,
   file_level_metadata_order_2eproto, file_level_enum_descriptors_order_2eproto, file_level_service_descriptors_order_2eproto,
@@ -1277,11 +1284,6 @@ TradeConfirmation::TradeConfirmation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 TradeConfirmation::TradeConfirmation(const TradeConfirmation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  userorderidbuy_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_userorderidbuy().empty()) {
-    userorderidbuy_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_userorderidbuy(), 
-      GetArenaForAllocation());
-  }
   symbol_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_symbol().empty()) {
     symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_symbol(), 
@@ -1294,7 +1296,6 @@ TradeConfirmation::TradeConfirmation(const TradeConfirmation& from)
 }
 
 inline void TradeConfirmation::SharedCtor() {
-userorderidbuy_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 symbol_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&useridbuy_) - reinterpret_cast<char*>(this)),
@@ -1311,7 +1312,6 @@ TradeConfirmation::~TradeConfirmation() {
 
 inline void TradeConfirmation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  userorderidbuy_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   symbol_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -1331,7 +1331,6 @@ void TradeConfirmation::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  userorderidbuy_.ClearToEmpty();
   symbol_.ClearToEmpty();
   ::memset(&useridbuy_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&quantity_) -
@@ -1352,12 +1351,10 @@ const char* TradeConfirmation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string userOrderIdBuy = 2;
+      // uint32 userOrderIdBuy = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_userorderidbuy();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "exchange.TradeConfirmation.userOrderIdBuy"));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          userorderidbuy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1433,14 +1430,10 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_useridbuy(), target);
   }
 
-  // string userOrderIdBuy = 2;
-  if (!this->_internal_userorderidbuy().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_userorderidbuy().data(), static_cast<int>(this->_internal_userorderidbuy().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "exchange.TradeConfirmation.userOrderIdBuy");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_userorderidbuy(), target);
+  // uint32 userOrderIdBuy = 2;
+  if (this->_internal_userorderidbuy() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_userorderidbuy(), target);
   }
 
   // uint32 userIdSell = 3;
@@ -1493,13 +1486,6 @@ size_t TradeConfirmation::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string userOrderIdBuy = 2;
-  if (!this->_internal_userorderidbuy().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_userorderidbuy());
-  }
-
   // string symbol = 99;
   if (!this->_internal_symbol().empty()) {
     total_size += 2 +
@@ -1512,6 +1498,13 @@ size_t TradeConfirmation::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_useridbuy());
+  }
+
+  // uint32 userOrderIdBuy = 2;
+  if (this->_internal_userorderidbuy() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_userorderidbuy());
   }
 
   // uint32 userIdSell = 3;
@@ -1570,14 +1563,14 @@ void TradeConfirmation::MergeFrom(const TradeConfirmation& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_userorderidbuy().empty()) {
-    _internal_set_userorderidbuy(from._internal_userorderidbuy());
-  }
   if (!from._internal_symbol().empty()) {
     _internal_set_symbol(from._internal_symbol());
   }
   if (from._internal_useridbuy() != 0) {
     _internal_set_useridbuy(from._internal_useridbuy());
+  }
+  if (from._internal_userorderidbuy() != 0) {
+    _internal_set_userorderidbuy(from._internal_userorderidbuy());
   }
   if (from._internal_useridsell() != 0) {
     _internal_set_useridsell(from._internal_useridsell());
@@ -1608,11 +1601,6 @@ bool TradeConfirmation::IsInitialized() const {
 void TradeConfirmation::InternalSwap(TradeConfirmation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &userorderidbuy_, GetArenaForAllocation(),
-      &other->userorderidbuy_, other->GetArenaForAllocation()
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &symbol_, GetArenaForAllocation(),
@@ -1655,18 +1643,18 @@ TopOfBookChange::TopOfBookChange(const TopOfBookChange& from)
     symbol_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_symbol(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&price_, &from.price_,
-    static_cast<size_t>(reinterpret_cast<char*>(&quantity_) -
-    reinterpret_cast<char*>(&price_)) + sizeof(quantity_));
+  ::memcpy(&side_, &from.side_,
+    static_cast<size_t>(reinterpret_cast<char*>(&sideelimination_) -
+    reinterpret_cast<char*>(&side_)) + sizeof(sideelimination_));
   // @@protoc_insertion_point(copy_constructor:exchange.TopOfBookChange)
 }
 
 inline void TopOfBookChange::SharedCtor() {
 symbol_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&price_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&quantity_) -
-    reinterpret_cast<char*>(&price_)) + sizeof(quantity_));
+    reinterpret_cast<char*>(&side_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&sideelimination_) -
+    reinterpret_cast<char*>(&side_)) + sizeof(sideelimination_));
 }
 
 TopOfBookChange::~TopOfBookChange() {
@@ -1698,9 +1686,9 @@ void TopOfBookChange::Clear() {
   (void) cached_has_bits;
 
   symbol_.ClearToEmpty();
-  ::memset(&price_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&quantity_) -
-      reinterpret_cast<char*>(&price_)) + sizeof(quantity_));
+  ::memset(&side_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&sideelimination_) -
+      reinterpret_cast<char*>(&side_)) + sizeof(sideelimination_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1710,17 +1698,32 @@ const char* TopOfBookChange::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 price = 1;
+      // .exchange.TopOfBookChange.SideType side = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_side(static_cast<::exchange::TopOfBookChange_SideType>(val));
+        } else goto handle_unusual;
+        continue;
+      // uint32 price = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           price_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 quantity = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+      // uint32 quantity = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           quantity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool sideElimination = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          sideelimination_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1762,16 +1765,29 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 price = 1;
-  if (this->_internal_price() != 0) {
+  // .exchange.TopOfBookChange.SideType side = 1;
+  if (this->_internal_side() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_price(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_side(), target);
   }
 
-  // uint32 quantity = 2;
+  // uint32 price = 2;
+  if (this->_internal_price() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_price(), target);
+  }
+
+  // uint32 quantity = 3;
   if (this->_internal_quantity() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_quantity(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_quantity(), target);
+  }
+
+  // bool sideElimination = 4;
+  if (this->_internal_sideelimination() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_sideelimination(), target);
   }
 
   // string symbol = 99;
@@ -1807,18 +1823,29 @@ size_t TopOfBookChange::ByteSizeLong() const {
         this->_internal_symbol());
   }
 
-  // uint32 price = 1;
+  // .exchange.TopOfBookChange.SideType side = 1;
+  if (this->_internal_side() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_side());
+  }
+
+  // uint32 price = 2;
   if (this->_internal_price() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_price());
   }
 
-  // uint32 quantity = 2;
+  // uint32 quantity = 3;
   if (this->_internal_quantity() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_quantity());
+  }
+
+  // bool sideElimination = 4;
+  if (this->_internal_sideelimination() != 0) {
+    total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1852,11 +1879,17 @@ void TopOfBookChange::MergeFrom(const TopOfBookChange& from) {
   if (!from._internal_symbol().empty()) {
     _internal_set_symbol(from._internal_symbol());
   }
+  if (from._internal_side() != 0) {
+    _internal_set_side(from._internal_side());
+  }
   if (from._internal_price() != 0) {
     _internal_set_price(from._internal_price());
   }
   if (from._internal_quantity() != 0) {
     _internal_set_quantity(from._internal_quantity());
+  }
+  if (from._internal_sideelimination() != 0) {
+    _internal_set_sideelimination(from._internal_sideelimination());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1881,11 +1914,11 @@ void TopOfBookChange::InternalSwap(TopOfBookChange* other) {
       &other->symbol_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TopOfBookChange, quantity_)
-      + sizeof(TopOfBookChange::quantity_)
-      - PROTOBUF_FIELD_OFFSET(TopOfBookChange, price_)>(
-          reinterpret_cast<char*>(&price_),
-          reinterpret_cast<char*>(&other->price_));
+      PROTOBUF_FIELD_OFFSET(TopOfBookChange, sideelimination_)
+      + sizeof(TopOfBookChange::sideelimination_)
+      - PROTOBUF_FIELD_OFFSET(TopOfBookChange, side_)>(
+          reinterpret_cast<char*>(&side_),
+          reinterpret_cast<char*>(&other->side_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TopOfBookChange::GetMetadata() const {

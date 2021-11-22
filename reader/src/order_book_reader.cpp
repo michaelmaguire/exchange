@@ -33,14 +33,14 @@ void OrderBookReader::do_read(
 		BOOST_LOG_SEV(_lg, info)
 		<< "OrderBookReader::do_read handling cancelorder";
 
-		auto n = exchangeMessage.cancelorder();
-		_orderBook.cancelOrder(n.user(), n.userorder());
+		auto c = exchangeMessage.cancelorder();
+		_orderBook.cancelOrder(c.user(), c.userorder());
 
 	} else if (exchangeMessage.has_flushorder()) {
 		BOOST_LOG_SEV(_lg, info)
 		<< "OrderBookReader::do_read handling flushorder";
 
-		auto n = exchangeMessage.flushorder();
+		auto f = exchangeMessage.flushorder();
 		_orderBook.flush();
 
 	} else {

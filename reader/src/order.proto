@@ -35,7 +35,7 @@ message OrderAcknowledgement {
 
 message TradeConfirmation {
 	uint32 userIdBuy = 1;
-	string userOrderIdBuy = 2; 
+	uint32 userOrderIdBuy = 2; 
 	uint32 userIdSell = 3;
 	uint32 userOrderIdSell = 4;
 	uint32 price = 5;
@@ -48,8 +48,10 @@ message TopOfBookChange {
 	  BUY = 0;
 	  SELL = 1;
 	}
-	uint32 price = 1;
-	uint32 quantity = 2;
+	SideType side = 1;
+	uint32 price = 2;
+	uint32 quantity = 3;
+	bool sideElimination = 4;
 	string symbol = 99;    // Not requested, but required to disambiguate. 
 }
 

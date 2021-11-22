@@ -56,3 +56,27 @@ TEST(ProtobufWriterSuite, sendFlushOrder) {
 	exchangeMessage.set_allocated_flushorder(flushOrder);
 	protowriter.send(exchangeMessage);
 }
+
+
+TEST(ProtobufWriterSuite, sendTradeConfirmation) {
+
+	ProtoWriter protowriter(_exchange_multicast_udp_port);
+
+	uint64_t sequenceNumber = 0;
+
+	exchange::ExchangeMessage exchangeMessage;
+	exchangeMessage.set_sequencenumber(sequenceNumber++);
+	auto tradeConfirmation = new exchange::TradeConfirmation();
+	tradeConfirmation->set_useridbuy(1);
+	tradeConfirmation->set_userorderidbuy(2);
+	tradeConfirmation->set_useridsell(2);
+	tradeConfirmation->set_userorderidsell(3);
+	tradeConfirmation->set_price(10);
+	tradeConfirmation->set_quantity(100);
+	tradeConfirmation->set_symbol("IBM");
+
+	exchangeMessage.set_allocated_tradeconfirmation(tradeConfirmation);
+	protowriter.send(exchangeMessage);
+}
+
+

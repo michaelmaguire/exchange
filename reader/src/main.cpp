@@ -24,6 +24,7 @@
 #include <gtest/gtest.h>
 
 #include "order_book_reader.h"
+#include "output_reader.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -77,7 +78,12 @@ int run_in_order_book_mode(const std::string &symbol) {
 
 int run_in_output_mode() {
 
-	// TODO:
+	boost::log::core::get()->set_filter(
+			boost::log::trivial::severity >= boost::log::trivial::error);
+
+	OutputReader outputReader;
+	outputReader.setup(g_exchangeMulticastUdpPort);
+	outputReader.run();
 
 	return 1;
 }
