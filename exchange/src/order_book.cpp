@@ -101,7 +101,7 @@ bool PriceLevel::cancelOrder(uint32_t user, uint32_t userOrder) {
 }
 
 bool PriceLevel::exhaust(ConfirmationsCallback *confirmationsCallback,
-		const std::string &symbol, uint32_t & quantityRemaining,
+		const std::string &symbol, uint32_t &quantityRemaining,
 		const Order &order) {
 
 	bool tradeTookPlace = false;
@@ -217,6 +217,7 @@ void OrderBook::addOrder(const Order &order) {
 
 	uint32_t price = order._price;
 	uint32_t quantityRemaining = order._quantity;
+	bool buy = (Order::Side::BUY == order._side);
 
 	// Check if market order.
 	if (price == 0) {
@@ -236,18 +237,18 @@ void OrderBook::addOrder(const Order &order) {
 
 		// See if we can match immediately.
 		bool oppositeSideHasAttractivePrice = true;
-		while ( (quantityRemaining > 0) && ( oppositeOrders->size() ) > 0 && oppositeSideHasAttractivePrice) {
+		while ((quantityRemaining > 0) && (oppositeOrders->size()) > 0
+				&& oppositeSideHasAttractivePrice) {
 
 			//std::cout << "limit while (quantityRemaining[" << quantityRemaining <<"] oppositeOrders->size()[" << oppositeOrders->size() << "]\n";
 
-			auto priceLevel = oppositeOrders->begin()->second;
+			auto priceLevel =
+					(buy ? oppositeOrders->rbegin()->second : oppositeOrders->begin()->second);
 
 			// See if the price is right: if I'm buying and I'm willing to pay more than you wanted,
 			// of if I'm selling and you're willing to pay more than I asked for.
-			if (((Order::Side::BUY == order._side)
-					&& (price >= priceLevel._price))
-					|| ((Order::Side::SELL == order._side)
-							&& (price <= priceLevel._price))) {
+			if ((buy && (price >= priceLevel._price))
+					|| (!buy && (price <= priceLevel._price))) {
 				tradeTookPlace = tradeTookPlace
 						| priceLevel.exhaust(_confirmationsCallback, _symbol,
 								quantityRemaining, order);
@@ -283,10 +284,22 @@ void OrderBook::addOrder(const Order &order) {
 	}
 
 	if (tradeTookPlace || addedToBook) {
-		_confirmationsCallback->sendTopOfBookChange(
-				Order::Side::BUY == order._side, price,
-				order._quantity - quantityRemaining,
-				oppositeOrders->size() == 0);
+
+		if (buy) {
+			// BUY, so top of book is greatest price, use rbegin().
+			PriceLevel topOfBookPriceLevel = orders->rbegin()->second;
+			uint32_t topOfBookPrice = topOfBookPriceLevel._price;
+			_confirmationsCallback->sendTopOfBookChange(buy, topOfBookPrice,
+					order._quantity,
+					(oppositeOrders->size() == 0) && tradeTookPlace);
+		} else {
+			// SELL, so top of book is least price, use begin().
+			PriceLevel topOfBookPriceLevel = orders->begin()->second;
+			uint32_t topOfBookPrice = topOfBookPriceLevel._price;
+			_confirmationsCallback->sendTopOfBookChange(buy, topOfBookPrice,
+					order._quantity,
+					(oppositeOrders->size() == 0) && tradeTookPlace);
+		}
 	}
 
 	BOOST_LOG_SEV(_lg, trace)
@@ -348,7 +361,7 @@ const std::pair<Order, Order> OrderBook::top() const {
 		throw std::out_of_range("No sell orders yet");
 	}
 
-	// Take advantage of  map's ordering guarantee, given that price is our key.
+// Take advantage of  map's ordering guarantee, given that price is our key.
 	auto topByePriceLevel = _buyOrders.begin()->second;
 	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::top topByePriceLevel[" << topByePriceLevel << "]";

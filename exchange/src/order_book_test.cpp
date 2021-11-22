@@ -20,7 +20,7 @@ public:
 					uint32_t quantity, bool sideElimination), (override) );
 };
 
-TEST(OrderBookSuite, simpleAdd) {
+TEST(OrderBookSuite, DISABLED_simpleAdd) {
 
 	MockConfirmationsCallback confirmationsCallback;
 	OrderBook orderBook(&confirmationsCallback, "IBM");
@@ -41,7 +41,7 @@ TEST(OrderBookSuite, simpleAdd) {
 
 }
 
-TEST(OrderBookSuite, simpleAddThenCancel) {
+TEST(OrderBookSuite, DISABLED_simpleAddThenCancel) {
 
 	MockConfirmationsCallback confirmationsCallback;
 	OrderBook orderBook(&confirmationsCallback, "AAPL");
@@ -74,7 +74,7 @@ TEST(OrderBookSuite, simpleAddThenCancel) {
 
 }
 
-TEST(OrderBookSuite, simpleAddThenMarket) {
+TEST(OrderBookSuite, DISABLED_simpleAddThenMarket) {
 
 	MockConfirmationsCallback confirmationsCallback;
 	EXPECT_CALL(confirmationsCallback, sendTradeConfirmation).Times(AtLeast(1));
@@ -104,3 +104,75 @@ TEST(OrderBookSuite, simpleAddThenMarket) {
 
 
 }
+
+TEST(OrderBookSuite, firstSectionOfInput) {
+
+	MockConfirmationsCallback confirmationsCallback;
+	EXPECT_CALL(confirmationsCallback, sendTradeConfirmation).Times(AtLeast(1));
+
+	OrderBook orderBook(&confirmationsCallback, "IBM");
+
+	/*
+# build book, TOB = 10/11
+N, 1, IBM, 10, 100, B, 1
+N, 1, IBM, 12, 100, S, 2
+N, 2, IBM, 9, 100, B, 101
+N, 2, IBM, 11, 100, S, 102
+
+# hit book on each side, generate trades, TOB = 9/12
+N, 1, IBM, 11, 100, B, 3
+N, 2, IBM, 10, 100, S, 103
+
+# replenish book on each side, TOB = 10/11
+N, 1, IBM, 10, 100, B, 4
+N, 2, IBM, 11, 100, S, 104
+F
+*/
+
+	Order order1(Order::BUY, 10, 100, 1, 1);
+	orderBook.addOrder(order1);
+	std::cout << "after order1 " << orderBook << "\n";
+
+	Order order2(Order::SELL, 12, 100, 1, 2);
+	orderBook.addOrder(order2);
+	std::cout << "after order2 " << orderBook << "\n";
+	Order order3(Order::BUY, 9, 100, 2, 101);
+	orderBook.addOrder(order3);
+	std::cout << "after order3 " << orderBook << "\n";
+	Order order4(Order::SELL, 11, 100, 2, 102);
+	orderBook.addOrder(order4);
+	std::cout << "after order4 " << orderBook << "\n";
+
+	Order order5(Order::BUY, 11, 100, 1, 3);
+	orderBook.addOrder(order5);
+	std::cout << "after order5 " << orderBook << "\n";
+	Order order6(Order::SELL, 10, 100, 2, 103);
+	orderBook.addOrder(order6);
+	std::cout << "after order6 " << orderBook << "\n";
+
+	Order order7(Order::BUY, 10, 100, 1, 4);
+	orderBook.addOrder(order7);
+	std::cout << "after order7 " << orderBook << "\n";
+	Order order8(Order::SELL, 11, 100, 2, 104);
+	orderBook.addOrder(order8);
+	std::cout << "after order8 " << orderBook << "\n";
+
+
+
+	std::pair<Order, Order> top = orderBook.top();
+	EXPECT_EQ(top.first._side, Order::BUY);
+	EXPECT_EQ(top.first._price, 10);
+	EXPECT_EQ(top.first._quantity, 100);
+	EXPECT_EQ(top.first._user, 7);
+	EXPECT_EQ(top.first._userOrder, 1900);
+	EXPECT_EQ(top.second._side, Order::SELL);
+	EXPECT_EQ(top.second._price, 11);
+	EXPECT_EQ(top.second._quantity, 100);
+	EXPECT_EQ(top.second._user, 13);
+	EXPECT_EQ(top.second._userOrder, 2100);
+
+
+}
+
+
+
