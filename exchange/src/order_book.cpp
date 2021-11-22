@@ -226,7 +226,8 @@ void OrderBook::addOrder(const Order &order) {
 
 			//std::cout << "market while (quantityRemaining\n";
 
-			auto priceLevel = oppositeOrders->begin()->second;
+			auto priceLevel =
+					(buy ? oppositeOrders->rbegin()->second : oppositeOrders->begin()->second);
 			tradeTookPlace = tradeTookPlace
 					| priceLevel.exhaust(_confirmationsCallback, _symbol,
 							quantityRemaining, order);

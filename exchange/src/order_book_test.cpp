@@ -112,23 +112,6 @@ TEST(OrderBookSuite, firstSectionOfInput) {
 
 	OrderBook orderBook(&confirmationsCallback, "IBM");
 
-	/*
-# build book, TOB = 10/11
-N, 1, IBM, 10, 100, B, 1
-N, 1, IBM, 12, 100, S, 2
-N, 2, IBM, 9, 100, B, 101
-N, 2, IBM, 11, 100, S, 102
-
-# hit book on each side, generate trades, TOB = 9/12
-N, 1, IBM, 11, 100, B, 3
-N, 2, IBM, 10, 100, S, 103
-
-# replenish book on each side, TOB = 10/11
-N, 1, IBM, 10, 100, B, 4
-N, 2, IBM, 11, 100, S, 104
-F
-*/
-
 	Order order1(Order::BUY, 10, 100, 1, 1);
 	orderBook.addOrder(order1);
 	std::cout << "after order1 " << orderBook << "\n";
@@ -156,21 +139,6 @@ F
 	Order order8(Order::SELL, 11, 100, 2, 104);
 	orderBook.addOrder(order8);
 	std::cout << "after order8 " << orderBook << "\n";
-
-
-
-	std::pair<Order, Order> top = orderBook.top();
-	EXPECT_EQ(top.first._side, Order::BUY);
-	EXPECT_EQ(top.first._price, 10);
-	EXPECT_EQ(top.first._quantity, 100);
-	EXPECT_EQ(top.first._user, 7);
-	EXPECT_EQ(top.first._userOrder, 1900);
-	EXPECT_EQ(top.second._side, Order::SELL);
-	EXPECT_EQ(top.second._price, 11);
-	EXPECT_EQ(top.second._quantity, 100);
-	EXPECT_EQ(top.second._user, 13);
-	EXPECT_EQ(top.second._userOrder, 2100);
-
 
 }
 
