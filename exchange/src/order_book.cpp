@@ -227,7 +227,7 @@ void OrderBook::addOrder(const Order &order) {
 			//std::cout << "market while (quantityRemaining\n";
 
 			auto priceLevel =
-					(buy ? oppositeOrders->rbegin()->second : oppositeOrders->begin()->second);
+					(buy ? oppositeOrders->begin()->second : oppositeOrders->rbegin()->second);
 			tradeTookPlace = tradeTookPlace
 					| priceLevel.exhaust(_confirmationsCallback, _symbol,
 							quantityRemaining, order);
@@ -243,8 +243,10 @@ void OrderBook::addOrder(const Order &order) {
 
 			//std::cout << "limit while (quantityRemaining[" << quantityRemaining <<"] oppositeOrders->size()[" << oppositeOrders->size() << "]\n";
 
+			// Be careful that if you are BUY, then oppositeOrders are SELL, so begin() gives top of the book.
+			// Otherwise if you are SELL, the oppositeOrders are BUY, so rbegin() gives top of the book.
 			auto priceLevel =
-					(buy ? oppositeOrders->rbegin()->second : oppositeOrders->begin()->second);
+					(buy ? oppositeOrders->begin()->second : oppositeOrders->rbegin()->second);
 
 			// See if the price is right: if I'm buying and I'm willing to pay more than you wanted,
 			// of if I'm selling and you're willing to pay more than I asked for.
