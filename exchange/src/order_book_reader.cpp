@@ -25,9 +25,16 @@ void OrderBookReader::do_read(
 		<< "OrderBookReader::do_read handling neworder";
 
 		auto n = exchangeMessage.neworder();
-		Order order((n.side() == n.BUY ? Order::BUY : Order::SELL), n.price(),
-				n.quantity(), n.user(), n.userorder());
-		_orderBook.addOrder(order);
+
+		if (n.symbol().compare(_symbol) == 0) {
+
+			Order order((n.side() == n.BUY ? Order::BUY : Order::SELL),
+					n.price(), n.quantity(), n.user(), n.userorder());
+			_orderBook.addOrder(order);
+		} else {
+			BOOST_LOG_SEV(_lg, trace)
+			<< "OrderBookReader::do_read this order is not for us";
+		}
 
 	} else if (exchangeMessage.has_cancelorder()) {
 		BOOST_LOG_SEV(_lg, info)

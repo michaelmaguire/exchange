@@ -96,15 +96,15 @@ GTEST_API_ int main(int argc, char **argv) {
 	try {
 		boost::program_options::options_description desc("Allowed options");
 		desc.add_options()("help,h", "produce help message")("test",
-				"run tests")("client", "run in client mode reading CSV")("book",
+				"run tests")("client", "run in client mode reading CSV")(
+				"filename", boost::program_options::value<std::string>(),
+				"path to .CSV for --client mode")("book",
 				"run in order book mode on symbol --symbol")("symbol",
 				boost::program_options::value<std::string>(),
 				"symbol to run order book for --book mode")("output",
 				"run in output logger more")("port",
 				boost::program_options::value<unsigned short>()->default_value(
-						1234), "set multicast UDP port")("filename",
-				boost::program_options::value<std::string>(),
-				"path to .CSV for --client mode");
+						1234), "set multicast UDP port");
 
 		boost::program_options::variables_map variablesMap;
 		boost::program_options::store(
