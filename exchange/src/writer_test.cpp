@@ -8,7 +8,7 @@
 
 const unsigned short _exchange_multicast_udp_port = 1234;
 
-TEST(ProtobufWriterSuite, sendNewOrders) {
+TEST(ProtobufWriterSuite, DISABLED_sendNewOrders) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
@@ -44,7 +44,7 @@ TEST(ProtobufWriterSuite, sendNewOrders) {
 
 }
 
-TEST(ProtobufWriterSuite, sendCancelOrder) {
+TEST(ProtobufWriterSuite, DISABLED_sendCancelOrder) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
@@ -59,7 +59,7 @@ TEST(ProtobufWriterSuite, sendCancelOrder) {
 	protowriter.send(exchangeMessage);
 }
 
-TEST(ProtobufWriterSuite, sendFlushOrder) {
+TEST(ProtobufWriterSuite, DISABLED_sendFlushOrder) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
@@ -72,7 +72,7 @@ TEST(ProtobufWriterSuite, sendFlushOrder) {
 	protowriter.send(exchangeMessage);
 }
 
-TEST(ProtobufWriterSuite, sendOrderAcknowledgement) {
+TEST(ProtobufWriterSuite, DISABLED_sendOrderAcknowledgement) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
@@ -88,7 +88,7 @@ TEST(ProtobufWriterSuite, sendOrderAcknowledgement) {
 	protowriter.send(exchangeMessage);
 }
 
-TEST(ProtobufWriterSuite, sendTradeConfirmation) {
+TEST(ProtobufWriterSuite, DISABLED_sendTradeConfirmation) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 
@@ -109,7 +109,7 @@ TEST(ProtobufWriterSuite, sendTradeConfirmation) {
 	protowriter.send(exchangeMessage);
 }
 
-TEST(ProtobufWriterSuite, sendTopOfBookChange) {
+TEST(ProtobufWriterSuite, DISABLED_sendTopOfBookChange) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);
 

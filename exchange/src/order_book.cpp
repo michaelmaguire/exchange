@@ -82,6 +82,21 @@ void PriceLevel::addQuantity(uint32_t quantity, uint32_t user,
 	_quantitiesInTimeOrder.push_back(quantityEntry);
 }
 
+bool PriceLevel::cancelOrder(uint32_t user, uint32_t userOrder) {
+	bool found = false;
+	for (auto it = _quantitiesInTimeOrder.begin();
+			it != _quantitiesInTimeOrder.end(); ++it) {
+
+		if ((it->_user == user) && (it->_userOrder == userOrder)) {
+			_quantitiesInTimeOrder.erase(it);
+			found = true;
+			break;
+		}
+	}
+
+	return found;
+}
+
 Quantity& PriceLevel::front() {
 	return _quantitiesInTimeOrder.front();
 }
@@ -157,8 +172,25 @@ void OrderBook::addOrder(const Order &order) {
 
 }
 
-void OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
+bool OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
+	bool found = false;
 
+	for (auto it = _buyOrders.begin(); it != _buyOrders.end(); ++it) {
+		found = it->second.cancelOrder(user, userOrder);
+		if (found) {
+			break;
+		}
+	}
+	if (!found) {
+		for (auto it = _sellOrders.begin(); it != _sellOrders.end(); ++it) {
+			found = it->second.cancelOrder(user, userOrder);
+			if (found) {
+				break;
+			}
+		}
+	}
+
+	return found;
 }
 
 void OrderBook::flush() {

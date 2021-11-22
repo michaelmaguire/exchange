@@ -63,6 +63,7 @@ public:
 	friend std::ostream& operator<<(std::ostream &os, const PriceLevel &pl);
 
 	void addQuantity(uint32_t quantity, uint32_t user, uint32_t userOrder);
+	bool cancelOrder(uint32_t user, uint32_t userOrder);
 
 	// I've chosen not to use an accessor for this at this level.
 	uint32_t _price;
@@ -85,7 +86,7 @@ public:
 	friend std::ostream& operator<<(std::ostream &os, const OrderBook &ob);
 
 	void addOrder(const Order &order);
-	void cancelOrder(uint32_t user, uint32_t userOrder);
+	bool cancelOrder(uint32_t user, uint32_t userOrder);
 	void flush();
 
 	// Returns the top of the order book, first BYE, second SELL.
