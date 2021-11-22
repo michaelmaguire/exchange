@@ -26,7 +26,7 @@ Thread model: posix
 
 # Design
 
-See [DESIGN_OVERVIEWER](docs/DESIGN_OVERVIEW.md)
+See [DESIGN_OVERVIEW](docs/DESIGN_OVERVIEW.md)
 
 This program is designed to leverage a distributed UDP multicast bus for order management.
 
