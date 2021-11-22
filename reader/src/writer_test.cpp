@@ -57,6 +57,21 @@ TEST(ProtobufWriterSuite, sendFlushOrder) {
 	protowriter.send(exchangeMessage);
 }
 
+TEST(ProtobufWriterSuite, sendOrderAcknowledgement) {
+
+	ProtoWriter protowriter(_exchange_multicast_udp_port);
+
+	uint64_t sequenceNumber = 0;
+
+	exchange::ExchangeMessage exchangeMessage;
+	exchangeMessage.set_sequencenumber(sequenceNumber++);
+	auto orderAcknowledgement = new exchange::OrderAcknowledgement();
+	orderAcknowledgement->set_user(1);
+	orderAcknowledgement->set_userorder(2);
+
+	exchangeMessage.set_allocated_orderacknowledgement(orderAcknowledgement);
+	protowriter.send(exchangeMessage);
+}
 
 TEST(ProtobufWriterSuite, sendTradeConfirmation) {
 
@@ -79,4 +94,22 @@ TEST(ProtobufWriterSuite, sendTradeConfirmation) {
 	protowriter.send(exchangeMessage);
 }
 
+TEST(ProtobufWriterSuite, sendTopOfBookChange) {
+
+	ProtoWriter protowriter(_exchange_multicast_udp_port);
+
+	uint64_t sequenceNumber = 0;
+
+	exchange::ExchangeMessage exchangeMessage;
+	exchangeMessage.set_sequencenumber(sequenceNumber++);
+	auto topOfBookChange = new exchange::TopOfBookChange();
+	topOfBookChange->set_side(topOfBookChange->BUY);
+	topOfBookChange->set_price(10);
+	topOfBookChange->set_quantity(100);
+	topOfBookChange->set_sideelimination(true);
+	topOfBookChange->set_symbol("IBM");
+
+	exchangeMessage.set_allocated_topofbookchange(topOfBookChange);
+	protowriter.send(exchangeMessage);
+}
 
