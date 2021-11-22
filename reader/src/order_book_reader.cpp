@@ -19,6 +19,7 @@ OrderBookReader::~OrderBookReader() {
 
 void OrderBookReader::do_read(
 		const exchange::ExchangeMessage &exchangeMessage) {
+
 	if (exchangeMessage.has_neworder()) {
 		BOOST_LOG_SEV(_lg, info)
 		<< "OrderBookReader::do_read handling neworder";
@@ -39,6 +40,7 @@ void OrderBookReader::do_read(
 		BOOST_LOG_SEV(_lg, info)
 		<< "OrderBookReader::do_read handling flushorder";
 
+		auto n = exchangeMessage.flushorder();
 		_orderBook.flush();
 
 	} else {

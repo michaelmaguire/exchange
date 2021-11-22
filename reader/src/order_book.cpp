@@ -127,7 +127,7 @@ std::ostream& operator<<(std::ostream &os, const OrderBook &ob) {
 
 void OrderBook::addOrder(const Order &order) {
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::addOrder before add [" << *this << "]";
 
 	ORDERS_TYPE *orders = &_sellOrders;
@@ -152,7 +152,7 @@ void OrderBook::addOrder(const Order &order) {
 		orders->emplace(order._price, priceLevel);
 	}
 
-	BOOST_LOG_SEV(_lg, info)
+	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::addOrder after add [" << *this << "]";
 
 }

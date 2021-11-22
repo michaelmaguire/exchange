@@ -82,6 +82,10 @@ void ProtoReader::handle_receive(const boost::system::error_code &e,
 				<< e.message() << "]";
 	}
 	if (!e || e == boost::asio::error::message_size) {
+		BOOST_LOG_SEV(_lg, info)
+		<< "Reader::handle_receive [" << bytes_transferred << "] error["
+				<< e.message() << "]";
+		_receive_buffer[bytes_transferred] = '\0';
 
 		const ::google::protobuf::uint32 PACKET_MAGIC = 6664; // rudimentary packet identification
 		const ::google::protobuf::uint32 PACKET_VERSION = 1; // room to grow
@@ -107,22 +111,27 @@ void ProtoReader::handle_receive(const boost::system::error_code &e,
 						<< packetVersion << "]";
 			} else {
 
-				// Note: messageSize unused at the moment but eventually we should perform validation.
-				// Will become especially important if we batch multiple message in a UDP packet.
 				::google::protobuf::uint32 messageSize;
 				codedInputStream.ReadVarint32(&messageSize);
+				if ((sizeof(PACKET_MAGIC) + sizeof(PACKET_VERSION) + messageSize)
+						> bytes_transferred) {
+					BOOST_LOG_SEV(_lg, error)
+					<< "Reader::handle_receive received incomplete packet";
+				} else {
 
-				exchange::ExchangeMessage exchangeMessage;
-				exchangeMessage.ParseFromCodedStream(&codedInputStream);
+					exchange::ExchangeMessage exchangeMessage;
+					exchangeMessage.ParseFromCodedStream(&codedInputStream);
 
-				BOOST_LOG_SEV(_lg, info)
-				<< "Reader::handle_receive [" << bytes_transferred
-						<< "] _receive_buffer[" << exchangeMessage.DebugString()
-						<< "]";
+					BOOST_LOG_SEV(_lg, info)
+					<< "Reader::handle_receive command_case["
+							<< exchangeMessage.command_case()
+							<< "] messageSize[" << messageSize
+							<< "] _receive_buffer["
+							<< exchangeMessage.DebugString() << "]";
 
-				// Call subclass' do_read implementation.
-				do_read(exchangeMessage);
-
+					// Call subclass' do_read implementation.
+					do_read(exchangeMessage);
+				}
 			}
 		}
 
