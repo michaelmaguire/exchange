@@ -44,6 +44,21 @@ TEST(ProtobufWriterSuite, sendNewOrders) {
 
 }
 
+TEST(ProtobufWriterSuite, sendCancelOrder) {
+
+	ProtoWriter protowriter(_exchange_multicast_udp_port);
+
+	uint64_t sequenceNumber = 0;
+
+	exchange::ExchangeMessage exchangeMessage;
+	exchangeMessage.set_sequencenumber(sequenceNumber++);
+	auto cancelOrder = new exchange::CancelOrder();
+	cancelOrder->set_user(1);
+	cancelOrder->set_userorder(10);
+	exchangeMessage.set_allocated_cancelorder(cancelOrder);
+	protowriter.send(exchangeMessage);
+}
+
 TEST(ProtobufWriterSuite, sendFlushOrder) {
 
 	ProtoWriter protowriter(_exchange_multicast_udp_port);

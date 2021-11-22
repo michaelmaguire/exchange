@@ -25,6 +25,7 @@
 
 #include "order_book_reader.h"
 #include "output_reader.h"
+#include "writer_from_csv.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -62,7 +63,8 @@ uint64_t g_sequenceNumber = 0L;
 
 int run_in_client_mode(const std::string &filename) {
 
-	// TODO:
+	WriterFromCSV writerFromCVS(g_exchangeMulticastUdpPort);
+	writerFromCVS.loadAndWriteFile(filename);
 
 	return 1;
 }
