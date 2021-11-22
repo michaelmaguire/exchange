@@ -26,6 +26,7 @@
 #include "order_book_reader.h"
 #include "output_reader.h"
 #include "writer_from_csv.h"
+#include "writer_for_confirmations.h"
 
 using namespace std;
 using namespace boost::log::trivial;
@@ -71,7 +72,8 @@ int run_in_client_mode(const std::string &filename) {
 
 int run_in_order_book_mode(const std::string &symbol) {
 
-	OrderBookReader orderBookReader(symbol);
+	WriterForConfirmations writerForConfirmations(g_exchangeMulticastUdpPort);
+	OrderBookReader orderBookReader(&writerForConfirmations, symbol);
 	orderBookReader.setup(g_exchangeMulticastUdpPort);
 	orderBookReader.run();
 

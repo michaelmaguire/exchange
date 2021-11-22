@@ -14,6 +14,8 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 
+#include "writer_for_confirmations.h"
+
 // We use Quantity as an abstraction for an entry in our PriceLevel.
 class Quantity {
 public:
@@ -81,7 +83,7 @@ private:
 // We accept the Orders structure for adding new orders as well as returning information about top of the book.
 class OrderBook {
 public:
-	OrderBook();
+	OrderBook(ConfirmationsCallback *confirmationsCallback);
 	virtual ~OrderBook();
 	friend std::ostream& operator<<(std::ostream &os, const OrderBook &ob);
 
@@ -96,6 +98,7 @@ public:
 	void cross();
 
 private:
+	ConfirmationsCallback * _confirmationsCallback;
 
 	typedef std::map<uint32_t, PriceLevel> ORDERS_TYPE;
 

@@ -10,7 +10,7 @@
 
 class OrderBookReader: public ProtoReader {
 public:
-	OrderBookReader(const std::string symbol);
+	OrderBookReader(ConfirmationsCallback *confirmationsCallback, const std::string symbol);
 	virtual ~OrderBookReader();
 
 protected:
@@ -20,9 +20,9 @@ protected:
 
 
 private:
+	OrderBook _orderBook;
 	std::string _symbol;
 
-	OrderBook _orderBook;
 };
 
 #endif /* ORDER_BOOK_READER_H_ */

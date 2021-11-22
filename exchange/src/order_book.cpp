@@ -105,7 +105,8 @@ Quantity& PriceLevel::back() {
 	return _quantitiesInTimeOrder.back();
 }
 
-OrderBook::OrderBook() {
+OrderBook::OrderBook(ConfirmationsCallback *confirmationsCallback) :
+		_confirmationsCallback(confirmationsCallback) {
 }
 
 OrderBook::~OrderBook() {
@@ -167,6 +168,8 @@ void OrderBook::addOrder(const Order &order) {
 		orders->emplace(order._price, priceLevel);
 	}
 
+	_confirmationsCallback->sendOrderAcknowledgement(order._user, order._userOrder);
+
 	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::addOrder after add [" << *this << "]";
 
@@ -188,6 +191,10 @@ bool OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
 				break;
 			}
 		}
+	}
+
+	if( found ) {
+		_confirmationsCallback->sendOrderAcknowledgement(user, userOrder);
 	}
 
 	return found;
