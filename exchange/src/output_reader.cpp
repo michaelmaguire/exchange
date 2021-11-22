@@ -48,7 +48,12 @@ void OutputReader::do_read(const exchange::ExchangeMessage &exchangeMessage) {
 		} else {
 			std::cout << "S";
 		}
-		std::cout << "," << top.price() << "," << top.quantity() << "\n";
+
+		if (top.sideelimination()) {
+			std::cout << ",-,-\n";
+		} else {
+			std::cout << "," << top.price() << "," << top.quantity() << "\n";
+		}
 
 	} else {
 

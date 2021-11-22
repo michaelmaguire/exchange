@@ -3,6 +3,9 @@
  */
 
 #include "order_book.h"
+
+#include <algorithm>
+
 using namespace boost::log::trivial;
 
 Order::Order(Side side, uint32_t price, uint32_t quantity, uint32_t user,
@@ -97,6 +100,49 @@ bool PriceLevel::cancelOrder(uint32_t user, uint32_t userOrder) {
 	return found;
 }
 
+bool PriceLevel::exhaust(ConfirmationsCallback *confirmationsCallback,
+		const std::string &symbol, uint32_t quantityRemaining,
+		const Order &order) {
+
+	bool tradeTookPlace = false;
+
+	for (auto it = _quantitiesInTimeOrder.begin();
+			((quantityRemaining > 0) && (it != _quantitiesInTimeOrder.end()));
+			/* no ++it to handled erase */) {
+
+		// If we made it into this look, then some trading will happen.
+		tradeTookPlace = true;
+
+		auto quantity = *it;
+
+		uint32_t maximumWeCanExercise = std::min(quantityRemaining,
+				quantity._quantity);
+
+		quantity._quantity -= maximumWeCanExercise;
+		quantityRemaining -= maximumWeCanExercise;
+
+		if (order._side == Order::BUY) {
+			confirmationsCallback->sendTradeConfirmation(order._user,
+					order._userOrder, quantity._user, quantity._userOrder,
+					_price, maximumWeCanExercise, symbol);
+		} else {
+			confirmationsCallback->sendTradeConfirmation(quantity._user,
+					quantity._userOrder, order._user, order._userOrder, _price,
+					maximumWeCanExercise, symbol);
+		}
+
+		// If we've just exhausted a quantity, then erase.
+		if (quantity._quantity == 0) {
+			it = _quantitiesInTimeOrder.erase(it);
+		} else {
+			++it;
+		}
+
+	}
+
+	return tradeTookPlace;
+}
+
 Quantity& PriceLevel::front() {
 	return _quantitiesInTimeOrder.front();
 }
@@ -105,8 +151,9 @@ Quantity& PriceLevel::back() {
 	return _quantitiesInTimeOrder.back();
 }
 
-OrderBook::OrderBook(ConfirmationsCallback *confirmationsCallback) :
-		_confirmationsCallback(confirmationsCallback) {
+OrderBook::OrderBook(ConfirmationsCallback *confirmationsCallback,
+		const std::string &symbol) :
+		_confirmationsCallback(confirmationsCallback), _symbol(symbol) {
 }
 
 OrderBook::~OrderBook() {
@@ -147,28 +194,89 @@ void OrderBook::addOrder(const Order &order) {
 	<< "OrderBook::addOrder before add [" << *this << "]";
 
 	ORDERS_TYPE *orders = &_sellOrders;
+	ORDERS_TYPE *oppositeOrders = &_buyOrders;
 	if (Order::Side::BUY == order._side) {
 		orders = &_buyOrders;
+		oppositeOrders = &_sellOrders;
 	}
 
-	// See if PriceLevel already exists
-	auto it = orders->find(order._price);
-	if (it != orders->end()) {
-		BOOST_LOG_SEV(_lg, info)
-		<< "OrderBook::addOrder PriceLevel price[" << order._price
-				<< "] already exists, add new order[" << order << "]";
-		it->second.addQuantity(order._quantity, order._user, order._userOrder);
+	// Perform order validation
+	if (order._quantity == 0) {
+		BOOST_LOG_SEV(_lg, error)
+		<< "OrderBook::addOrder invalid order quantity";
+		return;
+	}
+
+	_confirmationsCallback->sendOrderAcknowledgement(order._user,
+			order._userOrder);
+
+	bool tradeTookPlace = false;
+	bool addedToBook = false;
+
+	uint32_t price = order._price;
+	uint32_t quantityRemaining = order._quantity;
+
+	// Check if market order.
+	if (price == 0) {
+		// Market order.
+		while (quantityRemaining > 0 && oppositeOrders->size() > 0) {
+			auto priceLevel = oppositeOrders->begin()->second;
+			tradeTookPlace = tradeTookPlace
+					| priceLevel.exhaust(_confirmationsCallback, _symbol,
+							quantityRemaining, order);
+		}
 	} else {
-		BOOST_LOG_SEV(_lg, info)
-		<< "OrderBook::addOrder PriceLevel price[" << order._price
-				<< "] doesn't already exists, creating with new order[" << order
-				<< "]";
-		PriceLevel priceLevel(order._price);
-		priceLevel.addQuantity(order._quantity, order._user, order._userOrder);
-		orders->emplace(order._price, priceLevel);
+
+		// Limit order.
+
+		// See if we can match immediately.
+		while (quantityRemaining > 0 && oppositeOrders->size() > 0) {
+			auto priceLevel = oppositeOrders->begin()->second;
+
+			// See if the price is right: if I'm buying and I'm willing to pay more than you wanted,
+			// of if I'm selling and you're willing to pay more than I asked for.
+			if (((Order::Side::BUY == order._side)
+					&& (price >= priceLevel._price))
+					|| ((Order::Side::SELL == order._side)
+							&& (price <= priceLevel._price))) {
+				tradeTookPlace = tradeTookPlace
+						| priceLevel.exhaust(_confirmationsCallback, _symbol,
+								quantityRemaining, order);
+			}
+		}
+
+		// If there's anything left of the limit order, place what's left on the book.
+		if (quantityRemaining > 0) {
+
+			// See if PriceLevel already exists
+			auto it = orders->find(price);
+			if (it != orders->end()) {
+				BOOST_LOG_SEV(_lg, info)
+				<< "OrderBook::addOrder PriceLevel price[" << price
+						<< "] already exists, add new order[" << order << "]";
+				it->second.addQuantity(quantityRemaining, order._user,
+						order._userOrder);
+			} else {
+				BOOST_LOG_SEV(_lg, info)
+				<< "OrderBook::addOrder PriceLevel price[" << price
+						<< "] doesn't already exists, creating with new order["
+						<< order << "]";
+				PriceLevel priceLevel(price);
+				priceLevel.addQuantity(quantityRemaining, order._user,
+						order._userOrder);
+				orders->emplace(price, priceLevel);
+			}
+
+			addedToBook = true;
+		}
 	}
 
-	_confirmationsCallback->sendOrderAcknowledgement(order._user, order._userOrder);
+	if (tradeTookPlace || addedToBook) {
+		_confirmationsCallback->sendTopOfBookChange(
+				Order::Side::BUY == order._side, price,
+				order._quantity - quantityRemaining,
+				oppositeOrders->size() == 0);
+	}
 
 	BOOST_LOG_SEV(_lg, trace)
 	<< "OrderBook::addOrder after add [" << *this << "]";
@@ -193,7 +301,7 @@ bool OrderBook::cancelOrder(uint32_t user, uint32_t userOrder) {
 		}
 	}
 
-	if( found ) {
+	if (found) {
 		_confirmationsCallback->sendOrderAcknowledgement(user, userOrder);
 	}
 

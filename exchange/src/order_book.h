@@ -65,7 +65,14 @@ public:
 	friend std::ostream& operator<<(std::ostream &os, const PriceLevel &pl);
 
 	void addQuantity(uint32_t quantity, uint32_t user, uint32_t userOrder);
+
+	// Returns true if the order to cancel was found.
 	bool cancelOrder(uint32_t user, uint32_t userOrder);
+
+	// Returns true if any trading took place.
+	bool exhaust(ConfirmationsCallback *confirmationsCallback,
+			const std::string &symbol, uint32_t quantityRemaining,
+			const Order &order);
 
 	// I've chosen not to use an accessor for this at this level.
 	uint32_t _price;
@@ -83,7 +90,8 @@ private:
 // We accept the Orders structure for adding new orders as well as returning information about top of the book.
 class OrderBook {
 public:
-	OrderBook(ConfirmationsCallback *confirmationsCallback);
+	OrderBook(ConfirmationsCallback *confirmationsCallback,
+			const std::string &symbol);
 	virtual ~OrderBook();
 	friend std::ostream& operator<<(std::ostream &os, const OrderBook &ob);
 
@@ -98,7 +106,8 @@ public:
 	void cross();
 
 private:
-	ConfirmationsCallback * _confirmationsCallback;
+	ConfirmationsCallback *_confirmationsCallback;
+	std::string _symbol; // only for debugging logs
 
 	typedef std::map<uint32_t, PriceLevel> ORDERS_TYPE;
 

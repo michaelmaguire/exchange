@@ -9,7 +9,7 @@
 TEST(OrderBookSuite, simpleAdd) {
 
 	ConfirmationsCallback confirmationsCallback;
-	OrderBook orderBook(&confirmationsCallback);
+	OrderBook orderBook(&confirmationsCallback, "IBM");
 
 	Order order1(Order::BUY, 10, 100, 1, 1);
 	orderBook.addOrder(order1);
@@ -30,7 +30,7 @@ TEST(OrderBookSuite, simpleAdd) {
 TEST(OrderBookSuite, simpleAddThenCancel) {
 
 	ConfirmationsCallback confirmationsCallback;
-	OrderBook orderBook(&confirmationsCallback);
+	OrderBook orderBook(&confirmationsCallback, "AAPL");
 
 	Order order1(Order::BUY, 10, 100, 7, 1900);
 	orderBook.addOrder(order1);

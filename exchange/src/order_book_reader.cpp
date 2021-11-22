@@ -8,7 +8,7 @@ using namespace boost::log::trivial;
 
 OrderBookReader::OrderBookReader(ConfirmationsCallback *confirmationsCallback,
 		const std::string symbol) :
-		_orderBook(confirmationsCallback), _symbol(symbol) {
+		_orderBook(confirmationsCallback, symbol), _symbol(symbol) {
 
 	BOOST_LOG_SEV(_lg, info)
 	<< "OrderBookReader::OrderBookReader constructor";
