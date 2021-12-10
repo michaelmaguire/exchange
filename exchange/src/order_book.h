@@ -90,6 +90,9 @@ private:
 // We accept the Orders structure for adding new orders as well as returning information about top of the book.
 class OrderBook {
 public:
+
+	typedef std::pair<std::optional<Order>, std::optional<Order>> TOP_PAIR;
+
 	OrderBook(ConfirmationsCallback *confirmationsCallback,
 			const std::string &symbol);
 	virtual ~OrderBook();
@@ -100,7 +103,7 @@ public:
 	void flush();
 
 	// Returns the top of the order book, first BYE, second SELL.
-	const std::pair<Order, Order> top() const;
+	const TOP_PAIR top() const;
 
 private:
 	ConfirmationsCallback *_confirmationsCallback;

@@ -31,13 +31,13 @@ TEST(OrderBookSuite, DISABLED_simpleAdd) {
 	Order order2(Order::SELL, 11, 100, 2, 1);
 	orderBook.addOrder(order2);
 
-	std::pair<Order, Order> top = orderBook.top();
-	EXPECT_EQ(top.first._side, Order::BUY);
-	EXPECT_EQ(top.first._price, 10);
-	EXPECT_EQ(top.first._quantity, 100);
-	EXPECT_EQ(top.second._side, Order::SELL);
-	EXPECT_EQ(top.second._price, 11);
-	EXPECT_EQ(top.second._quantity, 100);
+	OrderBook::TOP_PAIR top = orderBook.top();
+	EXPECT_EQ(top.first.value()._side, Order::BUY);
+	EXPECT_EQ(top.first.value()._price, 10);
+	EXPECT_EQ(top.first.value()._quantity, 100);
+	EXPECT_EQ(top.second.value()._side, Order::SELL);
+	EXPECT_EQ(top.second.value()._price, 11);
+	EXPECT_EQ(top.second.value()._quantity, 100);
 
 }
 
@@ -52,17 +52,17 @@ TEST(OrderBookSuite, DISABLED_simpleAddThenCancel) {
 	Order order2(Order::SELL, 11, 100, 13, 2100);
 	orderBook.addOrder(order2);
 
-	std::pair<Order, Order> top = orderBook.top();
-	EXPECT_EQ(top.first._side, Order::BUY);
-	EXPECT_EQ(top.first._price, 10);
-	EXPECT_EQ(top.first._quantity, 100);
-	EXPECT_EQ(top.first._user, 7);
-	EXPECT_EQ(top.first._userOrder, 1900);
-	EXPECT_EQ(top.second._side, Order::SELL);
-	EXPECT_EQ(top.second._price, 11);
-	EXPECT_EQ(top.second._quantity, 100);
-	EXPECT_EQ(top.second._user, 13);
-	EXPECT_EQ(top.second._userOrder, 2100);
+	OrderBook::TOP_PAIR top = orderBook.top();
+	EXPECT_EQ(top.first.value()._side, Order::BUY);
+	EXPECT_EQ(top.first.value()._price, 10);
+	EXPECT_EQ(top.first.value()._quantity, 100);
+	EXPECT_EQ(top.first.value()._user, 7);
+	EXPECT_EQ(top.first.value()._userOrder, 1900);
+	EXPECT_EQ(top.second.value()._side, Order::SELL);
+	EXPECT_EQ(top.second.value()._price, 11);
+	EXPECT_EQ(top.second.value()._quantity, 100);
+	EXPECT_EQ(top.second.value()._user, 13);
+	EXPECT_EQ(top.second.value()._userOrder, 2100);
 
 	EXPECT_EQ(false, orderBook.cancelOrder(8, 1900));
 	EXPECT_EQ(false, orderBook.cancelOrder(7, 1800));
@@ -74,38 +74,62 @@ TEST(OrderBookSuite, DISABLED_simpleAddThenCancel) {
 
 }
 
-TEST(OrderBookSuite, DISABLED_simpleAddThenMarket) {
+TEST(OrderBookSuite, simpleAddThenMarket) {
 
 	MockConfirmationsCallback confirmationsCallback;
-	EXPECT_CALL(confirmationsCallback, sendTradeConfirmation).Times(AtLeast(1));
 
 	OrderBook orderBook(&confirmationsCallback, "AAPL");
 
+	EXPECT_CALL(confirmationsCallback, sendOrderAcknowledgement).Times(1);
+	EXPECT_CALL(confirmationsCallback, sendTopOfBookChange).Times(1);
 	Order order1(Order::BUY, 10, 100, 7, 1900);
 	orderBook.addOrder(order1);
+	std::cout << "after order1 " << orderBook << "\n";
+	OrderBook::TOP_PAIR top = orderBook.top();
+	EXPECT_TRUE(top.first.has_value());
+	EXPECT_FALSE(top.second.has_value());
 
+
+	EXPECT_CALL(confirmationsCallback, sendOrderAcknowledgement).Times(1);
+	EXPECT_CALL(confirmationsCallback, sendTopOfBookChange).Times(1);
 	Order order2(Order::SELL, 11, 100, 13, 2100);
 	orderBook.addOrder(order2);
+	std::cout << "after order2 " << orderBook << "\n";
 
-	std::pair<Order, Order> top = orderBook.top();
-	EXPECT_EQ(top.first._side, Order::BUY);
-	EXPECT_EQ(top.first._price, 10);
-	EXPECT_EQ(top.first._quantity, 100);
-	EXPECT_EQ(top.first._user, 7);
-	EXPECT_EQ(top.first._userOrder, 1900);
-	EXPECT_EQ(top.second._side, Order::SELL);
-	EXPECT_EQ(top.second._price, 11);
-	EXPECT_EQ(top.second._quantity, 100);
-	EXPECT_EQ(top.second._user, 13);
-	EXPECT_EQ(top.second._userOrder, 2100);
+	top = orderBook.top();
+	EXPECT_TRUE(top.first.has_value());
+	EXPECT_TRUE(top.second.has_value());
+	EXPECT_EQ(top.first.value()._side, Order::BUY);
+	EXPECT_EQ(top.first.value()._price, 10);
+	EXPECT_EQ(top.first.value()._quantity, 100);
+	EXPECT_EQ(top.first.value()._user, 7);
+	EXPECT_EQ(top.first.value()._userOrder, 1900);
+	EXPECT_EQ(top.second.value()._side, Order::SELL);
+	EXPECT_EQ(top.second.value()._price, 11);
+	EXPECT_EQ(top.second.value()._quantity, 100);
+	EXPECT_EQ(top.second.value()._user, 13);
+	EXPECT_EQ(top.second.value()._userOrder, 2100);
 
+	EXPECT_CALL(confirmationsCallback, sendOrderAcknowledgement).Times(1);
+	EXPECT_CALL(confirmationsCallback, sendTopOfBookChange).Times(1);
+	EXPECT_CALL(confirmationsCallback, sendTradeConfirmation).Times(1);
 	Order order3(Order::BUY, 0, 100, 7, 1900);
 	orderBook.addOrder(order3);
+	std::cout << "after order3 " << orderBook << "\n";
+
+	top = orderBook.top();
+	EXPECT_TRUE(top.first.has_value());
+	EXPECT_FALSE(top.second.has_value());
+	EXPECT_EQ(top.first.value()._side, Order::BUY);
+	EXPECT_EQ(top.first.value()._price, 10);
+	EXPECT_EQ(top.first.value()._quantity, 100);
+	EXPECT_EQ(top.first.value()._user, 7);
+	EXPECT_EQ(top.first.value()._userOrder, 1900);
 
 
 }
 
-TEST(OrderBookSuite, firstSectionOfInput) {
+TEST(OrderBookSuite, DISABLED_firstSectionOfInput) {
 
 	MockConfirmationsCallback confirmationsCallback;
 	EXPECT_CALL(confirmationsCallback, sendTradeConfirmation).Times(AtLeast(1));

@@ -355,43 +355,53 @@ void OrderBook::flush() {
 }
 
 // Returns the top of the order book, first BUY, second SELL.
-const std::pair<Order, Order> OrderBook::top() const {
+const OrderBook::TOP_PAIR OrderBook::top() const {
 
-	if (0 == _buyOrders.size()) {
-		throw std::out_of_range("No buy orders yet");
+	TOP_PAIR top;
+
+	// Take advantage of  map's ordering guarantee, given that price is our key.
+
+	if (0 != _buyOrders.size()) {
+		auto topByePriceLevel = _buyOrders.begin()->second;
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topByePriceLevel[" << topByePriceLevel << "]";
+
+		auto topBuyFirstInTimeQuantity = topByePriceLevel.front();
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topBuyFirstInTimeQuantity[" << topBuyFirstInTimeQuantity
+				<< "]";
+
+		Order topBuy(Order::BUY, topByePriceLevel._price,
+				topBuyFirstInTimeQuantity);
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topBuy[" << topBuy << "]";
+
+		top.first = topBuy;
+
 	}
-	if (0 == _sellOrders.size()) {
-		throw std::out_of_range("No sell orders yet");
+
+	if (0 != _sellOrders.size()) {
+		auto topSellPriceLevel = _sellOrders.rbegin()->second;
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topSellPriceLevel[" << topSellPriceLevel << "]";
+
+		auto topSellFirstInTimeQuantity = topSellPriceLevel.front();
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topSellFirstInTimeQuantity["
+				<< topSellFirstInTimeQuantity << "]";
+
+		Order topSell(Order::SELL, topSellPriceLevel._price,
+				topSellFirstInTimeQuantity);
+		BOOST_LOG_SEV(_lg, trace)
+		<< "OrderBook::top topSell[" << topSell << "]";
+
+		top.second = topSell;
+
 	}
 
-// Take advantage of  map's ordering guarantee, given that price is our key.
-	auto topByePriceLevel = _buyOrders.begin()->second;
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topByePriceLevel[" << topByePriceLevel << "]";
 
-	auto topSellPriceLevel = _sellOrders.rbegin()->second;
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topSellPriceLevel[" << topSellPriceLevel << "]";
 
-	auto topBuyFirstInTimeQuantity = topByePriceLevel.front();
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topBuyFirstInTimeQuantity[" << topBuyFirstInTimeQuantity
-			<< "]";
-	auto topSellFirstInTimeQuantity = topSellPriceLevel.front();
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topSellFirstInTimeQuantity["
-			<< topSellFirstInTimeQuantity << "]";
-
-	Order topBye(Order::BUY, topByePriceLevel._price,
-			topBuyFirstInTimeQuantity);
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topBye[" << topBye << "]";
-	Order topSell(Order::SELL, topSellPriceLevel._price,
-			topSellFirstInTimeQuantity);
-	BOOST_LOG_SEV(_lg, trace)
-	<< "OrderBook::top topSell[" << topSell << "]";
-
-	return std::make_pair(topBye, topSell);
+	return top;
 
 }
 
