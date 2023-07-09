@@ -77,7 +77,7 @@ Finally run the CSV reading client against your `inputFile.csv`:
 michaelmaguire@Michaels-Mac-mini exchange % ./exchange --client --filename inputFile.csv
 ```
 
-Note that with proper network configuration, you should need to start all of these instances on the same machine.
+Note that with proper network configuration, you shouldn't need to start all of these instances on the same machine.
 
 
 
